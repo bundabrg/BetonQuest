@@ -277,8 +277,6 @@ public final class BetonQuest extends JavaPlugin {
 		new JoinQuitListener();
 
 		// instantiate default conversation start listener
-
-		System.err.println(WRAPPER.getCubeNPCListener() == null?"null":WRAPPER.getCubeNPCListener().getClass());
 		try {
 			WRAPPER.getCubeNPCListener().newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {

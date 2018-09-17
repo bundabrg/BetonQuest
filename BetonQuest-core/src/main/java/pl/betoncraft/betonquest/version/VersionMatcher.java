@@ -16,17 +16,16 @@ public class VersionMatcher {
     public VersionWrapper match() {
         try {
             switch(serverVersion) {
-                // List versions we know don't work
-//                case "known_bad_versions_here":
-//                    throw new RuntimeException("Your server version isn't supported! (" + serverVersion + ")");
-
-                // List Supported versions and what wrapper to use
+                // List versions we know don't work (so far)
                 case "1_9_R1":
                 case "1_9_R2":
                 case "1_10_R1":
                 case "1_11_R1":
+                    throw new RuntimeException("Your server version isn't supported! (" + serverVersion + ")");
+
+                // List Supported versions and what wrapper to use
                 case "1_12_R1":
-                    return (VersionWrapper) Class.forName("pl.betoncraft.betonquest.version.Wrapper1_9_R1").newInstance();
+                    return (VersionWrapper) Class.forName("pl.betoncraft.betonquest.version.Wrapper1_12_R1").newInstance();
 
                 case "1_13_R1":
                 case "1_13_R2":
