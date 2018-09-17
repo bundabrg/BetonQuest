@@ -28,7 +28,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.config.Config;
 import pl.betoncraft.betonquest.utils.Debug;
@@ -94,9 +93,9 @@ public class CubeNPCListener implements Listener {
 		// check if the blocks are placed in the correct way
 		String conversationID = null;
 		if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
-				&& event.getClickedBlock().getType().equals(Material.SKULL)) {
+				&& event.getClickedBlock().getType().equals(Material.CREEPER_HEAD)) {
 			Block block = event.getClickedBlock().getLocation().clone().add(0, -1, 0).getBlock();
-			if (block.getType().equals(Material.STAINED_CLAY)) {
+			if (block.getType().equals(Material.GRAY_GLAZED_TERRACOTTA)) {
 				Block[] signs = new Block[] { block.getRelative(BlockFace.EAST), block.getRelative(BlockFace.WEST),
 						block.getRelative(BlockFace.NORTH), block.getRelative(BlockFace.SOUTH) };
 				Sign theSign = null;

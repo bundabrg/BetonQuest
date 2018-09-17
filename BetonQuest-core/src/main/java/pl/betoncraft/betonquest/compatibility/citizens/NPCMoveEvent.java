@@ -17,26 +17,21 @@
  */
 package pl.betoncraft.betonquest.compatibility.citizens;
 
-import java.util.LinkedList;
-
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.ai.event.NavigationCompleteEvent;
+import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.ai.event.NavigationCompleteEvent;
-import net.citizensnpcs.api.npc.NPC;
-import pl.betoncraft.betonquest.BetonQuest;
-import pl.betoncraft.betonquest.EventID;
-import pl.betoncraft.betonquest.Instruction;
-import pl.betoncraft.betonquest.InstructionParseException;
-import pl.betoncraft.betonquest.QuestRuntimeException;
+import pl.betoncraft.betonquest.*;
 import pl.betoncraft.betonquest.api.QuestEvent;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.LocationData;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
+
+import java.util.LinkedList;
 
 /**
  * Moves the NPC to a specified location, optionally firing doneEvents when it's done.

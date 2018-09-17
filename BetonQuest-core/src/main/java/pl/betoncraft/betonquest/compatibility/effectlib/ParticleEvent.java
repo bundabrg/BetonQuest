@@ -18,7 +18,6 @@
 package pl.betoncraft.betonquest.compatibility.effectlib;
 
 import org.bukkit.configuration.ConfigurationSection;
-
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;

@@ -17,14 +17,13 @@
  */
 package pl.betoncraft.betonquest.compatibility.skript;
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.scheduler.BukkitRunnable;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.EventID;
 import pl.betoncraft.betonquest.ObjectNotFoundException;

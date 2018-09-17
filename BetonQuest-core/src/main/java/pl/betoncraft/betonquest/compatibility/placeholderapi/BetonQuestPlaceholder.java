@@ -17,10 +17,9 @@
  */
 package pl.betoncraft.betonquest.compatibility.placeholderapi;
 
+import me.clip.placeholderapi.external.EZPlaceholderHook;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-
-import me.clip.placeholderapi.external.EZPlaceholderHook;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 

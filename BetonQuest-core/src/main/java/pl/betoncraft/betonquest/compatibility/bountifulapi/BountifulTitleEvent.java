@@ -17,10 +17,8 @@
  */
 package pl.betoncraft.betonquest.compatibility.bountifulapi;
 
-import org.bukkit.entity.Player;
-
 import com.connorlinfoot.bountifulapi.BountifulAPI;
-
+import org.bukkit.entity.Player;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;

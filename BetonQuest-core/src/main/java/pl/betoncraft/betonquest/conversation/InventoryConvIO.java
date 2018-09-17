@@ -17,9 +17,7 @@
  */
 package pl.betoncraft.betonquest.conversation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -35,11 +33,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import org.apache.commons.lang.StringUtils;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 import pl.betoncraft.betonquest.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Inventory GUI for conversations
@@ -139,7 +138,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
 		inv.setContents(new ItemStack[9 * rows]);
 		ItemStack[] buttons = new ItemStack[9 * rows];
 		// set the NPC head
-		ItemStack npc = new ItemStack(Material.SKULL_ITEM);
+		ItemStack npc = new ItemStack(Material.PLAYER_HEAD);
 		npc.setDurability((short) 3);
 		SkullMeta npcMeta = (SkullMeta) npc.getItemMeta();
 		npcMeta.setOwner(npcName);

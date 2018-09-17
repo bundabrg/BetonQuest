@@ -20,7 +20,6 @@ package pl.betoncraft.betonquest.conditions;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;
@@ -53,7 +52,7 @@ public class ArmorRatingCondition extends Condition {
 		if (helmet != null) {
 			if (helmet.getType() == Material.LEATHER_HELMET)
 				rating += 1;
-			else if (helmet.getType() == Material.GOLD_HELMET)
+			else if (helmet.getType() == Material.GOLDEN_HELMET)
 				rating += 2;
 			else if (helmet.getType() == Material.CHAINMAIL_HELMET)
 				rating += 2;
@@ -65,7 +64,7 @@ public class ArmorRatingCondition extends Condition {
 		if (boots != null) {
 			if (boots.getType() == Material.LEATHER_BOOTS)
 				rating += 1;
-			else if (boots.getType() == Material.GOLD_BOOTS)
+			else if (boots.getType() == Material.GOLDEN_BOOTS)
 				rating += 1;
 			else if (boots.getType() == Material.CHAINMAIL_BOOTS)
 				rating += 1;
@@ -77,7 +76,7 @@ public class ArmorRatingCondition extends Condition {
 		if (leggings != null) {
 			if (leggings.getType() == Material.LEATHER_LEGGINGS)
 				rating += 2;
-			else if (leggings.getType() == Material.GOLD_LEGGINGS)
+			else if (leggings.getType() == Material.GOLDEN_LEGGINGS)
 				rating += 3;
 			else if (leggings.getType() == Material.CHAINMAIL_LEGGINGS)
 				rating += 4;
@@ -89,7 +88,7 @@ public class ArmorRatingCondition extends Condition {
 		if (chest != null) {
 			if (chest.getType() == Material.LEATHER_CHESTPLATE)
 				rating += 3;
-			else if (chest.getType() == Material.GOLD_CHESTPLATE)
+			else if (chest.getType() == Material.GOLDEN_CHESTPLATE)
 				rating += 5;
 			else if (chest.getType() == Material.CHAINMAIL_CHESTPLATE)
 				rating += 5;

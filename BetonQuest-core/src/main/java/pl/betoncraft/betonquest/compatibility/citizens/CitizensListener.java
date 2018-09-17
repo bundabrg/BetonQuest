@@ -18,12 +18,10 @@
 package pl.betoncraft.betonquest.compatibility.citizens;
 
 import net.citizensnpcs.api.event.NPCRightClickEvent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.config.Config;
 import pl.betoncraft.betonquest.conversation.CombatTagger;

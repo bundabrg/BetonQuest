@@ -17,11 +17,8 @@
  */
 package pl.betoncraft.betonquest.compatibility.quests;
 
-import java.util.Collections;
-
-import org.bukkit.Bukkit;
-
 import me.blackvein.quests.Quests;
+import org.bukkit.Bukkit;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.compatibility.Integrator;
 

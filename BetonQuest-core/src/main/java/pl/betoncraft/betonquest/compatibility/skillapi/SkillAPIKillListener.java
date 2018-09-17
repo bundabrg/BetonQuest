@@ -17,14 +17,12 @@
  */
 package pl.betoncraft.betonquest.compatibility.skillapi;
 
+import com.sucy.skill.api.event.SkillDamageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-
-import com.sucy.skill.api.event.SkillDamageEvent;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.api.MobKillNotifier;
 

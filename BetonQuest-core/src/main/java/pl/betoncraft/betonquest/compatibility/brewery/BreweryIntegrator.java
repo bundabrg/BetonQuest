@@ -3,7 +3,7 @@ package pl.betoncraft.betonquest.compatibility.brewery;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.compatibility.Integrator;
 
-public class BreweryIntegrator implements Integrator{
+public class BreweryIntegrator implements Integrator {
 
     private BetonQuest plugin;
 

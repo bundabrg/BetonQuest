@@ -17,13 +17,11 @@
  */
 package pl.betoncraft.betonquest.compatibility.skript;
 
-import org.bukkit.event.Event;
-
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Checker;
-import pl.betoncraft.betonquest.compatibility.skript.BQEventSkript.CustomEventForSkript;
+import org.bukkit.event.Event;
 
 /**
  * Skript event, which listens to custom event fired by BetonQuest's event
@@ -47,8 +45,8 @@ public class SkriptEventBQ extends SkriptEvent {
 
 	@Override
 	public boolean check(Event e) {
-		if (e instanceof CustomEventForSkript) {
-			final CustomEventForSkript event = (CustomEventForSkript) e;
+		if (e instanceof BQEventSkript.CustomEventForSkript) {
+			final BQEventSkript.CustomEventForSkript event = (BQEventSkript.CustomEventForSkript) e;
 			return literal.check(e, new Checker<Object>() {
 				@Override
 				public boolean check(Object o) {

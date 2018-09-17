@@ -17,18 +17,17 @@
  */
 package pl.betoncraft.betonquest.compatibility.worldguard;
 
-import org.bukkit.Bukkit;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.entity.Player;
-
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Condition;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
-
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 /**
  * Checks if the player is in specified region
@@ -38,7 +37,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 public class RegionCondition extends Condition {
 
 	private final String name;
-	private final WorldGuardPlugin worldGuard = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 
 	public RegionCondition(Instruction instruction) throws InstructionParseException {
 		super(instruction);
@@ -48,9 +46,13 @@ public class RegionCondition extends Condition {
 	@Override
 	public boolean check(String playerID) {
 		Player player = PlayerConverter.getPlayer(playerID);
-		RegionManager manager = worldGuard.getRegionManager(player.getWorld());
+		WorldGuardPlatform worldguardPlatform =  WorldGuard.getInstance().getPlatform();
+		RegionManager manager = worldguardPlatform.getRegionContainer().get(worldguardPlatform.getWorldByName(player.getWorld().getName()));
+		if (manager == null) {
+			return false;
+		}
 		ProtectedRegion region = manager.getRegion(name);
-		ApplicableRegionSet set = manager.getApplicableRegions(player.getLocation());
+		ApplicableRegionSet set = manager.getApplicableRegions(new Vector(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
 		for (ProtectedRegion compare : set) {
 			if (compare.equals(region))
 				return true;

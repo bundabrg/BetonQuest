@@ -7,7 +7,7 @@ import pl.betoncraft.betonquest.QuestRuntimeException;
 import pl.betoncraft.betonquest.api.Condition;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 
-public class DrunkCondition extends Condition{
+public class DrunkCondition extends Condition {
 
     private Integer drunkness;
 

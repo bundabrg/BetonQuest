@@ -24,7 +24,7 @@ public class HolographicDisplaysIntegrator implements Integrator {
     
     private static HolographicDisplaysIntegrator instance;
     private HologramLoop hologramLoop;
-    
+
     public HolographicDisplaysIntegrator() {
         instance = this;
     }

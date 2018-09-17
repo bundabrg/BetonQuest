@@ -17,11 +17,9 @@
  */
 package pl.betoncraft.betonquest.compatibility.protocollib;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.event.NPCSpawnEvent;
+import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -31,10 +29,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.event.NPCSpawnEvent;
-import net.citizensnpcs.api.npc.NPC;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.ConditionID;
 import pl.betoncraft.betonquest.ObjectNotFoundException;
@@ -42,6 +36,11 @@ import pl.betoncraft.betonquest.config.Config;
 import pl.betoncraft.betonquest.config.ConfigPackage;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Namnodorel
@@ -64,14 +63,14 @@ public class NPCHider extends BukkitRunnable implements Listener {
         }
         instance = new NPCHider();
     }
-    
+
     /**
      * @return the currently used NPCHider instance
      */
     public static NPCHider getInstance() {
         return instance;
     }
-    
+
     private NPCHider() {
         npcs = new HashMap<>();
         updateInterval = BetonQuest.getInstance().getConfig().getInt("hidden_npcs_check_interval", 5 * 20);

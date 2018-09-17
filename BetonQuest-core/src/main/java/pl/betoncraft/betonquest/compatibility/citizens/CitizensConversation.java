@@ -18,9 +18,7 @@
 package pl.betoncraft.betonquest.compatibility.citizens;
 
 import net.citizensnpcs.api.npc.NPC;
-
 import org.bukkit.Location;
-
 import pl.betoncraft.betonquest.conversation.Conversation;
 
 /**

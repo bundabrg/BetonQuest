@@ -19,7 +19,7 @@ package pl.betoncraft.betonquest.events;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-
+import org.bukkit.material.Lever;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;
@@ -53,22 +53,23 @@ public class LeverEvent extends QuestEvent {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void run(String playerID) throws QuestRuntimeException {
 		Block block = loc.getLocation(playerID).getBlock();
-		if (block.getType() != Material.LEVER) {
+		if (!block.getType().equals(Material.LEVER)) {
 			return;
 		}
+		Lever lever = (Lever) block;
+
 		switch (type) {
 		case ON:
-			block.setData((byte) (block.getData() | 0x8));
+			lever.setPowered(true);
 			break;
 		case OFF:
-			block.setData((byte) (block.getData() & ~0x8));
+			lever.setPowered(false);
 			break;
 		case TOGGLE:
-			block.setData((byte) (block.getData() ^ 0x8));
+			lever.setPowered(!lever.isPowered());
 			break;
 		}
 	}

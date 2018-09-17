@@ -12,7 +12,7 @@ import pl.betoncraft.betonquest.utils.PlayerConverter;
 
 import java.util.Collection;
 
-public class GiveBrewEvent extends QuestEvent{
+public class GiveBrewEvent extends QuestEvent {
 
     private Integer amount;
     private Integer quality;

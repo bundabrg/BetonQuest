@@ -19,7 +19,6 @@ package pl.betoncraft.betonquest.compatibility.shopkeepers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.compatibility.Integrator;
 import pl.betoncraft.betonquest.compatibility.UnsupportedVersionException;

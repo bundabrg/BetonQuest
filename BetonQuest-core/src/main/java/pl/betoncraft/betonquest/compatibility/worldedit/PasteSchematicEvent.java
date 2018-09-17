@@ -17,28 +17,32 @@
  */
 package pl.betoncraft.betonquest.compatibility.worldedit;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-
-import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.BukkitUtil;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.data.DataException;
-import com.sk89q.worldedit.schematic.SchematicFormat;
-
+import com.sk89q.worldedit.extent.clipboard.Clipboard;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
+import com.sk89q.worldedit.function.operation.Operation;
+import com.sk89q.worldedit.function.operation.Operations;
+import com.sk89q.worldedit.session.ClipboardHolder;
+import com.sk89q.worldedit.util.io.Closer;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;
 import pl.betoncraft.betonquest.api.QuestEvent;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.LocationData;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Pastes a schematic at a given location.
@@ -73,13 +77,28 @@ public class PasteSchematicEvent extends QuestEvent {
 	public void run(String playerID) throws QuestRuntimeException {
 		try {
 			Location location = loc.getLocation(playerID);
-			SchematicFormat schematic = SchematicFormat.getFormat(file);
-			CuboidClipboard clipboard = schematic.load(file);
-			BukkitWorld world = new BukkitWorld(location.getWorld());
-			EditSession editSession = we.getWorldEdit().getEditSessionFactory().getEditSession(world, 64*64*64);
-			Vector newOrigin = BukkitUtil.toVector(location);
-			clipboard.paste(editSession, newOrigin, noAir);
-		} catch (DataException | IOException | MaxChangedBlocksException e) {
+			ClipboardFormat format = ClipboardFormats.findByFile(file);
+			if (format == null) {
+				throw new IOException("Unknown Schematic Format");
+			}
+
+			Clipboard clipboard;
+			try (Closer closer = Closer.create()) {
+				FileInputStream fis = closer.register(new FileInputStream(file));
+				BufferedInputStream bis = closer.register(new BufferedInputStream(fis));
+				ClipboardReader reader = closer.register(format.getReader(bis));
+
+				clipboard = reader.read();
+			}
+
+			EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(BukkitAdapter.adapt(location.getWorld()),1000);
+			Operation operation = new ClipboardHolder(clipboard)
+					.createPaste(editSession)
+					.to(BukkitAdapter.adapt(location).toVector())
+					.ignoreAirBlocks(noAir)
+					.build();
+			Operations.completeLegacy(operation);
+		} catch (IOException | MaxChangedBlocksException e) {
 			Debug.error("Error while pasting a schematic: " + e.getMessage());
 		}
 	}

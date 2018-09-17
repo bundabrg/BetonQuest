@@ -17,16 +17,15 @@
  */
 package pl.betoncraft.betonquest.compatibility.citizens;
 
+import net.citizensnpcs.api.npc.NPC;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import pl.betoncraft.betonquest.conversation.Conversation;
+import pl.betoncraft.betonquest.conversation.InventoryConvIO;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
-
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import net.citizensnpcs.api.npc.NPC;
-import pl.betoncraft.betonquest.conversation.Conversation;
-import pl.betoncraft.betonquest.conversation.InventoryConvIO;
 
 public class CitizensInventoryConvIO extends InventoryConvIO {
 

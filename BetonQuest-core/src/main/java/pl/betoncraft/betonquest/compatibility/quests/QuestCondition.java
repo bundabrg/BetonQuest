@@ -17,7 +17,6 @@
  */
 package pl.betoncraft.betonquest.compatibility.quests;
 
-import me.blackvein.quests.Quests;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Condition;

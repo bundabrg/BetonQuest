@@ -11,7 +11,7 @@ import pl.betoncraft.betonquest.QuestRuntimeException;
 import pl.betoncraft.betonquest.api.Condition;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 
-public class HasBrewCondition extends Condition{
+public class HasBrewCondition extends Condition {
 
     private Integer count;
     private BRecipe brew;

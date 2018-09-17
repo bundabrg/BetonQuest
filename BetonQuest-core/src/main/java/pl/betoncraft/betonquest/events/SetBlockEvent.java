@@ -19,7 +19,6 @@ package pl.betoncraft.betonquest.events;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;
@@ -46,12 +45,11 @@ public class SetBlockEvent extends QuestEvent {
 		data = instruction.getByte(instruction.getOptional("data"), (byte) 0);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void run(String playerID) throws QuestRuntimeException {
 		Location location = loc.getLocation(playerID);
 		location.getBlock().setType(block);
-		location.getBlock().setData(data);
+//		location.getBlock().setData(data);
 	}
 
 }

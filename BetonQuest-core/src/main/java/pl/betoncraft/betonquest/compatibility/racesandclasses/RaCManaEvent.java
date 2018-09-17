@@ -17,9 +17,8 @@
  */
 package pl.betoncraft.betonquest.compatibility.racesandclasses;
 
-import org.bukkit.entity.Player;
-
 import de.tobiyas.racesandclasses.APIs.ManaAPI;
+import org.bukkit.entity.Player;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;

@@ -17,16 +17,15 @@
  */
 package pl.betoncraft.betonquest.compatibility.quests;
 
-import java.util.Map;
-
-import org.bukkit.entity.Player;
-
 import me.blackvein.quests.CustomReward;
+import org.bukkit.entity.Player;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.EventID;
 import pl.betoncraft.betonquest.ObjectNotFoundException;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
+
+import java.util.Map;
 
 /**
  * Fires a BetonQuest event as a quest reward.

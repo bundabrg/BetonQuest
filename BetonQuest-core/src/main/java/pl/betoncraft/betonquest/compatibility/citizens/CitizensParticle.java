@@ -17,25 +17,14 @@
  */
 package pl.betoncraft.betonquest.compatibility.citizens;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.UUID;
-
+import de.slikey.effectlib.util.DynamicLocation;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import de.slikey.effectlib.util.DynamicLocation;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.ConditionID;
 import pl.betoncraft.betonquest.ObjectNotFoundException;
@@ -45,6 +34,9 @@ import pl.betoncraft.betonquest.config.Config;
 import pl.betoncraft.betonquest.config.ConfigPackage;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Displays a particle above NPCs with conversations.
@@ -183,7 +175,7 @@ public class CitizensParticle extends BukkitRunnable {
         // every player needs to generate their assignment
         for (Player player : Bukkit.getOnlinePlayers()) {
 
-            // create an assignment map
+            // wrap an assignment map
             Map<Integer, Effect> assignments = new HashMap<>();
 
             // handle all effects

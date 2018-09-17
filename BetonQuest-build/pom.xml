@@ -5,11 +5,11 @@
     <parent>
         <artifactId>BetonQuest</artifactId>
         <groupId>pl.betoncraft</groupId>
-        <version>1.10</version>
+        <version>unofficial.brg.1.11-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>build</artifactId>
+    <artifactId>BetonQuest-build</artifactId>
 
     <dependencies>
         <dependency>
@@ -18,25 +18,11 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>BetonQuest-v1.9-R1</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>BetonQuest-v1.13-R1</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <build>
-        <finalName>${project.parent.artifactId}</finalName>
+        <directory>../target</directory>
+        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
         <resources>
             <resource>
                 <directory>${project.parent.basedir}</directory>
@@ -48,15 +34,6 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -71,7 +48,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.json</include>
-                                    <include>org.bstats</include>
+                                    <include>org.bstats:*</include>
                                     <include>${project.groupId}:BetonQuest-core</include>
                                     <include>${project.groupId}:BetonQuest-v1.9-R1</include>
                                     <include>${project.groupId}:BetonQuest-v1.13-R1</include>
@@ -83,13 +60,28 @@
                                     <shadedPattern>pl.betoncraft.betonquest.bstats</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <minimizeJar>${minimize}</minimizeJar>
+                            <!--<minimizeJar>${minimize}</minimizeJar>-->
                         </configuration>
+
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
+
     </build>
+
     <profiles>
         <profile>
             <id>release</id>
@@ -98,10 +90,6 @@
                     <name>release</name>
                 </property>
             </activation>
-            <properties>
-                <minimize>true</minimize>
-                <optimize>true</optimize>
-            </properties>
             <build>
                 <plugins>
                     <plugin>

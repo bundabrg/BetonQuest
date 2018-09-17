@@ -20,7 +20,6 @@ package pl.betoncraft.betonquest.compatibility.betonlangapi;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
 import pl.betoncraft.betonlangapi.PlayerLanguageChangeEvent;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.config.Config;

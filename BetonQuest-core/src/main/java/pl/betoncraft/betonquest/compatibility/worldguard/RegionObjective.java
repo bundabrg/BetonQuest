@@ -17,23 +17,23 @@
  */
 package pl.betoncraft.betonquest.compatibility.worldguard;
 
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Objective;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
-
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 /**
  * Player has to enter the WorldGuard region
@@ -43,7 +43,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 public class RegionObjective extends Objective implements Listener {
 
 	private final String name;
-	private final WorldGuardPlugin worldGuard = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 
 	public RegionObjective(Instruction instruction) throws InstructionParseException {
 		super(instruction);
@@ -58,9 +57,14 @@ public class RegionObjective extends Objective implements Listener {
 			return;
 		}
 		Location loc = event.getTo();
-		RegionManager manager = worldGuard.getRegionManager(loc.getWorld());
+		WorldGuardPlatform worldguardPlatform =  WorldGuard.getInstance().getPlatform();
+		RegionManager manager = worldguardPlatform.getRegionContainer().get(worldguardPlatform.getWorldByName(loc.getWorld().getName()));
+		if (manager == null) {
+			return;
+		}
+
 		ProtectedRegion region = manager.getRegion(name);
-		ApplicableRegionSet set = manager.getApplicableRegions(loc);
+		ApplicableRegionSet set = manager.getApplicableRegions(new Vector(loc.getX(), loc.getY(), loc.getZ()));
 		for (ProtectedRegion compare : set) {
 			if (compare.equals(region)) {
 				if (checkConditions(playerID)) {

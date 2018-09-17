@@ -17,10 +17,9 @@
  */
 package pl.betoncraft.betonquest.compatibility.legendquest;
 
-import org.bukkit.Bukkit;
-
 import me.sablednah.legendquest.Main;
 import me.sablednah.legendquest.mechanics.Attribute;
+import org.bukkit.Bukkit;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Condition;

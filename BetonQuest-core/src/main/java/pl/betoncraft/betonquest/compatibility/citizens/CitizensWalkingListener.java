@@ -17,19 +17,18 @@
  */
 package pl.betoncraft.betonquest.compatibility.citizens;
 
-import java.util.HashMap;
-
+import net.citizensnpcs.api.ai.Navigator;
+import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import net.citizensnpcs.api.ai.Navigator;
-import net.citizensnpcs.api.npc.NPC;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.api.PlayerConversationEndEvent;
 import pl.betoncraft.betonquest.api.PlayerConversationStartEvent;
+
+import java.util.HashMap;
 
 /**
  * Prevents Citizens NPCs from walking around when in conversation with the
@@ -57,7 +56,7 @@ public class CitizensWalkingListener implements Listener {
     public void onConversationStart(final PlayerConversationStartEvent event) {
         if (event.getConversation() instanceof CitizensConversation) {
             new BukkitRunnable() {
-                
+
                 @Override
                 public void run() {
                     CitizensConversation conv = (CitizensConversation) event.getConversation();
@@ -83,7 +82,7 @@ public class CitizensWalkingListener implements Listener {
 	public void onConversationEnd(final PlayerConversationEndEvent event) {
 		if (event.getConversation() instanceof CitizensConversation) {
 			new BukkitRunnable() {
-			    
+
 			    @Override
 				public void run() {
 					CitizensConversation conv = (CitizensConversation) event.getConversation();

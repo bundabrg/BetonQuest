@@ -17,22 +17,21 @@
  */
 package pl.betoncraft.betonquest.compatibility.mythicmobs;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-
-import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Objective;
 import pl.betoncraft.betonquest.config.Config;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Player has to kill MythicMobs monster

@@ -19,6 +19,7 @@ package pl.betoncraft.betonquest.objectives;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -26,7 +27,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
@@ -74,8 +74,7 @@ public class StepObjective extends Objective implements Listener {
 			if (!event.getClickedBlock().equals(block)) {
 				return;
 			}
-			if (type != Material.STONE_PLATE && type != Material.WOOD_PLATE && type != Material.GOLD_PLATE
-					&& type != Material.IRON_PLATE) {
+			if (Tag.WOODEN_PRESSURE_PLATES.isTagged(type)) {
 				return;
 			}
 			if (!containsPlayer(playerID)) {

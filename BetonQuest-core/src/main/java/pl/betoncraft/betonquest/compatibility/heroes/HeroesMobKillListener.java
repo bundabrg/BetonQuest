@@ -17,12 +17,10 @@
  */
 package pl.betoncraft.betonquest.compatibility.heroes;
 
+import com.herocraftonline.heroes.api.events.HeroKillCharacterEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
-import com.herocraftonline.heroes.api.events.HeroKillCharacterEvent;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.api.MobKillNotifier;
 
