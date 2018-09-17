@@ -19,13 +19,7 @@ package pl.betoncraft.betonquest.api;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import pl.betoncraft.betonquest.BetonQuest;
-import pl.betoncraft.betonquest.ConditionID;
-import pl.betoncraft.betonquest.Instruction;
-import pl.betoncraft.betonquest.InstructionParseException;
-import pl.betoncraft.betonquest.ObjectNotFoundException;
-import pl.betoncraft.betonquest.QuestRuntimeException;
+import pl.betoncraft.betonquest.*;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 

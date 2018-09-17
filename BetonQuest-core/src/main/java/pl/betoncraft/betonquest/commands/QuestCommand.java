@@ -1675,7 +1675,7 @@ public class QuestCommand implements CommandExecutor,SimpleTabCompleter {
 
 		//get hooked Plugins
 		TreeMap<String, String> hooked = new TreeMap<>();
-		for (String plugin: Compatibility.getHooked()) {
+		for (String plugin: Compatibility.getInstance().getHooked()) {
 			Plugin pl = Bukkit.getPluginManager().getPlugin(plugin);
 			if (pl != null) hooked.put(plugin, pl.getDescription().getVersion());
 		}

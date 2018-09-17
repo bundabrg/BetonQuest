@@ -49,7 +49,6 @@ import pl.betoncraft.betonquest.compatibility.Compatibility;
 import pl.betoncraft.betonquest.conditions.AchievementCondition;
 import pl.betoncraft.betonquest.conditions.AlternativeCondition;
 import pl.betoncraft.betonquest.conditions.ArmorCondition;
-import pl.betoncraft.betonquest.conditions.ArmorRatingCondition;
 import pl.betoncraft.betonquest.conditions.BiomeCondition;
 import pl.betoncraft.betonquest.conditions.CheckCondition;
 import pl.betoncraft.betonquest.conditions.ChestItemCondition;
@@ -94,8 +93,6 @@ import pl.betoncraft.betonquest.conversation.ConversationColors;
 import pl.betoncraft.betonquest.conversation.ConversationData;
 import pl.betoncraft.betonquest.conversation.ConversationIO;
 import pl.betoncraft.betonquest.conversation.ConversationResumer;
-import pl.betoncraft.betonquest.conversation.CubeNPCListener;
-import pl.betoncraft.betonquest.conversation.InventoryConvIO;
 import pl.betoncraft.betonquest.conversation.SimpleConvIO;
 import pl.betoncraft.betonquest.conversation.TellrawConvIO;
 import pl.betoncraft.betonquest.database.Database;
@@ -127,7 +124,6 @@ import pl.betoncraft.betonquest.events.JournalEvent;
 import pl.betoncraft.betonquest.events.KillEvent;
 import pl.betoncraft.betonquest.events.KillMobEvent;
 import pl.betoncraft.betonquest.events.LanguageEvent;
-import pl.betoncraft.betonquest.events.LeverEvent;
 import pl.betoncraft.betonquest.events.LightningEvent;
 import pl.betoncraft.betonquest.events.MessageEvent;
 import pl.betoncraft.betonquest.events.ObjectiveEvent;
@@ -138,7 +134,6 @@ import pl.betoncraft.betonquest.events.PlaysoundEvent;
 import pl.betoncraft.betonquest.events.PointEvent;
 import pl.betoncraft.betonquest.events.RunEvent;
 import pl.betoncraft.betonquest.events.ScoreboardEvent;
-import pl.betoncraft.betonquest.events.SetBlockEvent;
 import pl.betoncraft.betonquest.events.SpawnMobEvent;
 import pl.betoncraft.betonquest.events.SudoEvent;
 import pl.betoncraft.betonquest.events.TagEvent;
@@ -171,7 +166,6 @@ import pl.betoncraft.betonquest.objectives.PotionObjective;
 import pl.betoncraft.betonquest.objectives.RespawnObjective;
 import pl.betoncraft.betonquest.objectives.ShearObjective;
 import pl.betoncraft.betonquest.objectives.SmeltingObjective;
-import pl.betoncraft.betonquest.objectives.StepObjective;
 import pl.betoncraft.betonquest.objectives.TameObjective;
 import pl.betoncraft.betonquest.objectives.VariableObjective;
 import pl.betoncraft.betonquest.objectives.VehicleObjective;
@@ -188,6 +182,8 @@ import pl.betoncraft.betonquest.variables.ObjectivePropertyVariable;
 import pl.betoncraft.betonquest.variables.PlayerNameVariable;
 import pl.betoncraft.betonquest.variables.PointVariable;
 import pl.betoncraft.betonquest.variables.VersionVariable;
+import pl.betoncraft.betonquest.version.VersionMatcher;
+import pl.betoncraft.betonquest.version.VersionWrapper;
 
 /**
  * Represents BetonQuest plugin
@@ -200,6 +196,11 @@ public final class BetonQuest extends JavaPlugin {
 			+ " developer: <coosheck@gmail.com>";
 
 	private static BetonQuest instance;
+
+	/**
+	 * The local {@link VersionWrapper} object for the server's version
+	 */
+	private static VersionWrapper WRAPPER = new VersionMatcher().match();
 
 	private Database database;
 	private boolean isMySQLUsed;
@@ -227,7 +228,6 @@ public final class BetonQuest extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
 		// initialize debugger
 		new Debug();
 
@@ -277,7 +277,13 @@ public final class BetonQuest extends JavaPlugin {
 		new JoinQuitListener();
 
 		// instantiate default conversation start listener
-		new CubeNPCListener();
+
+		System.err.println(WRAPPER.getCubeNPCListener() == null?"null":WRAPPER.getCubeNPCListener().getClass());
+		try {
+			WRAPPER.getCubeNPCListener().newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 
 		// instantiate journal handler
 		new QuestItemHandler();
@@ -296,7 +302,7 @@ public final class BetonQuest extends JavaPlugin {
 
 		// start mob kill listener
 		new MobKillListener();
-		
+
 		// start custom drop listener
 		new CustomDropListener();
 
@@ -326,7 +332,7 @@ public final class BetonQuest extends JavaPlugin {
 		registerConditions("location", LocationCondition.class);
 		registerConditions("armor", ArmorCondition.class);
 		registerConditions("effect", EffectCondition.class);
-		registerConditions("rating", ArmorRatingCondition.class);
+		registerConditions("rating", WRAPPER.getArmorRatingCondition());
 		registerConditions("sneak", SneakCondition.class);
 		registerConditions("random", RandomCondition.class);
 		registerConditions("journal", JournalCondition.class);
@@ -371,7 +377,7 @@ public final class BetonQuest extends JavaPlugin {
 		registerEvents("time", TimeEvent.class);
 		registerEvents("weather", WeatherEvent.class);
 		registerEvents("folder", FolderEvent.class);
-		registerEvents("setblock", SetBlockEvent.class);
+		registerEvents("setblock", WRAPPER.getSetBlockEvent());
 		registerEvents("damage", DamageEvent.class);
 		registerEvents("party", PartyEvent.class);
 		registerEvents("clear", ClearEvent.class);
@@ -385,7 +391,7 @@ public final class BetonQuest extends JavaPlugin {
 		registerEvents("compass", CompassEvent.class);
 		registerEvents("cancel", CancelEvent.class);
 		registerEvents("score", ScoreboardEvent.class);
-		registerEvents("lever", LeverEvent.class);
+		registerEvents("lever", WRAPPER.getLeverEvent());
 		registerEvents("door", DoorEvent.class);
 		registerEvents("if", IfElseEvent.class);
 		registerEvents("variable", VariableEvent.class);
@@ -407,11 +413,11 @@ public final class BetonQuest extends JavaPlugin {
 		registerObjectives("delay", DelayObjective.class);
 		registerObjectives("arrow", ArrowShootObjective.class);
 		registerObjectives("experience", ExperienceObjective.class);
-		registerObjectives("step", StepObjective.class);
+		registerObjectives("step", WRAPPER.getStepObjective());
 		registerObjectives("logout", LogoutObjective.class);
 		registerObjectives("password", PasswordObjective.class);
 		registerObjectives("fish", FishObjective.class);
-		registerObjectives("enchant", EnchantObjective.class);		
+		registerObjectives("enchant", EnchantObjective.class);
 		registerObjectives("shear", ShearObjective.class);
 		registerObjectives("chestput", ChestPutObjective.class);
 		registerObjectives("potion", PotionObjective.class);
@@ -426,8 +432,8 @@ public final class BetonQuest extends JavaPlugin {
 		// register conversation IO types
 		registerConversationIO("simple", SimpleConvIO.class);
 		registerConversationIO("tellraw", TellrawConvIO.class);
-		registerConversationIO("chest", InventoryConvIO.class);
-		registerConversationIO("combined", InventoryConvIO.Combined.class);
+		registerConversationIO("chest", WRAPPER.getInventoryConvIO());
+		registerConversationIO("combined", WRAPPER.getInventoryConvIO_Combined());
 
 		// register variable types
 		registerVariable("player", PlayerNameVariable.class);
@@ -440,8 +446,8 @@ public final class BetonQuest extends JavaPlugin {
 		registerVariable("location", LocationVariable.class);
 		registerVariable("math", MathVariable.class);
 
-        // initialize compatibility with other plugins
-        new Compatibility();
+		// initialize compatibility with other plugins
+		Compatibility.create(WRAPPER.getCompatibility());
 
 		// schedule quest data loading on the first tick, so all other
 		// plugins can register their types
@@ -685,7 +691,7 @@ public final class BetonQuest extends JavaPlugin {
 		new GlobalLocations();
 		new GlobalObjectives();
 		new ConversationColors();
-		Compatibility.reload();
+		Compatibility.getInstance().reload();
 		// load all events, conditions, objectives, conversations etc.
 		loadData();
 		// start objectives and update journals for every online player
@@ -712,7 +718,7 @@ public final class BetonQuest extends JavaPlugin {
 		}
 		// cancel database saver
 		saver.end();
-		Compatibility.disable();
+		Compatibility.getInstance().disable();
 		// stop global location listener
 		GlobalLocations.stop();
 		database.closeConnection();

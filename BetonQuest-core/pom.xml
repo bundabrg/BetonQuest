@@ -5,11 +5,12 @@
     <parent>
         <artifactId>BetonQuest</artifactId>
         <groupId>pl.betoncraft</groupId>
-        <version>1.10</version>
+        <version>1.11-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>BetonQuest-core</artifactId>
+    <name>BetonQuest</name>
 
     <repositories>
         <repository>
@@ -19,11 +20,81 @@
     </repositories>
 
     <dependencies>
+        <!-- API -->
+        <!--<dependency>-->
+            <!--<groupId>${project.parent.groupId}</groupId>-->
+            <!--<artifactId>BetonQuest-api</artifactId>-->
+            <!--<version>${project.parent.version}</version>-->
+            <!--<scope>compile</scope>-->
+            <!--<type>jar</type>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Supported Versions &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>${project.parent.groupId}</groupId>-->
+            <!--<artifactId>BetonQuest-v1.9-R1</artifactId>-->
+            <!--<version>${project.parent.version}</version>-->
+            <!--<scope>compile</scope>-->
+            <!--<type>jar</type>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>${project.parent.groupId}</groupId>-->
+            <!--<artifactId>BetonQuest-v1.13-R1</artifactId>-->
+            <!--<version>${project.parent.version}</version>-->
+            <!--<scope>compile</scope>-->
+            <!--<type>jar</type>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
+
+        <!-- Earliest Release we want to support -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
+            <!--<version>1.13-R0.1-SNAPSHOT</version>-->
             <version>1.12.2-R0.1-SNAPSHOT</version>
         </dependency>
+
+        <!-- Other Dependencies -->
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160212</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
 </project>
