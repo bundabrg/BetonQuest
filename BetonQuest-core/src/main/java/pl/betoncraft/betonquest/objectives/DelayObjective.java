@@ -82,7 +82,7 @@ public class DelayObjective extends Objective {
 					completeObjective(playerID);
 				}
 			}
-		}.runTaskTimer(BetonQuest.getInstance(), 0, interval);
+		}.runTaskTimer(BetonQuest.getPlugin(), 0, interval);
 	}
 
 	@Override

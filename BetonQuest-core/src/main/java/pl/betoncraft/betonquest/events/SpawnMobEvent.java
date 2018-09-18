@@ -124,7 +124,7 @@ public class SpawnMobEvent extends QuestEvent {
 			int j = 0;
 			for (Item item : drops) {
 				entity.setMetadata("betonquest-drops-" + j,
-						new FixedMetadataValue(BetonQuest.getInstance(), item.getID().getFullID() + ":"
+						new FixedMetadataValue(BetonQuest.getPlugin(), item.getID().getFullID() + ":"
 								+ item.getAmount().getInt(playerID)));
 				j++;
 			}
@@ -133,7 +133,7 @@ public class SpawnMobEvent extends QuestEvent {
 				livingEntity.setCustomName(name);
 			}
 			if (marked != null) {
-				entity.setMetadata("betonquest-marked", new FixedMetadataValue(BetonQuest.getInstance(), marked));
+				entity.setMetadata("betonquest-marked", new FixedMetadataValue(BetonQuest.getPlugin(), marked));
 			}
 		}
 	}

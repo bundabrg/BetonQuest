@@ -211,9 +211,9 @@ public class Updater {
 									+ ", use '/q update --dev' to download it.");
 						}
 					}
-				}.runTask(plugin);
+				}.runTask(BetonQuest.getPlugin());
 			}
-		}.runTaskAsynchronously(plugin);
+		}.runTaskAsynchronously(BetonQuest.getPlugin());
 	}
 
 	private void load() {
@@ -307,7 +307,7 @@ public class Updater {
 					bugfixAddress = null; // this will prevent bugfixes from
 											// overwriting the release
 				}
-			}.runTaskAsynchronously(plugin);
+			}.runTaskAsynchronously(BetonQuest.getPlugin());
 			return true;
 		}
 		return false;
@@ -321,7 +321,7 @@ public class Updater {
 					downloadUpdate(devBuildAddress, sender);
 					bugfixAddress = null;
 				}
-			}.runTaskAsynchronously(plugin);
+			}.runTaskAsynchronously(BetonQuest.getPlugin());
 			return true;
 		}
 		return false;

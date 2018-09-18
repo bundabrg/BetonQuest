@@ -88,7 +88,7 @@ public class HologramLoop {
 					Debug.error("Could not parse location in " + key + " hologram: " + e.getMessage());
 					continue;
 				}
-				Hologram hologram = HologramsAPI.createHologram(BetonQuest.getInstance(), location);
+				Hologram hologram = HologramsAPI.createHologram(BetonQuest.getPlugin(), location);
 				hologram.getVisibilityManager().setVisibleByDefault(false);
 				for (String line : lines) {
 					hologram.appendTextLine(line.replace('&', '§'));
@@ -115,7 +115,7 @@ public class HologramLoop {
 				}
 			}
 		};
-		runnable.runTaskTimer(BetonQuest.getInstance(), 20, BetonQuest.getInstance().getConfig()
+		runnable.runTaskTimer(BetonQuest.getPlugin(), 20, BetonQuest.getInstance().getConfig()
 				.getInt("hologram_update_interval", 20 * 10));
 	}
 	

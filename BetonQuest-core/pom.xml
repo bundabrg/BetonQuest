@@ -27,6 +27,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Local Dependencies -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>BetonQuest-bootstrap</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- 3rd Party Dependencies -->
         <dependency>
             <groupId>net.citizensnpcs</groupId>

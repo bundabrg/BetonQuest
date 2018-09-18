@@ -113,7 +113,7 @@ public class PotionObjective extends Objective implements Listener {
 							new String[] { String.valueOf(amount - data.getAmount()) });
 				}
 			}
-		}.runTask(BetonQuest.getInstance());
+		}.runTask(BetonQuest.getPlugin());
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class PotionObjective extends Objective implements Listener {
 
 	@Override
 	public void start() {
-		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 
 	@Override

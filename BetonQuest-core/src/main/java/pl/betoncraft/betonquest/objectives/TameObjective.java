@@ -97,7 +97,7 @@ public class TameObjective extends Objective implements Listener {
 
 	@Override
 	public void start() {
-		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 
 	@Override

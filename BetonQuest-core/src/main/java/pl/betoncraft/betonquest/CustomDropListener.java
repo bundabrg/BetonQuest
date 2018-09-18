@@ -31,7 +31,7 @@ import pl.betoncraft.betonquest.utils.Debug;
 public class CustomDropListener implements Listener {
 
 	public CustomDropListener() {
-		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 	
 	@EventHandler

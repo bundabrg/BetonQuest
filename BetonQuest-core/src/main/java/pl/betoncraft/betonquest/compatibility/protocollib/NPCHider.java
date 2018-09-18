@@ -74,10 +74,10 @@ public class NPCHider extends BukkitRunnable implements Listener {
     private NPCHider() {
         npcs = new HashMap<>();
         updateInterval = BetonQuest.getInstance().getConfig().getInt("hidden_npcs_check_interval", 5 * 20);
-        hider = new EntityHider(BetonQuest.getInstance(), EntityHider.Policy.BLACKLIST);
+        hider = new EntityHider(BetonQuest.getPlugin(), EntityHider.Policy.BLACKLIST);
         loadFromConfig();
-        runTaskTimer(BetonQuest.getInstance(), 0, updateInterval);
-        Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+        runTaskTimer(BetonQuest.getPlugin(), 0, updateInterval);
+        Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
     }
 
     private void loadFromConfig() {

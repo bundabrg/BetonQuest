@@ -52,7 +52,7 @@ public class VariableObjective extends Objective implements Listener {
 	@Override
 	public void start() {
 		if (!noChat) {
-			Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+			Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 		}
 	}
 

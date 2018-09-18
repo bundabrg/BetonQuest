@@ -75,7 +75,7 @@ public class TagEvent extends QuestEvent {
 						}
 					}
 				}
-			}.runTaskAsynchronously(BetonQuest.getInstance());
+			}.runTaskAsynchronously(BetonQuest.getPlugin());
 		}
 	}
 }

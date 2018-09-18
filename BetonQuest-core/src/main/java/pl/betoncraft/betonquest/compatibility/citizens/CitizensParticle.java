@@ -139,7 +139,7 @@ public class CitizensParticle extends BukkitRunnable {
 
             }
         }
-        runTaskTimer(BetonQuest.getInstance(), 1, 1);
+        runTaskTimer(BetonQuest.getPlugin(), 1, 1);
         enabled = true;
     }
 

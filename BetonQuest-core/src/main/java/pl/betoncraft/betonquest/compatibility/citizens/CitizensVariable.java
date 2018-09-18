@@ -84,5 +84,4 @@ public class CitizensVariable extends Variable {
 		}
 		return "";
 	}
-
 }

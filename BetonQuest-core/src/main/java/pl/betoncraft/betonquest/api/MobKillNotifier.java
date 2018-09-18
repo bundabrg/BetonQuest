@@ -51,7 +51,7 @@ public class MobKillNotifier {
 				entities.clear();
 			}
 		};
-		cleaner.runTaskTimer(BetonQuest.getInstance(), 1, 1);
+		cleaner.runTaskTimer(BetonQuest.getPlugin(), 1, 1);
 	}
 
 	/**

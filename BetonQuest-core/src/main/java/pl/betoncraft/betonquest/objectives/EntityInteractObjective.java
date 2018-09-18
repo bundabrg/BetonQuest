@@ -219,7 +219,7 @@ public class EntityInteractObjective extends Objective {
 
     private class LeftClickListener implements Listener {
         public LeftClickListener() {
-            Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+            Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
         }
 
         @EventHandler
@@ -240,7 +240,7 @@ public class EntityInteractObjective extends Objective {
 
     private class RightClickListener implements Listener {
         public RightClickListener() {
-            Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+            Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
         }
 
         @EventHandler

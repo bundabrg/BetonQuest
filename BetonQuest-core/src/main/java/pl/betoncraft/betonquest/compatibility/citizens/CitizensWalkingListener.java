@@ -49,7 +49,7 @@ public class CitizensWalkingListener implements Listener {
 	 */
 	public CitizensWalkingListener() {
 		instance = this;
-		Bukkit.getServer().getPluginManager().registerEvents(this, BetonQuest.getInstance());
+		Bukkit.getServer().getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 
     @EventHandler
@@ -74,7 +74,7 @@ public class CitizensWalkingListener implements Listener {
                         npcs.put(npc, npcs.get(npc) + 1);
                     }
                 }
-            }.runTask(BetonQuest.getInstance());
+            }.runTask(BetonQuest.getPlugin());
         }
     }
 
@@ -100,7 +100,7 @@ public class CitizensWalkingListener implements Listener {
 						npcs.put(npc, i);
 					}
 				}
-			}.runTask(BetonQuest.getInstance());
+			}.runTask(BetonQuest.getPlugin());
 		}
 	}
 

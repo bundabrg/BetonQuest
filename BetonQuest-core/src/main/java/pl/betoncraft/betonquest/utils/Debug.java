@@ -164,7 +164,7 @@ public class Debug {
 				public void run() {
 					sync(message, file, type);
 				}
-			}.runTask(BetonQuest.getInstance());
+			}.runTask(BetonQuest.getPlugin());
 		}
 	}
 

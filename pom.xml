@@ -10,6 +10,7 @@
     <version>unofficial.brg.1.11-SNAPSHOT</version>
     <modules>
         <module>BetonQuest-core</module>
+        <module>BetonQuest-bootstrap</module>
         <module>BetonQuest-build</module>
     </modules>
 

@@ -81,7 +81,7 @@ public class ObjectiveEvent extends QuestEvent {
 						break;
 					}
 				}
-			}.runTaskAsynchronously(BetonQuest.getInstance());
+			}.runTaskAsynchronously(BetonQuest.getPlugin());
 		} else {
 			switch (action.toLowerCase()) {
 			case "start":

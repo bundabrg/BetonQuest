@@ -92,7 +92,7 @@ public class ArrowShootObjective extends Objective implements Listener {
 						Debug.error("Could not resolve range variable: " + e.getMessage());
 					}
 				}
-			}.runTask(BetonQuest.getInstance());
+			}.runTask(BetonQuest.getPlugin());
 		} catch (QuestRuntimeException e) {
 			Debug.error("Error while handling '" + instruction.getID() + "' objective: " + e.getMessage());
 		}
@@ -100,7 +100,7 @@ public class ArrowShootObjective extends Objective implements Listener {
 
 	@Override
 	public void start() {
-		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 
 	@Override

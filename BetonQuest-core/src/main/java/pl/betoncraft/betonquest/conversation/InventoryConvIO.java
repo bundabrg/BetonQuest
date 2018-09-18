@@ -99,7 +99,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
 		}
 		answerPrefix = string.toString();
 		loc = player.getLocation();
-		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
 				player.openInventory(inv);
 				switching = false;
 			}
-		}.runTask(BetonQuest.getInstance());
+		}.runTask(BetonQuest.getPlugin());
 	}
 
 	@EventHandler
@@ -263,7 +263,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
 					player.teleport(loc);
 					player.openInventory(inv);
 				}
-			}.runTask(BetonQuest.getInstance());
+			}.runTask(BetonQuest.getPlugin());
 		} else {
 			conv.endConversation();
 			HandlerList.unregisterAll(this);

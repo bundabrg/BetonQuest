@@ -1,5 +1,6 @@
 name: BetonQuest
-main: pl.betoncraft.betonquest.BetonQuest
+main: pl.betoncraft.betonquest.BetonQuestPlugin
+api-version: 1.13
 description: Advanced role-playing quests and NPC conversations
 authors: [Co0sh]
 website: https://www.spigotmc.org/resources/betonquest.2117/
@@ -29,7 +30,7 @@ loadbefore:
 - BountifulAPI
 - ProtocolLib
 - Brewery
-version: 1.10-dev
+version: brg.unofficial.1.11-SNAPSHOT
 commands:
   betonquest:
     description: General quest command

@@ -49,7 +49,7 @@ public class BetonLangAPIIntegrator implements Integrator {
             public void onJoin(PlayerJoinEvent event) {
                 updateLang(event.getPlayer());
             }
-        }, BetonQuest.getInstance());
+        }, BetonQuest.getPlugin());
         plugin.registerEvents("language", BetonLangAPIEvent.class);
     }
 

@@ -137,7 +137,7 @@ public class StaticEvents {
 		 * timeStamp
 		 * 
 		 * @param timeStamp
-		 * @param event
+		 * @param eventID
 		 */
 		public EventTimer(long timeStamp, EventID eventID) {
 			event = eventID;
@@ -152,7 +152,7 @@ public class StaticEvents {
 					// run the event in sync
 					BetonQuest.event(null, event);
 				}
-			}.runTask(BetonQuest.getInstance());
+			}.runTask(BetonQuest.getPlugin());
 		}
 	}
 

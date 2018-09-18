@@ -32,7 +32,7 @@ import pl.betoncraft.betonquest.api.MobKillNotifier;
 public class HeroesMobKillListener implements Listener {
 
 	public HeroesMobKillListener() {
-		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 
 	@EventHandler

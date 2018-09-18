@@ -268,7 +268,7 @@ public class Backpack implements Listener {
 			// set the inventory and display it
 			inv.setContents(content);
 			player.openInventory(inv);
-			Bukkit.getPluginManager().registerEvents(backpack, instance);
+			Bukkit.getPluginManager().registerEvents(backpack, BetonQuest.getPlugin());
 		}
 
 		@Override
@@ -411,7 +411,7 @@ public class Backpack implements Listener {
 			}
 			inv.setContents(content);
 			player.openInventory(inv);
-			Bukkit.getPluginManager().registerEvents(backpack, instance);
+			Bukkit.getPluginManager().registerEvents(backpack, BetonQuest.getPlugin());
 		}
 
 		@Override
@@ -541,7 +541,7 @@ public class Backpack implements Listener {
 			}
 			inv.setContents(content);
 			player.openInventory(inv);
-			Bukkit.getPluginManager().registerEvents(backpack, instance);
+			Bukkit.getPluginManager().registerEvents(backpack, BetonQuest.getPlugin());
 		}
 
 		@Override

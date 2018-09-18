@@ -32,7 +32,7 @@ public class PlaceholderAPIIntegrator implements Integrator {
     @Override
     public void hook() {
         plugin.registerVariable("ph", PlaceholderVariable.class);
-        new BetonQuestPlaceholder(plugin, "betonquest").hook();
+        new BetonQuestPlaceholder(BetonQuest.getPlugin(), "betonquest").hook();
     }
 
     @Override

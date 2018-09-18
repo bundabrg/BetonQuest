@@ -51,7 +51,7 @@ public class JoinQuitListener implements Listener {
 	 * Creates new listener, which will handle the data loading/saving
 	 */
 	public JoinQuitListener() {
-		Bukkit.getPluginManager().registerEvents(this, instance);
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

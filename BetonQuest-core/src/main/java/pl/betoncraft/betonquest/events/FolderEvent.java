@@ -93,7 +93,7 @@ public class FolderEvent extends QuestEvent {
 					BetonQuest.event(playerID, event);
 				}
 			}
-		}.runTaskLater(BetonQuest.getInstance(), (int) time);
+		}.runTaskLater(BetonQuest.getPlugin(), (int) time);
 	}
 
 }

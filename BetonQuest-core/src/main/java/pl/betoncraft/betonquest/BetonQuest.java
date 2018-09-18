@@ -32,13 +32,8 @@ import org.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import pl.betoncraft.betonquest.api.Condition;
-import pl.betoncraft.betonquest.api.LoadDataEvent;
-import pl.betoncraft.betonquest.api.Objective;
-import pl.betoncraft.betonquest.api.QuestEvent;
-import pl.betoncraft.betonquest.api.Variable;
+import pl.betoncraft.betonquest.api.*;
 import pl.betoncraft.betonquest.commands.BackpackCommand;
 import pl.betoncraft.betonquest.commands.CancelQuestCommand;
 import pl.betoncraft.betonquest.commands.CompassCommand;
@@ -194,7 +189,7 @@ import pl.betoncraft.betonquest.variables.VersionVariable;
  * 
  * @author Jakub Sapalski
  */
-public final class BetonQuest extends JavaPlugin {
+public final class BetonQuest extends VersionPlugin {
 
 	private final static String ERROR = "There was some error. Please send it to the"
 			+ " developer: <coosheck@gmail.com>";
@@ -220,7 +215,7 @@ public final class BetonQuest extends JavaPlugin {
 	private static HashMap<ObjectiveID, Objective> objectives = new HashMap<>();
 	private static HashMap<String, ConversationData> conversations = new HashMap<>();
 	private static HashMap<VariableID, Variable> variables = new HashMap<>();
-	
+
 	public BetonQuest() {
 	    instance = this;
 	}
@@ -236,7 +231,7 @@ public final class BetonQuest extends JavaPlugin {
 
 		// try to connect to database
 		Debug.info("Connecting to MySQL database");
-		this.database = new MySQL(this, getConfig().getString("mysql.host"), getConfig().getString("mysql.port"),
+		this.database = new MySQL(getPlugin(), getConfig().getString("mysql.host"), getConfig().getString("mysql.port"),
 				getConfig().getString("mysql.base"), getConfig().getString("mysql.user"),
 				getConfig().getString("mysql.pass"));
 
@@ -247,7 +242,7 @@ public final class BetonQuest extends JavaPlugin {
 			isMySQLUsed = true;
 			// if it fails use SQLite
 		} else {
-			this.database = new SQLite(this, "database.db");
+			this.database = new SQLite(getPlugin(), "database.db");
 			Debug.broadcast("Using SQLite for storing data!");
 			isMySQLUsed = false;
 		}
@@ -445,7 +440,7 @@ public final class BetonQuest extends JavaPlugin {
 
 		// schedule quest data loading on the first tick, so all other
 		// plugins can register their types
-		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), new Runnable() {
 			public void run() {
 				// Load all events and conditions
 				loadData();
@@ -474,7 +469,7 @@ public final class BetonQuest extends JavaPlugin {
 		}
 
 		// metrics
-		new Metrics(this);
+		new Metrics(getPlugin());
 
 		// updater
 		updater = new Updater(this.getFile());
