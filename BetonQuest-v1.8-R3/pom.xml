@@ -9,13 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>BetonQuest-core</artifactId>
-    <!--<name>BetonQuest</name>-->
+    <artifactId>BetonQuest-v1.8-R3</artifactId>
 
     <repositories>
         <repository>
-            <id>spigot-api</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
@@ -23,7 +22,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13-R0.1-SNAPSHOT</version>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -33,6 +32,12 @@
             <artifactId>BetonQuest-bootstrap</artifactId>
             <version>${project.parent.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>BetonQuest-core</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- 3rd Party Dependencies -->
@@ -61,15 +66,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.sk89q</groupId>
+            <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard</artifactId>
-            <version>7.0.0-SNAPSHOT</version>
+            <version>6.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.sk89q</groupId>
+            <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit</artifactId>
-            <version>7.0.0-SNAPSHOT</version>
+            <version>6.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -202,17 +207,6 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
+
 
 </project>

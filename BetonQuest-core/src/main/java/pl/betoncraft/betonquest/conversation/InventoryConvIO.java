@@ -290,7 +290,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
 		return printMessages;
 	}
 
-	private ArrayList<String> stringToLines(String singleLine, String color, String prefix) {
+	protected ArrayList<String> stringToLines(String singleLine, String color, String prefix) {
 		ArrayList<String> multiLine = new ArrayList<>();
 		boolean firstLinePrefix = prefix != null;
 		if (prefix == null)

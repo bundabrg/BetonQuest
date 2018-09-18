@@ -14,13 +14,19 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
+            <artifactId>BetonQuest-bootstrap</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>BetonQuest-core</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>BetonQuest-bootstrap</artifactId>
+            <artifactId>BetonQuest-v1.8-R3</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -57,6 +63,7 @@
                                     <include>org.bstats:*</include>
                                     <include>${project.groupId}:BetonQuest-bootstrap</include>
                                     <include>${project.groupId}:BetonQuest-core</include>
+                                    <include>${project.groupId}:BetonQuest-v1.8-R3</include>
                                 </includes>
                             </artifactSet>
                             <relocations>

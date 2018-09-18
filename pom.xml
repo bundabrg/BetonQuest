@@ -12,6 +12,7 @@
         <module>BetonQuest-core</module>
         <module>BetonQuest-bootstrap</module>
         <module>BetonQuest-build</module>
+        <module>BetonQuest-v1.8-R3</module>
     </modules>
 
     <!-- Shared Repositories -->
