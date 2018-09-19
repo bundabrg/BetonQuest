@@ -42,12 +42,9 @@ public abstract class MultiVersionPlugin extends JavaPlugin {
         this.versions = versions;
 
         // Configure ClassLoader
-        System.err.println("BETON:" + versions.length);
         loader = this.getClass().getClassLoader();
         for (int i=0; i<versions.length; i++) {
-            System.err.println("Checking " + serverVersion + " against " + versions[i]);
             if (serverVersion.equals(versions[i])) {
-                System.err.println("Found One: " + String.join(",", Arrays.copyOfRange(versions, i, versions.length-i)));
                 loader = new MultiVersionLoader(
                         loader,
                         base,

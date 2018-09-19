@@ -77,7 +77,6 @@ public class MultiVersionLoader extends ClassLoader {
 
         for (String name: names) {
             String filename = name.replaceAll("\\.", "/") + ".class";
-            System.err.println("Trying: " + filename);
 
             try (InputStream in = getParent().getResourceAsStream(filename)) {
                 // Read all the bytes

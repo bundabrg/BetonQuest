@@ -7,12 +7,14 @@
     <groupId>pl.betoncraft</groupId>
     <artifactId>BetonQuest</artifactId>
     <packaging>pom</packaging>
+
     <version>unofficial.brg.1.11-SNAPSHOT</version>
     <modules>
         <module>BetonQuest-core</module>
         <module>BetonQuest-bootstrap</module>
         <module>BetonQuest-build</module>
         <module>BetonQuest-v1.8-R3</module>
+        <module>BetonQuest-v1.9-R2</module>
     </modules>
 
     <!-- Shared Repositories -->
@@ -52,6 +54,7 @@
     </properties>
 
     <build>
+        <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

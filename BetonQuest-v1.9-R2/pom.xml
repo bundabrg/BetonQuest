@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>BetonQuest-v1.8-R3</artifactId>
+    <artifactId>BetonQuest-v1.9-R2</artifactId>
 
     <repositories>
         <repository>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.9.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -51,12 +51,6 @@
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit</artifactId>
             <version>6.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.elmakers.mine.bukkit.api</groupId>
-            <artifactId>MagicAPI</artifactId>
-            <version>3.4</version>
             <scope>provided</scope>
         </dependency>
 
@@ -103,10 +97,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>pl.betoncraft.betonquest</pattern>
-                                    <shadedPattern>pl.betoncraft.betonquest.v1_8_R3</shadedPattern>
-                                    <excludes>
-                                        <exclude>pl.betoncraft.betonquest.v1_8_R3.*</exclude>
-                                    </excludes>
+                                    <shadedPattern>pl.betoncraft.betonquest.v1_9_R2</shadedPattern>
                                 </relocation>
                             </relocations>
                             <!--<minimizeJar>${minimize}</minimizeJar>-->

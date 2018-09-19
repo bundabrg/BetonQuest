@@ -8,7 +8,8 @@ public class BetonQuestPlugin extends MultiVersionPlugin {
         super("pl.betoncraft.betonquest",
                 "BetonQuest",
                 new String[] {
-                        "1_8_R3"
+                        "1_8_R3",
+                        "1_9_R2"
                 });
     }
 
