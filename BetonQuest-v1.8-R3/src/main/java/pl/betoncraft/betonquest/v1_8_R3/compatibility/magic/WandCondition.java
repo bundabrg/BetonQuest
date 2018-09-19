@@ -23,12 +23,12 @@ import com.elmakers.mine.bukkit.api.wand.Wand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import pl.betoncraft.betonquest.v1_8_R3.Instruction;
-import pl.betoncraft.betonquest.v1_8_R3.InstructionParseException;
-import pl.betoncraft.betonquest.v1_8_R3.QuestRuntimeException;
-import pl.betoncraft.betonquest.v1_8_R3.VariableNumber;
-import pl.betoncraft.betonquest.v1_8_R3.api.Condition;
-import pl.betoncraft.betonquest.v1_8_R3.utils.PlayerConverter;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.QuestRuntimeException;
+import pl.betoncraft.betonquest.VariableNumber;
+import pl.betoncraft.betonquest.api.Condition;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
 
 import java.util.HashMap;
 import java.util.UUID;

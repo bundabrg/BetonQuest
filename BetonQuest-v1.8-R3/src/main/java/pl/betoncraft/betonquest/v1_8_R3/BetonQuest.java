@@ -19,20 +19,38 @@ package pl.betoncraft.betonquest.v1_8_R3;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
-import org.bstats.Metrics;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import pl.betoncraft.betonquest.AnswerFilter;
+import pl.betoncraft.betonquest.ConditionID;
 import pl.betoncraft.betonquest.CustomDropListener;
+import pl.betoncraft.betonquest.EventID;
+import pl.betoncraft.betonquest.GlobalLocations;
 import pl.betoncraft.betonquest.GlobalObjectives;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.JoinQuitListener;
+import pl.betoncraft.betonquest.Journal;
 import pl.betoncraft.betonquest.MobKillListener;
+import pl.betoncraft.betonquest.ObjectNotFoundException;
+import pl.betoncraft.betonquest.ObjectiveID;
+import pl.betoncraft.betonquest.QuestRuntimeException;
 import pl.betoncraft.betonquest.StaticEvents;
+import pl.betoncraft.betonquest.VariableID;
+import pl.betoncraft.betonquest.VariableInstruction;
+import pl.betoncraft.betonquest.api.Condition;
+import pl.betoncraft.betonquest.api.LoadDataEvent;
+import pl.betoncraft.betonquest.api.Objective;
+import pl.betoncraft.betonquest.api.QuestEvent;
+import pl.betoncraft.betonquest.api.Variable;
 import pl.betoncraft.betonquest.commands.BackpackCommand;
 import pl.betoncraft.betonquest.commands.CancelQuestCommand;
 import pl.betoncraft.betonquest.commands.CompassCommand;
 import pl.betoncraft.betonquest.commands.JournalCommand;
 import pl.betoncraft.betonquest.commands.LangCommand;
+import pl.betoncraft.betonquest.compatibility.Compatibility;
 import pl.betoncraft.betonquest.conditions.AchievementCondition;
 import pl.betoncraft.betonquest.conditions.AlternativeCondition;
 import pl.betoncraft.betonquest.conditions.ArmorCondition;
@@ -68,11 +86,18 @@ import pl.betoncraft.betonquest.conditions.VariableCondition;
 import pl.betoncraft.betonquest.conditions.VehicleCondition;
 import pl.betoncraft.betonquest.conditions.WeatherCondition;
 import pl.betoncraft.betonquest.conditions.WorldCondition;
+import pl.betoncraft.betonquest.config.Config;
+import pl.betoncraft.betonquest.config.ConfigPackage;
+import pl.betoncraft.betonquest.config.ConfigUpdater;
 import pl.betoncraft.betonquest.conversation.CombatTagger;
+import pl.betoncraft.betonquest.conversation.Conversation;
 import pl.betoncraft.betonquest.conversation.ConversationColors;
+import pl.betoncraft.betonquest.conversation.ConversationData;
+import pl.betoncraft.betonquest.conversation.ConversationIO;
 import pl.betoncraft.betonquest.conversation.ConversationResumer;
 import pl.betoncraft.betonquest.conversation.SimpleConvIO;
 import pl.betoncraft.betonquest.conversation.TellrawConvIO;
+import pl.betoncraft.betonquest.database.Database;
 import pl.betoncraft.betonquest.database.GlobalData;
 import pl.betoncraft.betonquest.database.MySQL;
 import pl.betoncraft.betonquest.database.PlayerData;
@@ -147,12 +172,9 @@ import pl.betoncraft.betonquest.utils.PlayerConverter;
 import pl.betoncraft.betonquest.utils.Updater;
 import pl.betoncraft.betonquest.utils.Utils;
 import pl.betoncraft.betonquest.v1_8_R3.commands.QuestCommand;
-import pl.betoncraft.betonquest.v1_8_R3.compatibility.Compatibility;
 import pl.betoncraft.betonquest.v1_8_R3.conditions.ArmorRatingCondition;
 import pl.betoncraft.betonquest.v1_8_R3.conditions.EmptySlotsCondition;
 import pl.betoncraft.betonquest.v1_8_R3.conditions.HandCondition;
-import pl.betoncraft.betonquest.v1_8_R3.config.Config;
-import pl.betoncraft.betonquest.v1_8_R3.config.ConfigUpdater;
 import pl.betoncraft.betonquest.v1_8_R3.conversation.CubeNPCListener;
 import pl.betoncraft.betonquest.v1_8_R3.conversation.InventoryConvIO;
 import pl.betoncraft.betonquest.v1_8_R3.events.PlaysoundEvent;
@@ -161,24 +183,63 @@ import pl.betoncraft.betonquest.v1_8_R3.item.QuestItemHandler;
 import pl.betoncraft.betonquest.v1_8_R3.objectives.ActionObjective;
 import pl.betoncraft.betonquest.v1_8_R3.objectives.DieObjective;
 import pl.betoncraft.betonquest.v1_8_R3.objectives.StepObjective;
-import pl.betoncraft.betonquest.v1_8_R3.variables.GlobalPointVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.ItemAmountVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.LocationVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.MathVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.NpcNameVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.ObjectivePropertyVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.PlayerNameVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.PointVariable;
-import pl.betoncraft.betonquest.v1_8_R3.variables.VersionVariable;
+import pl.betoncraft.betonquest.variables.GlobalPointVariable;
+import pl.betoncraft.betonquest.variables.ItemAmountVariable;
+import pl.betoncraft.betonquest.variables.LocationVariable;
+import pl.betoncraft.betonquest.variables.MathVariable;
+import pl.betoncraft.betonquest.variables.NpcNameVariable;
+import pl.betoncraft.betonquest.variables.ObjectivePropertyVariable;
+import pl.betoncraft.betonquest.variables.PlayerNameVariable;
+import pl.betoncraft.betonquest.variables.PointVariable;
+import pl.betoncraft.betonquest.variables.VersionVariable;
+import pl.betoncraft.betonquest.version.VersionPlugin;
+import pl.betoncraft.betonquest.version.VersionPluginInterface;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents BetonQuest plugin
  * 
  * @author Jakub Sapalski
  */
-public class BetonQuest extends pl.betoncraft.betonquest.BetonQuest {
+public class BetonQuest extends VersionPlugin implements VersionPluginInterface {
+
+	private final static String ERROR = "There was some error. Please send it to the"
+			+ " developer: <coosheck@gmail.com>";
+
+	private static BetonQuest instance;
+
+	private Database database;
+	private boolean isMySQLUsed;
+	private Saver saver;
+	private Updater updater;
+
+	private ConcurrentHashMap<String, PlayerData> playerDataMap = new ConcurrentHashMap<>();
+	private GlobalData globalData;
+
+	private static HashMap<String, Class<? extends Condition>> conditionTypes = new HashMap<>();
+	private static HashMap<String, Class<? extends QuestEvent>> eventTypes = new HashMap<>();
+	private static HashMap<String, Class<? extends Objective>> objectiveTypes = new HashMap<>();
+	private static HashMap<String, Class<? extends ConversationIO>> convIOTypes = new HashMap<>();
+	private static HashMap<String, Class<? extends Variable>> variableTypes = new HashMap<>();
+
+	private static HashMap<ConditionID, Condition> conditions = new HashMap<>();
+	private static HashMap<EventID, QuestEvent> events = new HashMap<>();
+	protected static HashMap<ObjectiveID, Objective> objectives = new HashMap<>();
+	private static HashMap<String, ConversationData> conversations = new HashMap<>();
+	private static HashMap<VariableID, Variable> variables = new HashMap<>();
+
+	public BetonQuest() {
+		instance = this;
+	}
+
 
 	@Override
 	public void onEnable() {
@@ -429,7 +490,14 @@ public class BetonQuest extends pl.betoncraft.betonquest.BetonQuest {
 		}
 
 		// metrics
-		new Metrics(getPlugin());
+		Class<Metrics> m = Metrics.class;
+		System.err.println("Package:" + Metrics.class.getPackage().getName());
+		try {
+			new Metrics(getPlugin());
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw e;
+		}
 
 		// updater
 		updater = new Updater(this.getFile());
@@ -437,4 +505,731 @@ public class BetonQuest extends pl.betoncraft.betonquest.BetonQuest {
 		// done
 		Debug.broadcast("BetonQuest succesfully enabled!");
 	}
+
+	/**
+	 * Loads events and conditions to the maps
+	 */
+	@SuppressWarnings("deprecation")
+	public void loadData() {
+		// save data of all objectives to the players
+		for (Objective objective : objectives.values()) {
+			objective.close();
+		}
+		// clear previously loaded data
+		events.clear();
+		conditions.clear();
+		conversations.clear();
+		objectives.clear();
+		variables.clear();
+		// load new data
+		for (ConfigPackage pack : Config.getPackages().values()) {
+			String packName = pack.getName();
+			Debug.info("Loading stuff in package " + packName);
+			FileConfiguration eConfig = Config.getPackages().get(packName).getEvents().getConfig();
+			for (String key : eConfig.getKeys(false)) {
+				if (key.contains(" ")) {
+					Debug.error("Event name cannot contain spaces: '" + key + "' (in " + packName + " package)");
+					continue;
+				}
+				EventID ID;
+				try {
+					ID = new EventID(pack, key);
+				} catch (ObjectNotFoundException e) {
+					Debug.error("Error while loading event '" + packName + "." + key + "': " + e.getMessage());
+					continue;
+				}
+				String type;
+				try {
+					type = ID.generateInstruction().getPart(0);
+				} catch (InstructionParseException e) {
+					Debug.error("Objective type not defined in '" + packName + "." + key + "'");
+					continue;
+				}
+				Class<? extends QuestEvent> eventClass = eventTypes.get(type);
+				if (eventClass == null) {
+					// if it's null then there is no such type registered, log an error
+					Debug.error("Event type " + type + " is not registered, check if it's"
+							+ " spelled correctly in '" + ID + "' event.");
+					continue;
+				}
+				try {
+					QuestEvent event = eventClass.getConstructor(Instruction.class).newInstance(ID.generateInstruction());
+					events.put(ID, event);
+					Debug.info("  Event '" + ID + "' loaded");
+				} catch (InvocationTargetException e) {
+					if (e.getCause() instanceof InstructionParseException) {
+						Debug.error("Error in '" + ID + "' event (" + type + "): " + e.getCause().getMessage());
+					} else {
+						e.printStackTrace();
+						Debug.error(ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					Debug.error(ERROR);
+				}
+			}
+			FileConfiguration cConfig = pack.getConditions().getConfig();
+			for (String key : cConfig.getKeys(false)) {
+				if (key.contains(" ")) {
+					Debug.error("Condition name cannot contain spaces: '" + key + "' (in " + packName + " package)");
+					continue;
+				}
+				ConditionID ID;
+				try {
+					ID = new ConditionID(pack, key);
+				} catch (ObjectNotFoundException e) {
+					Debug.error("Error while loading condition '" + packName + "." + key + "': " + e.getMessage());
+					continue;
+				}
+				String type;
+				try {
+					type = ID.generateInstruction().getPart(0);
+				} catch (InstructionParseException e1) {
+					Debug.error("Condition type not defined in '" + packName + "." + key + "'");
+					continue;
+				}
+				Class<? extends Condition> conditionClass = conditionTypes.get(type);
+				// if it's null then there is no such type registered, log an error
+				if (conditionClass == null) {
+					Debug.error("Condition type " + type + " is not registered,"
+							+ " check if it's spelled correctly in '" + ID + "' condition.");
+					continue;
+				}
+				try {
+					Condition condition = conditionClass.getConstructor(Instruction.class) .newInstance(ID.generateInstruction());
+					conditions.put(ID, condition);
+					Debug.info("  Condition '" + ID + "' loaded");
+				} catch (InvocationTargetException e) {
+					if (e.getCause() instanceof InstructionParseException) {
+						Debug.error("Error in '" + ID + "' condition (" + type + "): " + e.getCause().getMessage());
+					} else {
+						e.printStackTrace();
+						Debug.error(ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					Debug.error(ERROR);
+				}
+			}
+			FileConfiguration oConfig = pack.getObjectives().getConfig();
+			for (String key : oConfig.getKeys(false)) {
+				if (key.contains(" ")) {
+					Debug.error("Objective name cannot contain spaces: '" + key + "' (in " + packName + " package)");
+					continue;
+				}
+				ObjectiveID ID;
+				try {
+					ID = new ObjectiveID(pack, key);
+				} catch (ObjectNotFoundException e) {
+					Debug.error("Error while loading objective '" + packName + "." + key + "': " + e.getMessage());
+					continue;
+				}
+				String type;
+				try {
+					type = ID.generateInstruction().getPart(0);
+				} catch (InstructionParseException e) {
+					Debug.error("Objective type not defined in '" + packName + "." + key + "'");
+					continue;
+				}
+				Class<? extends Objective> objectiveClass = objectiveTypes.get(type);
+				// if it's null then there is no such type registered, log an
+				// error
+				if (objectiveClass == null) {
+					Debug.error("Objective type " + type + " is not registered, check if it's"
+							+ " spelled correctly in '" + ID + "' objective.");
+					continue;
+				}
+				try {
+					Objective objective = objectiveClass.getConstructor(Instruction.class)
+							.newInstance(ID.generateInstruction());
+					objectives.put(ID, objective);
+					Debug.info("  Objective '" + ID + "' loaded");
+				} catch (InvocationTargetException e) {
+					if (e.getCause() instanceof InstructionParseException) {
+						Debug.error("Error in '" + ID + "' objective (" + type + "): " + e.getCause().getMessage());
+					} else {
+						e.printStackTrace();
+						Debug.error(ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					Debug.error(ERROR);
+				}
+			}
+			for (String convName : pack.getConversationNames()) {
+				if (convName.contains(" ")) {
+					Debug.error("Conversation name cannot contain spaces: '" + convName + "' (in " + packName
+							+ " package)");
+					continue;
+				}
+				try {
+					conversations.put(pack.getName() + "." + convName, new ConversationData(pack, convName));
+				} catch (InstructionParseException e) {
+					Debug.error(
+							"Error in '" + packName + "." + convName + "' conversation: " + e.getMessage());
+				} catch (Exception e) {
+					e.printStackTrace();
+					Debug.error(ERROR);
+				}
+			}
+			// check external pointers
+			ConversationData.postEnableCheck();
+			Debug.info("Everything in package " + packName + " loaded");
+		}
+		// load global locations
+		new GlobalLocations();
+		// done
+		Debug.broadcast("There are " + conditions.size() + " conditions, " + events.size() + " events, "
+				+ objectives.size() + " objectives and " + conversations.size() + " conversations loaded from "
+				+ Config.getPackages().size() + " packages.");
+		// start those freshly loaded objectives for all players
+		for (PlayerData playerData : playerDataMap.values()) {
+			playerData.startObjectives();
+		}
+		//fire LoadDataEvent
+		Bukkit.getPluginManager().callEvent(new LoadDataEvent());
+	}
+
+	/**
+	 * Reloads the plugin.
+	 */
+	@SuppressWarnings("deprecation")
+	public void reload() {
+		// reload the configuration
+		Debug.info("Reloading configuration");
+		new Config();
+		// reload updater settings
+		getUpdater().reload();
+		// load new static events
+		new StaticEvents();
+		// stop current global locations listener
+		// and start new one with reloaded configs
+		Debug.info("Restarting global locations");
+		new GlobalLocations();
+		new GlobalObjectives();
+		new ConversationColors();
+		Compatibility.reload();
+		// load all events, conditions, objectives, conversations etc.
+		loadData();
+		// start objectives and update journals for every online player
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			String playerID = PlayerConverter.getID(player);
+			Debug.info("Updating journal for player " + PlayerConverter.getName(playerID));
+			PlayerData playerData = instance.getPlayerData(playerID);
+			GlobalObjectives.startAll(playerID);
+			Journal journal = playerData.getJournal();
+			journal.update();
+		}
+		// initialize new debugger
+		new Debug();
+	}
+
+	@Override
+	public void onDisable() {
+		// suspend all conversations
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			Conversation conv = Conversation.getConversation(PlayerConverter.getID(player));
+			if (conv != null)
+				conv.suspend();
+			player.closeInventory();
+		}
+		// cancel database saver
+		saver.end();
+		Compatibility.disable();
+		// stop global location listener
+		GlobalLocations.stop();
+		database.closeConnection();
+		// cancel static events (they are registered outside of Bukkit so it
+		// won't happen automatically)
+		StaticEvents.stop();
+		// update if needed
+		updater.updateBugfixes();
+		// done
+		Debug.broadcast("BetonQuest succesfully disabled!");
+	}
+
+	/**
+	 * Returns the plugin's instance
+	 *
+	 * @return the plugin's instance
+	 */
+	public static BetonQuest getInstance() {
+		return instance;
+	}
+
+	/**
+	 * Returns the database instance
+	 *
+	 * @return Database instance
+	 */
+	public Database getDB() {
+		return database;
+	}
+
+	public Updater getUpdater() {
+		return updater;
+	}
+
+	/**
+	 * Checks if MySQL is used or not
+	 *
+	 * @return if MySQL is used (false means that SQLite is being used)
+	 */
+	public boolean isMySQLUsed() {
+		return isMySQLUsed;
+	}
+
+	/**
+	 * Stores the PlayerData in a map, so it can be retrieved using
+	 * getPlayerData(String playerID)
+	 *
+	 * @param playerID
+	 *            ID of the player
+	 * @param playerData
+	 *            PlayerData object to store
+	 */
+	public void putPlayerData(String playerID, PlayerData playerData) {
+		Debug.info("Inserting data for " + PlayerConverter.getName(playerID));
+		playerDataMap.put(playerID, playerData);
+	}
+
+	/**
+	 * Retrieves PlayerData object for specified player. If the playerData
+	 * does not exist but the player is online, it will create new playerData on
+	 * the main thread and put it into the map.
+	 *
+	 * @param playerID
+	 *            ID of the player
+	 * @return PlayerData object for the player
+	 */
+	public PlayerData getPlayerData(String playerID) {
+		PlayerData playerData = playerDataMap.get(playerID);
+		if (playerData == null && PlayerConverter.getPlayer(playerID) != null) {
+			playerData = new PlayerData(playerID);
+			putPlayerData(playerID, playerData);
+		}
+		return playerData;
+	}
+
+	/**
+	 * Retrieves GlobalData object which handles all global tags and points
+	 *
+	 * @return GlobalData object
+	 */
+	public GlobalData getGlobalData() {
+		return globalData;
+	}
+
+	/**
+	 * Removes the database playerData from the map
+	 *
+	 * @param playerID
+	 *            ID of the player whose playerData is to be removed
+	 */
+	public void removePlayerData(String playerID) {
+		playerDataMap.remove(playerID);
+	}
+
+	/**
+	 * Registers new condition classes by their names
+	 *
+	 * @param name
+	 *            name of the condition type
+	 * @param conditionClass
+	 *            class object for the condition
+	 */
+	public void registerConditions(String name, Class<? extends Condition> conditionClass) {
+		Debug.info("Registering " + name + " condition type");
+		conditionTypes.put(name, conditionClass);
+	}
+
+	/**
+	 * Registers new event classes by their names
+	 *
+	 * @param name
+	 *            name of the event type
+	 * @param eventClass
+	 *            class object for the condition
+	 */
+	public void registerEvents(String name, Class<? extends QuestEvent> eventClass) {
+		Debug.info("Registering " + name + " event type");
+		eventTypes.put(name, eventClass);
+	}
+
+	/**
+	 * Registers new objective classes by their names
+	 *
+	 * @param name
+	 *            name of the objective type
+	 * @param objectiveClass
+	 *            class object for the objective
+	 */
+	public void registerObjectives(String name, Class<? extends Objective> objectiveClass) {
+		Debug.info("Registering " + name + " objective type");
+		objectiveTypes.put(name, objectiveClass);
+	}
+
+	/**
+	 * Registers new conversation input/output class.
+	 *
+	 * @param name
+	 *            name of the IO type
+	 * @param convIOClass
+	 *            class object to register
+	 */
+	public void registerConversationIO(String name, Class<? extends ConversationIO> convIOClass) {
+		Debug.info("Registering " + name + " conversation IO type");
+		convIOTypes.put(name, convIOClass);
+	}
+
+	/**
+	 * Registers new variable type.
+	 *
+	 * @param name
+	 *            name of the variable type
+	 * @param variable
+	 *            class object of this type
+	 */
+	public void registerVariable(String name, Class<? extends Variable> variable) {
+		Debug.info("Registering " + name + " variable type");
+		variableTypes.put(name, variable);
+	}
+
+	/**
+	 * Checks if the condition described by conditionID is met
+	 *
+	 * @param conditionID
+	 *            ID of the condition to check, as defined in conditions.yml
+	 * @param playerID
+	 *            ID of the player which should be checked
+	 * @return if the condition is met
+	 */
+	public static boolean condition(String playerID, ConditionID conditionID) {
+		// null check
+		if (conditionID == null) {
+			Debug.info("Null condition ID!");
+			return false;
+		}
+		// get the condition
+		Condition condition = null;
+		for (Map.Entry<ConditionID, Condition> e : conditions.entrySet()) {
+			if (e.getKey().equals(conditionID)) {
+				condition = e.getValue();
+				break;
+			}
+		}
+		if (condition == null) {
+			Debug.error("The condition " + conditionID + " is not defined!");
+			return false;
+		}
+		// check for null player
+		if (playerID == null && !condition.isStatic()) {
+			Debug.info("Cannot check non-static condition without a player, returning false");
+			return false;
+		}
+		// check for online player
+		if (playerID != null && PlayerConverter.getPlayer(playerID) == null && !condition.isPersistent()) {
+			Debug.info("Player was offline, condition is not persistent, returning false");
+			return false;
+		}
+		// and check if it's met or not
+		boolean outcome = false;
+		try {
+			outcome = condition.check(playerID);
+		} catch (QuestRuntimeException e) {
+			Debug.error("Error while checking '" + conditionID + "' condition: " + e.getMessage());
+			return false;
+		}
+		boolean isMet = (outcome && !conditionID.inverted()) || (!outcome && conditionID.inverted());
+		Debug.info((isMet ? "TRUE" : "FALSE") + ": " + (conditionID.inverted() ? "inverted" : "") + " condition "
+				+ conditionID + " for player " + PlayerConverter.getName(playerID));
+		return isMet;
+	}
+
+	/**
+	 * Fires the event described by eventID
+	 *
+	 * @param eventID
+	 *            ID of the event to fire, as defined in events.yml
+	 * @param playerID
+	 *            ID of the player who the event is firing for
+	 */
+	public static void event(String playerID, EventID eventID) {
+		// null check
+		if (eventID == null) {
+			Debug.info("Null event ID!");
+			return;
+		}
+		// get the event
+		QuestEvent event = null;
+		for (Map.Entry<EventID, QuestEvent> e : events.entrySet()) {
+			if (e.getKey().equals(eventID)) {
+				event = e.getValue();
+				break;
+			}
+		}
+		if (event == null) {
+			Debug.error("Event " + eventID + " is not defined");
+			return;
+		}
+		// fire the event
+		if (playerID == null) {
+			Debug.info("Firing static event " + eventID);
+		} else {
+			Debug.info("Firing event " + eventID + " for " + PlayerConverter.getName(playerID));
+		}
+		try {
+			event.fire(playerID);
+		} catch (QuestRuntimeException e) {
+			Debug.error("Error while firing '" + eventID + "' event: " + e.getMessage());
+		}
+	}
+
+	/**
+	 * Creates new objective for given player
+	 *
+	 * @param playerID
+	 *            ID of the player
+	 * @param objectiveID
+	 *            ID of the objective
+	 */
+	public static void newObjective(String playerID, ObjectiveID objectiveID) {
+		// null check
+		if (playerID == null || objectiveID == null) {
+			Debug.info("Null arguments for the objective!");
+			return;
+		}
+		Objective objective = null;
+		for (Map.Entry<ObjectiveID, Objective> e : objectives.entrySet()) {
+			if (e.getKey().equals(objectiveID)) {
+				objective = e.getValue();
+				break;
+			}
+		}
+		if (objective.containsPlayer(playerID)) {
+			Debug.info("Player " + PlayerConverter.getName(playerID) + " already has the " + objectiveID +
+					" objective");
+			return;
+		}
+		objective.newPlayer(playerID);
+	}
+
+	/**
+	 * Resumes the existing objective for given player
+	 *
+	 * @param playerID
+	 *            ID of the player
+	 * @param objectiveID
+	 *            ID of the objective
+	 * @param instruction
+	 *            data instruction string
+	 */
+	public static void resumeObjective(String playerID, ObjectiveID objectiveID, String instruction) {
+		// null check
+		if (playerID == null || objectiveID == null || instruction == null) {
+			Debug.info("Null arguments for the objective!");
+			return;
+		}
+		Objective objective = null;
+		for (Map.Entry<ObjectiveID, Objective> e : objectives.entrySet()) {
+			if (e.getKey().equals(objectiveID)) {
+				objective = e.getValue();
+				break;
+			}
+		}
+		if (objective == null) {
+			Debug.error("Objective " + objectiveID + " does not exist");
+			return;
+		}
+		if (objective.containsPlayer(playerID)) {
+			Debug.info(
+					"Player " + PlayerConverter.getName(playerID) + " already has the " + objectiveID + " objective!");
+			return;
+		}
+		objective.addPlayer(playerID, instruction);
+	}
+
+	/**
+	 * Generates new instance of a Variable. If a similar one was already
+	 * created, it will return it instead of creating a new one.
+	 *
+	 * @param pack
+	 *            package in which the variable is defined
+	 * @param instruction
+	 *            instruction of the variable, including both % characters.
+	 * @return the Variable instance
+	 * @throws InstructionParseException
+	 *             when the variable parsing fails
+	 */
+	public static Variable createVariable(ConfigPackage pack, String instruction) throws InstructionParseException {
+		VariableID ID;
+		try {
+			ID = new VariableID(pack, instruction);
+		} catch (ObjectNotFoundException e) {
+			throw new InstructionParseException("Could not load variable: " + e.getMessage());
+		}
+		// no need to create duplicated variables
+		for (Map.Entry<VariableID, Variable> e : variables.entrySet()) {
+			if (e.getKey().equals(ID)) {
+				return e.getValue();
+			}
+		}
+		String[] parts = instruction.replace("%", "").split("\\.");
+		if (parts.length < 1) {
+			throw new InstructionParseException("Not enough arguments in variable " + ID);
+		}
+		Class<? extends Variable> variableClass = variableTypes.get(parts[0]);
+		// if it's null then there is no such type registered, log an error
+		if (variableClass == null) {
+			throw new InstructionParseException("Variable type " + parts[0] + " is not registered");
+		}
+		try {
+			Variable variable = variableClass.getConstructor(Instruction.class).newInstance(new VariableInstruction(pack, null, instruction));
+			variables.put(ID, variable);
+			Debug.info("Variable " + ID + " loaded");
+			return variable;
+		} catch (InvocationTargetException e) {
+			if (e.getCause() instanceof InstructionParseException) {
+				throw new InstructionParseException("Error in " + ID + " variable: " + e.getCause().getMessage());
+			} else {
+				e.printStackTrace();
+				Debug.error(ERROR);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Debug.error(ERROR);
+		}
+		return null;
+	}
+
+	/**
+	 * Resolves variables in the supplied text and returns them as a list of
+	 * instruction strings, including % characters. Variables are unique, so if
+	 * the user uses the same variables multiple times, the list will contain
+	 * only one occurence of this variable.
+	 *
+	 * @param text
+	 *            text from which the variables will be resolved
+	 * @return the list of unique variable instructions
+	 */
+	public static ArrayList<String> resolveVariables(String text) {
+		ArrayList<String> variables = new ArrayList<>();
+		Matcher matcher = Pattern.compile("%[^ %\\s]+%").matcher(text);
+		while (matcher.find()) {
+			final String variable = matcher.group();
+			if (!variables.contains(variable)) variables.add(variable);
+		}
+		return variables;
+	}
+
+	/**
+	 * Returns the list of objectives of this player
+	 *
+	 * @param playerID
+	 *            ID of the player
+	 * @return list of this player's active objectives
+	 */
+	public ArrayList<Objective> getPlayerObjectives(String playerID) {
+		ArrayList<Objective> list = new ArrayList<>();
+		for (Objective objective : objectives.values()) {
+			if (objective.containsPlayer(playerID)) {
+				list.add(objective);
+			}
+		}
+		return list;
+	}
+
+	/**
+	 * @param name
+	 *            package name, dot and name of the conversation
+	 * @return ConversationData object for this conversation or null if it does
+	 *         not exist
+	 */
+	public ConversationData getConversation(String name) {
+		return conversations.get(name);
+	}
+
+	/**
+	 * @param objectiveID
+	 *            package name, dot and ID of the objective
+	 * @return Objective object or null if it does not exist
+	 */
+	public Objective getObjective(ObjectiveID objectiveID) {
+		for (Map.Entry<ObjectiveID, Objective> e : objectives.entrySet()) {
+			if (e.getKey().equals(objectiveID)) {
+				return e.getValue();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the instance of Saver
+	 *
+	 * @return the Saver
+	 */
+	public Saver getSaver() {
+		return saver;
+	}
+
+	/**
+	 * @param name
+	 *            name of the conversation IO type
+	 * @return the class object for this conversation IO type
+	 */
+	public Class<? extends ConversationIO> getConvIO(String name) {
+		return convIOTypes.get(name);
+	}
+
+	/**
+	 * Resoles the variable for specified player. If the variable is not loaded
+	 * yet it will load it on the main thread.
+	 *
+	 * @param packName
+	 *            name of the package
+	 * @param name
+	 *            name of the variable (instruction, with % characters)
+	 * @param playerID
+	 *            ID of the player
+	 * @return the value of this variable for given player
+	 */
+	public String getVariableValue(String packName, String name, String playerID) {
+		try {
+			Variable var = createVariable(Config.getPackages().get(packName), name);
+			if (var == null)
+				return "could not resolve variable";
+			return var.getValue(playerID);
+		} catch (InstructionParseException e) {
+			return "could not resolve variable";
+		}
+	}
+
+	/**
+	 * @param name the name of the event class, as previously registered
+	 * @return the class of the event
+	 */
+	public Class<? extends QuestEvent> getEventClass(String name) {
+		return eventTypes.get(name);
+	}
+
+	/**
+	 * @param name the name of the condition class, as previously registered
+	 * @return the class of the event
+	 */
+	public Class<? extends Condition> getConditionClass(String name) {
+		return conditionTypes.get(name);
+	}
+
+	/**
+	 * Renames the objective instance.
+	 *
+	 * @param name
+	 *            the current name
+	 * @param rename
+	 *            the name it should have now
+	 */
+	public void renameObjective(ObjectiveID name, ObjectiveID rename) {
+		objectives.put(rename, objectives.remove(name));
+	}
+
 }

@@ -17,15 +17,36 @@
  */
 package pl.betoncraft.betonquest.v1_8_R3.item;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.DyeColor;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.*;
+import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+import org.bukkit.inventory.meta.FireworkEffectMeta;
+import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
-import pl.betoncraft.betonquest.v1_8_R3.Instruction;
-import pl.betoncraft.betonquest.v1_8_R3.InstructionParseException;
-import pl.betoncraft.betonquest.v1_8_R3.ItemID;
-import pl.betoncraft.betonquest.v1_8_R3.item.typehandler.*;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.ItemID;
+import pl.betoncraft.betonquest.item.typehandler.BookHandler;
+import pl.betoncraft.betonquest.item.typehandler.ColorHandler;
+import pl.betoncraft.betonquest.item.typehandler.DataHandler;
+import pl.betoncraft.betonquest.item.typehandler.DurabilityHandler;
+import pl.betoncraft.betonquest.item.typehandler.EnchantmentsHandler;
+import pl.betoncraft.betonquest.item.typehandler.FireworkHandler;
+import pl.betoncraft.betonquest.item.typehandler.HeadOwnerHandler;
+import pl.betoncraft.betonquest.item.typehandler.LoreHandler;
+import pl.betoncraft.betonquest.item.typehandler.NameHandler;
+import pl.betoncraft.betonquest.item.typehandler.PotionHandler;
+import pl.betoncraft.betonquest.item.typehandler.UnbreakableHandler;
 
 import java.util.List;
 import java.util.Map;
@@ -38,18 +59,18 @@ import java.util.Map.Entry;
  */
 public class QuestItem {
 
-    private Material material = null;
-    private DurabilityHandler durability = new DurabilityHandler();
-    private DataHandler data = new DataHandler();
-    private NameHandler name = new NameHandler();
-    private LoreHandler lore = new LoreHandler();
-    private EnchantmentsHandler enchants = new EnchantmentsHandler();
-    private UnbreakableHandler unbreakable = new UnbreakableHandler();
-    private PotionHandler potion = new PotionHandler();
-    private BookHandler book = new BookHandler();
-    private HeadOwnerHandler head = new HeadOwnerHandler();
-    private ColorHandler color = new ColorHandler();
-    private FireworkHandler firework = new FireworkHandler();
+    protected Material material = null;
+    protected DurabilityHandler durability = new DurabilityHandler();
+    protected DataHandler data = new DataHandler();
+    protected NameHandler name = new NameHandler();
+    protected LoreHandler lore = new LoreHandler();
+    protected EnchantmentsHandler enchants = new EnchantmentsHandler();
+    protected UnbreakableHandler unbreakable = new UnbreakableHandler();
+    protected PotionHandler potion = new PotionHandler();
+    protected BookHandler book = new BookHandler();
+    protected HeadOwnerHandler head = new HeadOwnerHandler();
+    protected ColorHandler color = new ColorHandler();
+    protected FireworkHandler firework = new FireworkHandler();
 
     /**
      * Legacy method for the updater, don't use for anything else.

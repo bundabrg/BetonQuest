@@ -28,12 +28,12 @@ import com.sk89q.worldedit.schematic.SchematicFormat;
 import com.sk89q.worldedit.world.DataException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import pl.betoncraft.betonquest.v1_8_R3.Instruction;
-import pl.betoncraft.betonquest.v1_8_R3.InstructionParseException;
-import pl.betoncraft.betonquest.v1_8_R3.QuestRuntimeException;
-import pl.betoncraft.betonquest.v1_8_R3.api.QuestEvent;
-import pl.betoncraft.betonquest.v1_8_R3.utils.Debug;
-import pl.betoncraft.betonquest.v1_8_R3.utils.LocationData;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.QuestRuntimeException;
+import pl.betoncraft.betonquest.api.QuestEvent;
+import pl.betoncraft.betonquest.utils.Debug;
+import pl.betoncraft.betonquest.utils.LocationData;
 
 import java.io.File;
 import java.io.IOException;

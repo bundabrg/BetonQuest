@@ -27,13 +27,13 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.QuestRuntimeException;
+import pl.betoncraft.betonquest.api.Objective;
+import pl.betoncraft.betonquest.utils.LocationData;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
 import pl.betoncraft.betonquest.v1_8_R3.BetonQuest;
-import pl.betoncraft.betonquest.v1_8_R3.Instruction;
-import pl.betoncraft.betonquest.v1_8_R3.InstructionParseException;
-import pl.betoncraft.betonquest.v1_8_R3.QuestRuntimeException;
-import pl.betoncraft.betonquest.v1_8_R3.api.Objective;
-import pl.betoncraft.betonquest.v1_8_R3.utils.LocationData;
-import pl.betoncraft.betonquest.v1_8_R3.utils.PlayerConverter;
 
 /**
  * Player needs to die. Death can be canceled, also respawn location can be set

@@ -25,14 +25,14 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.QuestRuntimeException;
+import pl.betoncraft.betonquest.api.Objective;
+import pl.betoncraft.betonquest.utils.Debug;
+import pl.betoncraft.betonquest.utils.LocationData;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
 import pl.betoncraft.betonquest.v1_8_R3.BetonQuest;
-import pl.betoncraft.betonquest.v1_8_R3.Instruction;
-import pl.betoncraft.betonquest.v1_8_R3.InstructionParseException;
-import pl.betoncraft.betonquest.v1_8_R3.QuestRuntimeException;
-import pl.betoncraft.betonquest.v1_8_R3.api.Objective;
-import pl.betoncraft.betonquest.v1_8_R3.utils.Debug;
-import pl.betoncraft.betonquest.v1_8_R3.utils.LocationData;
-import pl.betoncraft.betonquest.v1_8_R3.utils.PlayerConverter;
 
 /**
  * The player must step on the pressure plate

@@ -1,4 +1,4 @@
-package pl.betoncraft.betonquest.api;
+package pl.betoncraft.betonquest.version;
 
 
 import org.bukkit.command.PluginCommand;
@@ -18,9 +18,7 @@ public abstract class VersionPlugin {
         return BetonQuestPlugin.getInstance();
     }
 
-
     // Abstract Methods
-
     public abstract void onEnable();
     public abstract void onDisable();
 

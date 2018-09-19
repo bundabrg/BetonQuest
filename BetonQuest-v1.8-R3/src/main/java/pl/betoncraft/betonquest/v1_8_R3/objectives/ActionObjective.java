@@ -25,12 +25,15 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.QuestRuntimeException;
+import pl.betoncraft.betonquest.VariableNumber;
+import pl.betoncraft.betonquest.api.Objective;
+import pl.betoncraft.betonquest.utils.Debug;
+import pl.betoncraft.betonquest.utils.LocationData;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
 import pl.betoncraft.betonquest.v1_8_R3.*;
-import pl.betoncraft.betonquest.v1_8_R3.api.Objective;
-import pl.betoncraft.betonquest.v1_8_R3.utils.Debug;
-import pl.betoncraft.betonquest.v1_8_R3.utils.LocationData;
-import pl.betoncraft.betonquest.v1_8_R3.utils.PlayerConverter;
 
 /**
  * Player has to click on block (or air). Left click, right click and any one of

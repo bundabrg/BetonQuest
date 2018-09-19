@@ -23,10 +23,10 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import pl.betoncraft.betonquest.v1_8_R3.Instruction;
-import pl.betoncraft.betonquest.v1_8_R3.InstructionParseException;
-import pl.betoncraft.betonquest.v1_8_R3.api.Condition;
-import pl.betoncraft.betonquest.v1_8_R3.utils.PlayerConverter;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.api.Condition;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
 
 /**
  * Checks if the player is in specified region

@@ -27,11 +27,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import pl.betoncraft.betonquest.Instruction;
+import pl.betoncraft.betonquest.InstructionParseException;
+import pl.betoncraft.betonquest.api.Objective;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
 import pl.betoncraft.betonquest.v1_8_R3.BetonQuest;
-import pl.betoncraft.betonquest.v1_8_R3.Instruction;
-import pl.betoncraft.betonquest.v1_8_R3.InstructionParseException;
-import pl.betoncraft.betonquest.v1_8_R3.api.Objective;
-import pl.betoncraft.betonquest.v1_8_R3.utils.PlayerConverter;
 
 /**
  * Player has to enter the WorldGuard region

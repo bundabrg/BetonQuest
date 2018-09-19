@@ -88,7 +88,7 @@ public interface ComponentBuilder {
 
     class BugeeCordAPIBuilder implements ComponentBuilder {
 
-        private net.md_5.bungee.api.chat.ComponentBuilder builder;
+        protected net.md_5.bungee.api.chat.ComponentBuilder builder;
 
         public BugeeCordAPIBuilder() throws LinkageError {
             builder = new net.md_5.bungee.api.chat.ComponentBuilder("");
@@ -117,7 +117,7 @@ public interface ComponentBuilder {
         @Override
         public ComponentBuilder hover(String hoverText) {
             builder.event(new net.md_5.bungee.api.chat.HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT,
-                                                                  net.md_5.bungee.api.chat.TextComponent.fromLegacyText(hoverText)));
+                    net.md_5.bungee.api.chat.TextComponent.fromLegacyText(hoverText)));
             return this;
         }
 

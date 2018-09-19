@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
-import org.bstats.Metrics;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -183,6 +183,7 @@ import pl.betoncraft.betonquest.variables.ObjectivePropertyVariable;
 import pl.betoncraft.betonquest.variables.PlayerNameVariable;
 import pl.betoncraft.betonquest.variables.PointVariable;
 import pl.betoncraft.betonquest.variables.VersionVariable;
+import pl.betoncraft.betonquest.version.VersionPlugin;
 
 /**
  * Represents BetonQuest plugin
@@ -194,7 +195,7 @@ public class BetonQuest extends VersionPlugin {
 	private final static String ERROR = "There was some error. Please send it to the"
 			+ " developer: <coosheck@gmail.com>";
 
-	private static BetonQuest instance;
+	protected static BetonQuest instance;
 
 	protected Database database;
 	protected boolean isMySQLUsed;

@@ -17,18 +17,28 @@
  */
 package pl.betoncraft.betonquest.v1_8_R3.conversation;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.conversation.Conversation;
 import pl.betoncraft.betonquest.conversation.ConversationColors;
 import pl.betoncraft.betonquest.conversation.ConversationIO;
-import pl.betoncraft.betonquest.v1_8_R3.BetonQuest;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
+import pl.betoncraft.betonquest.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,14 +48,77 @@ import java.util.HashMap;
  * 
  * @author Jakub Sapalski
  */
-public class InventoryConvIO extends pl.betoncraft.betonquest.conversation.InventoryConvIO implements Listener, ConversationIO {
+public class InventoryConvIO implements Listener, ConversationIO {
+
+	protected String response = null;
+	protected HashMap<Integer, String> options = new HashMap<>();
+	protected int i = 0;
+	protected String npcName;
+	protected String npcNameColor;
+	protected String npcTextColor;
+	protected String numberFormat;
+	protected String optionColor;
+	protected String answerPrefix;
+	protected Conversation conv;
+	protected Player player;
+	protected Inventory inv;
+	protected boolean allowClose = false;
+	protected boolean switching = false;
+	protected Location loc;
+	protected boolean printMessages = false;
 
 	public InventoryConvIO(Conversation conv, String playerID) {
-		super(conv, playerID);
+		this.conv = conv;
+		this.player = PlayerConverter.getPlayer(playerID);
+		HashMap<String, ChatColor[]> colors = ConversationColors.getColors();
+		StringBuilder string = new StringBuilder();
+		for (ChatColor color : colors.get("npc")) {
+			string.append(color);
+		}
+		this.npcNameColor = string.toString();
+		string = new StringBuilder();
+		for (ChatColor color : colors.get("text")) {
+			string.append(color);
+		}
+		this.npcTextColor = string.toString();
+		string = new StringBuilder();
+		for (ChatColor color : colors.get("number")) {
+			string.append(color);
+		}
+		string.append("%number%.");
+		this.numberFormat = string.toString();
+		string = new StringBuilder();
+		for (ChatColor color : colors.get("option")) {
+			string.append(color);
+		}
+		this.optionColor = string.toString();
+		string = new StringBuilder();
+		for (ChatColor color : colors.get("player")) {
+			string.append(color);
+		}
+		string.append(player.getName() + ChatColor.RESET + ": ");
+		for (ChatColor color : colors.get("answer")) {
+			string.append(color);
+		}
+		answerPrefix = string.toString();
+		loc = player.getLocation();
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
+	}
+
+	@Override
+	public void setNpcResponse(String npcName, String response) {
+		this.npcName = npcName;
+		this.response = Utils.multiLineColorCodes(response.replace('&', '§'), npcTextColor);
+	}
+
+	@Override
+	public void addPlayerOption(String option) {
+		i++;
+		options.put(i, Utils.multiLineColorCodes(option.replace('&', '§'), optionColor));
 	}
 
 	@SuppressWarnings("deprecation")
-    @Override
+	@Override
 	public void display() {
 		// prevent displaying anything if the player closed the conversation
 		// in the meantime
@@ -142,5 +215,125 @@ public class InventoryConvIO extends pl.betoncraft.betonquest.conversation.Inven
 				switching = false;
 			}
 		}.runTask(BetonQuest.getPlugin());
+	}
+
+	@EventHandler
+	public void onInventoryClick(InventoryClickEvent event) {
+		if (!(event.getWhoClicked() instanceof Player)) {
+			return;
+		}
+		if (!((Player) event.getWhoClicked()).equals(player)) {
+			return;
+		}
+		event.setCancelled(true);
+		int slot = event.getRawSlot();
+		// calculate the option number
+		if (slot % 9 > 1) {
+			int row = (int) Math.floor(slot / 9);
+			// raw column number minus two columns (npc head an empty space)
+			// and plus one (because options are indexed starting with 1)
+			int col = (slot % 9) - 2 + 1;
+			// each row can have 7 options, add column number to get an option
+			int choosen = (row * 7) + col;
+			String message = options.get(choosen);
+			if (message != null) {
+				if (printMessages) player.sendMessage(answerPrefix + message);
+				conv.passPlayerAnswer(choosen);
+			}
+		}
+	}
+
+	@EventHandler
+	public void onClose(InventoryCloseEvent event) {
+		if (!(event.getPlayer() instanceof Player)) {
+			return;
+		}
+		if (!((Player) event.getPlayer()).equals(player)) {
+			return;
+		}
+		// allow for closing previous option inventory
+		if (switching) {
+			return;
+		}
+		// allow closing when the conversation has finished
+		if (allowClose) {
+			HandlerList.unregisterAll(this);
+			return;
+		}
+		if (conv.isMovementBlock()) {
+			new BukkitRunnable() {
+				public void run() {
+					player.teleport(loc);
+					player.openInventory(inv);
+				}
+			}.runTask(BetonQuest.getPlugin());
+		} else {
+			conv.endConversation();
+			HandlerList.unregisterAll(this);
+		}
+	}
+
+	@Override
+	public void clear() {
+		response = null;
+		options.clear();
+		i = 0;
+	}
+
+	@Override
+	public void end() {
+		allowClose = true;
+		if (response == null && options.isEmpty()) {
+			player.closeInventory();
+		}
+	}
+
+	@Override
+	public boolean printMessages() {
+		return printMessages;
+	}
+
+	protected ArrayList<String> stringToLines(String singleLine, String color, String prefix) {
+		ArrayList<String> multiLine = new ArrayList<>();
+		boolean firstLinePrefix = prefix != null;
+		if (prefix == null)
+			prefix = "";
+		String[] lineBreaks = (prefix + singleLine).split("\n");
+		for (String brokenLine : lineBreaks) {
+			String[] arr = brokenLine.split(" ");
+			StringBuilder line = new StringBuilder();
+			for (int i = 0; i < arr.length; i++) {
+				//don't count color codes for line length
+				int rawLength = ChatColor.stripColor(line.toString()).length() + ChatColor.stripColor(arr[i]).length();
+				if (rawLength + 1 > 42) {
+					if (firstLinePrefix) {
+						firstLinePrefix = false;
+						multiLine.add(StringUtils.replaceOnce(line.toString().trim(), prefix, prefix + color));
+					} else {
+						multiLine.add(color + line.toString().trim());
+					}
+					line = new StringBuilder();
+				}
+				line.append(arr[i] + " ");
+			}
+			if (firstLinePrefix) {
+				firstLinePrefix = false;
+				multiLine.add(StringUtils.replaceOnce(line.toString().trim(), prefix, prefix + color));
+			} else {
+				multiLine.add(color + line.toString().trim());
+			}
+		}
+		return multiLine;
+	}
+
+	/**
+	 * Inventory GUI that also outputs the conversation to chat
+	 */
+	public static class Combined extends InventoryConvIO {
+
+		public Combined(Conversation conv, String playerID) {
+			super(conv, playerID);
+			super.printMessages = true;
+		}
 	}
 }

@@ -62,12 +62,12 @@ import pl.betoncraft.betonquest.utils.Debug;
  */
 public class Compatibility implements Listener {
 
-    private static Compatibility instance;
-    private Map<String, Integrator> integrators = new HashMap<>();
-	private BetonQuest plugin = BetonQuest.getInstance();
-	private List<String> hooked = new ArrayList<>();
+    protected static Compatibility instance;
+    protected Map<String, Integrator> integrators = new HashMap<>();
+	protected BetonQuest plugin = BetonQuest.getInstance();
+	protected List<String> hooked = new ArrayList<>();
 
-    private void hook(Plugin hook) {
+    protected void hook(Plugin hook) {
         
         // don't want to hook twice
         if (hooked.contains(hook.getName())) {

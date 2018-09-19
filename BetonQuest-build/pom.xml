@@ -13,6 +13,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160212</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>BetonQuest-bootstrap</artifactId>
             <version>${project.parent.version}</version>
@@ -61,6 +73,7 @@
                                 <includes>
                                     <include>org.json</include>
                                     <include>org.bstats:*</include>
+                                    <include>org.ow2.asm:*</include>
                                     <include>${project.groupId}:BetonQuest-bootstrap</include>
                                     <include>${project.groupId}:BetonQuest-core</include>
                                     <include>${project.groupId}:BetonQuest-v1.8-R3</include>

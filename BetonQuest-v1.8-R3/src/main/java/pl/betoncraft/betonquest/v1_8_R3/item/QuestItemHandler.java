@@ -29,15 +29,19 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerItemBreakEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import pl.betoncraft.betonquest.v1_8_R3.BetonQuest;
-import pl.betoncraft.betonquest.v1_8_R3.Journal;
-import pl.betoncraft.betonquest.v1_8_R3.config.Config;
-import pl.betoncraft.betonquest.v1_8_R3.utils.PlayerConverter;
-import pl.betoncraft.betonquest.v1_8_R3.utils.Utils;
+import pl.betoncraft.betonquest.BetonQuest;
+import pl.betoncraft.betonquest.Journal;
+import pl.betoncraft.betonquest.config.Config;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
+import pl.betoncraft.betonquest.utils.Utils;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -200,7 +204,7 @@ public class QuestItemHandler implements Listener {
 	}
 
 	@SuppressWarnings("deprecation")
-    @EventHandler
+	@EventHandler
 	public void onItemFrameClick(PlayerInteractEntityEvent event) {
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
 			return;

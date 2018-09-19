@@ -25,7 +25,10 @@ import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.config.Config;
 import pl.betoncraft.betonquest.conversation.CombatTagger;
 import pl.betoncraft.betonquest.conversation.Conversation;
@@ -37,12 +40,36 @@ import pl.betoncraft.betonquest.utils.PlayerConverter;
  * 
  * @author Jakub Sapalski
  */
-public class CubeNPCListener extends pl.betoncraft.betonquest.conversation.CubeNPCListener implements Listener {
+public class CubeNPCListener implements Listener {
+
+	/**
+	 * Creates new instance of the default NPC listener
+	 */
+	public CubeNPCListener() {
+		Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
+	}
+
+	/**
+	 * This limits NPC creation by canceling all sign edits where first line is
+	 * "[NPC]"
+	 * 
+	 * @param event
+	 *            SignChangeEvent
+	 */
+	@EventHandler
+	public void onSignPlace(SignChangeEvent event) {
+		if (event.getLine(0).equalsIgnoreCase("[NPC]") && !event.getPlayer().hasPermission("betonquest.admin")) {
+			// if the player doesn't have the required permission deny the
+			// editing
+			event.setCancelled(true);
+			Config.sendMessage(PlayerConverter.getID(event.getPlayer()), "no_permission");
+		}
+	}
 
 	/**
 	 * This checks if the player clicked on valid NPC, and starts the
 	 * conversation
-	 * 
+	 *
 	 * @param event
 	 *            PlayerInteractEvent
 	 */
