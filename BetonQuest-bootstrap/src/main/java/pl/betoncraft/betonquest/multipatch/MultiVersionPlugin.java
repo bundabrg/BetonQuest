@@ -48,7 +48,7 @@ public abstract class MultiVersionPlugin extends JavaPlugin {
                 loader = new MultiVersionLoader(
                         loader,
                         base,
-                        Arrays.copyOfRange(versions, i, versions.length-i)
+                        Arrays.copyOfRange(versions, i, versions.length)
                 );
                 break;
             }
