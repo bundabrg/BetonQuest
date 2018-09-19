@@ -1,10 +1,8 @@
-package pl.betoncraft.betonquest.version;
-
+package pl.betoncraft.betonquest.multipatch;
 
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
-import pl.betoncraft.betonquest.BetonQuestPlugin;
 
 import java.io.File;
 import java.io.InputStream;
@@ -12,10 +10,9 @@ import java.util.logging.Logger;
 
 public abstract class VersionPlugin {
 
-    public VersionPlugin() {}
 
-    public static BetonQuestPlugin getPlugin() {
-        return BetonQuestPlugin.getInstance();
+    static public MultiVersionPlugin getPlugin() {
+        return MultiVersionPlugin.getInstance();
     }
 
     // Abstract Methods
@@ -63,5 +60,4 @@ public abstract class VersionPlugin {
     public PluginCommand getCommand(String name) {
         return getPlugin().getCommand(name);
     }
-
 }

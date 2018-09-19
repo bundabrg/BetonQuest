@@ -1,4 +1,4 @@
-package pl.betoncraft.betonquest.version;
+package pl.betoncraft.betonquest.multipatch;
 
 import org.apache.commons.io.IOUtils;
 import org.objectweb.asm.ClassReader;
@@ -29,30 +29,28 @@ public class MultiVersionLoader extends ClassLoader {
             return super.loadClass(name, resolve);
         }
 
-        if (name.equals("pl.betoncraft.betonquest.version.VersionPluginInterface") ||
-                name.equals("pl.betoncraft.betonquest.BetonQuestPlugin")
-//                name.startsWith("pl.betoncraft.betonquest.bstats")
-        ) {
-//            System.err.println("CLASSIGNORE: Trying to load: " + name);
+        // If parent loader already knows about this class, use that
+        if (new UnlockedClassLoader(getParent()).unlockedFindLoadedClass("name") != null) {
             return super.loadClass(name, resolve);
         }
 
-//        System.err.println("CLASSUSE: Trying to load: " + name);
+        // Ignore anything in multipatch package
+        if (name.startsWith(base + ".multipatch")) {
+            return super.loadClass(name, resolve);
+        }
 
         List<String> names = new ArrayList<>();
         String definedName = name;
 
-        // Check if version is specified and remove if needed
+        // Check if multipatch is specified and remove if needed
         String [] nameParts = name.substring(base.length() + 1).split("\\.");
-//        System.err.println("Does versions (" + String.join(",", versions) + ") contain " + nameParts[0]);
-        if (versions.contains(nameParts[0])) {
-//            System.err.println("Yup");
+        if (versions.contains(nameParts[0].substring(1))) {
             definedName = base + name.substring(base.length() + 1 + nameParts[0].length());
         }
 
-        // Add each version
+        // Add each multipatch
         for (String version : versions) {
-            names.add(base + "." + version + definedName.substring(base.length()));
+            names.add(base + ".v" + version + definedName.substring(base.length()));
         }
 
         // Add base defined name as well
@@ -72,9 +70,8 @@ public class MultiVersionLoader extends ClassLoader {
 
         // Define package if needed
         String packageName = getPackageName(definedName);
-//        System.err.println("Current: " + packageName + " - " + getPackageName(packageName));
+
         if (packageName != null && getPackage(packageName) == null) {
-            System.err.println("Defining Package: " + packageName);
             definePackage(packageName, null, null, null, null, null, null, null);
         }
 
@@ -85,7 +82,7 @@ public class MultiVersionLoader extends ClassLoader {
             try (InputStream in = getParent().getResourceAsStream(filename)) {
                 // Read all the bytes
                 byte[] bytes = rewritePackageName(IOUtils.toByteArray(in));
-                System.err.println("Defining: " + name + " to " + definedName);
+
                 c = defineClass(definedName, bytes, 0, bytes.length);
 
                 if (resolve) {
@@ -103,15 +100,18 @@ public class MultiVersionLoader extends ClassLoader {
     public byte[] rewritePackageName(byte[] bytecode) throws IOException {
         ClassReader classReader = new ClassReader(bytecode);
         ClassWriter classWriter = new ClassWriter(classReader, 0);
+        String mapperName = base.replaceAll("\\.", "/");
 
         classReader.accept(
                 new ClassRemapper(classWriter, new Remapper() {
                     @Override
                     public String map(String typeName) {
-                        if (typeName.startsWith("pl/betoncraft/betonquest/v1_8_R3")) {
-                            String newName = "pl/betoncraft/betonquest" + typeName.substring(32);
-//                System.err.println("Remapper mapped: " + typeName + " to " + newName);
-                            return newName;
+                        if (typeName.startsWith(mapperName)) {
+                            // Check if version is specified and remove if needed (make life easier for the dev)
+                            String [] nameParts = typeName.substring(mapperName.length() + 1).split("/");
+                            if (versions.contains(nameParts[0].substring(1))) {
+                                return mapperName + typeName.substring(mapperName.length() + 1 + nameParts[0].length());
+                            }
                         }
 
                         return super.map(typeName);
@@ -130,6 +130,20 @@ public class MultiVersionLoader extends ClassLoader {
         } else {
             // No package name, e.g. LsomeClass;
             return null;
+        }
+    }
+
+    /**
+     * This class allows me to call some protected functions in a classloader
+     */
+    private static class UnlockedClassLoader extends ClassLoader
+    {
+        public UnlockedClassLoader(ClassLoader parent) {
+            super(parent);
+        }
+
+        public Class<?> unlockedFindLoadedClass(String name) {
+            return findLoadedClass(name);
         }
     }
 

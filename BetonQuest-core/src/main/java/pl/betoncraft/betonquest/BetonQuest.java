@@ -144,6 +144,7 @@ import pl.betoncraft.betonquest.events.TitleEvent;
 import pl.betoncraft.betonquest.events.VariableEvent;
 import pl.betoncraft.betonquest.events.WeatherEvent;
 import pl.betoncraft.betonquest.item.QuestItemHandler;
+import pl.betoncraft.betonquest.multipatch.VersionPlugin;
 import pl.betoncraft.betonquest.objectives.ActionObjective;
 import pl.betoncraft.betonquest.objectives.ArrowShootObjective;
 import pl.betoncraft.betonquest.objectives.BlockObjective;
@@ -183,7 +184,6 @@ import pl.betoncraft.betonquest.variables.ObjectivePropertyVariable;
 import pl.betoncraft.betonquest.variables.PlayerNameVariable;
 import pl.betoncraft.betonquest.variables.PointVariable;
 import pl.betoncraft.betonquest.variables.VersionVariable;
-import pl.betoncraft.betonquest.version.VersionPlugin;
 
 /**
  * Represents BetonQuest plugin
