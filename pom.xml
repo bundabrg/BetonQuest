@@ -16,6 +16,7 @@
         <module>BetonQuest-v1.8-R3</module>
         <module>BetonQuest-v1.9-R2</module>
         <module>BetonQuest-v1.10-R1</module>
+        <module>BetonQuest-v1.11-R1</module>
     </modules>
 
     <!-- Shared Repositories -->
