@@ -35,9 +35,9 @@
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>BetonQuest-core</artifactId>
+            <artifactId>BetonQuest-v1.9-R2</artifactId>
             <version>${project.parent.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <!-- 3rd Party Dependencies -->
