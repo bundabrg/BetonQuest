@@ -1,6 +1,6 @@
 package pl.betoncraft.betonquest;
 
-import pl.betoncraft.betonquest.multipatch.MultiVersionPlugin;
+import au.com.grieve.multi_version_plugin.MultiVersionPlugin;
 
 public class BetonQuestPlugin extends MultiVersionPlugin {
 

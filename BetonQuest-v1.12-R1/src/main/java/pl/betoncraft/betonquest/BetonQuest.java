@@ -17,6 +17,7 @@
  */
 package pl.betoncraft.betonquest;
 
+import au.com.grieve.multi_version_plugin.VersionPlugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.bstats.bukkit.Metrics;
@@ -34,7 +35,6 @@ import pl.betoncraft.betonquest.conversation.*;
 import pl.betoncraft.betonquest.database.*;
 import pl.betoncraft.betonquest.events.*;
 import pl.betoncraft.betonquest.item.QuestItemHandler;
-import pl.betoncraft.betonquest.multipatch.VersionPlugin;
 import pl.betoncraft.betonquest.objectives.*;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
