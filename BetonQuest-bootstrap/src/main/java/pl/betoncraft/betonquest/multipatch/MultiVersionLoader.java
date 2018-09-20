@@ -1,6 +1,7 @@
 package pl.betoncraft.betonquest.multipatch;
 
 import org.apache.commons.io.IOUtils;
+import org.bukkit.plugin.java.JavaPluginLoader;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.commons.ClassRemapper;
@@ -8,16 +9,49 @@ import org.objectweb.asm.commons.Remapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This ClassLoader allows a plugin to load their classes in a versioning method. It will scan through the
+ * different versions of packages available and if found will remap and rewrite the class on the fly so that it
+ * looks and behaves like the class it is overwriting.
+ *
+ * It makes use of JavaPluginLoader's capability of caching already loaded classes to extend this behaviour to
+ * other plugins that will make use of this plugin.
+ *
+ * It may well be the most evil thing I've ever written.
+ */
+
 public class MultiVersionLoader extends ClassLoader {
     private final String base;
     private final List<String> versions;
+    private final JavaPluginLoader javaPluginLoader;
 
-    public MultiVersionLoader( ClassLoader parent, String base, String[] versions) {
+    public MultiVersionLoader(ClassLoader parent, String base, String[] versions) {
         super(parent);
+
+        Class<?> pluginClassLoader;
+
+        // Make sure parent is a PluginClassLoader and Extract the JavaPluginLoader
+        try {
+            pluginClassLoader = Class.forName("org.bukkit.plugin.java.PluginClassLoader");
+            if (!pluginClassLoader.isAssignableFrom(parent.getClass()))  {
+                throw new RuntimeException("MultiVersionLoader's parent MUST inherit from PluginClassLoader");
+            }
+
+            Field loaderField = pluginClassLoader.getDeclaredField("loader");
+            loaderField.setAccessible(true);
+            javaPluginLoader = (JavaPluginLoader) loaderField.get(parent);
+
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException("Invalid Parent", e);
+        }
+
         this.base = base;
         this.versions = Arrays.asList(versions);
     }
@@ -42,15 +76,17 @@ public class MultiVersionLoader extends ClassLoader {
         List<String> names = new ArrayList<>();
         String definedName = name;
 
-        // Check if multipatch is specified and remove if needed
-        String [] nameParts = name.substring(base.length() + 1).split("\\.");
-        if (versions.contains(nameParts[0].substring(1))) {
-            definedName = base + name.substring(base.length() + 1 + nameParts[0].length());
-        }
+        // Check if version is specified and remove if needed
+        if (name.startsWith(base)) {
+            String[] nameParts = name.substring(base.length() + 1).split("\\.");
+            if (versions.contains(nameParts[0].substring(1))) {
+                definedName = base + name.substring(base.length() + 1 + nameParts[0].length());
+            }
 
-        // Add each multipatch
-        for (String version : versions) {
-            names.add(base + ".v" + version + definedName.substring(base.length()));
+            // Add each multipatch
+            for (String version : versions) {
+                names.add(base + ".v" + version + definedName.substring(base.length()));
+            }
         }
 
         // Add base defined name as well
@@ -58,11 +94,21 @@ public class MultiVersionLoader extends ClassLoader {
 
         // See if this class is already loaded
         Class <?> c = findLoadedClass(definedName);
-        if (c != null) {
-            return c;
+        if (c == null) {
+            c = loadAndDefineClass(names, definedName, resolve);
         }
 
-        return loadAndDefineClass(names, definedName, resolve);
+        // Save it with JavaPlugin
+        if (c != null) {
+            try {
+                Method setClassMethod = javaPluginLoader.getClass().getDeclaredMethod("setClass", String.class, Class.class);
+                setClassMethod.setAccessible(true);
+                setClassMethod.invoke(javaPluginLoader, definedName, c);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return c;
     }
 
     public Class<?> loadAndDefineClass(List<String> names, String definedName, boolean resolve) throws ClassNotFoundException {

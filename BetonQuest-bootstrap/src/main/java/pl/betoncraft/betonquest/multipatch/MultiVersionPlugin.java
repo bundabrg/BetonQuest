@@ -36,6 +36,8 @@ public abstract class MultiVersionPlugin extends JavaPlugin {
      * Constructor
      */
     public MultiVersionPlugin(String base, String pluginName, String[] versions) {
+        super();
+
         instance = this;
         this.base = base;
         this.pluginName = pluginName;
