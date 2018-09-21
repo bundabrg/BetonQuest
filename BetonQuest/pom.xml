@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>BetonQuest</artifactId>
-        <groupId>pl.betoncraft</groupId>
-        <version>1.11-brg.14-SNAPSHOT</version>
+        <groupId>pl.betoncraft.betonquest</groupId>
+        <artifactId>BetonQuest-parent</artifactId>
+        <version>1.11-brg.15-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>BetonQuest-build</artifactId>
+    <artifactId>BetonQuest</artifactId>
 
     <dependencies>
         <dependency>
@@ -40,40 +40,42 @@
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>BetonQuest-v1.12-R1</artifactId>
             <version>${project.parent.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>BetonQuest-v1.11-R1</artifactId>
             <version>${project.parent.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>BetonQuest-v1.10-R1</artifactId>
             <version>${project.parent.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>BetonQuest-v1.9-R2</artifactId>
             <version>${project.parent.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>BetonQuest-v1.8-R3</artifactId>
             <version>${project.parent.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
     <build>
         <directory>../target</directory>
-        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
+        <finalName>${project.artifactId}-${project.parent.version}</finalName>
+
         <resources>
             <resource>
-                <directory>${project.parent.basedir}</directory>
+                <directory>..</directory>
                 <filtering>true</filtering>
                 <includes>
                     <include>LICENSE</include>
@@ -84,8 +86,16 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>3.2.0</version>
 
                 <executions>
                     <execution>
@@ -102,17 +112,6 @@
                                     </excludes>
                                 </filter>
                             </filters>
-                            <!--<artifactSet>-->
-                                <!--<includes>-->
-                                    <!--<include>org.json</include>-->
-                                    <!--<include>org.bstats:*</include>-->
-                                    <!--<include>org.ow2.asm:*</include>-->
-                                    <!--<include>${project.groupId}:BetonQuest-bootstrap</include>-->
-                                    <!--<include>${project.groupId}:BetonQuest-core</include>-->
-                                    <!--<include>${project.groupId}:BetonQuest-v1.8-R3</include>-->
-                                    <!--<include>${project.groupId}:BetonQuest-v1.9-R2</include>-->
-                                <!--</includes>-->
-                            <!--</artifactSet>-->
                             <relocations>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
@@ -120,7 +119,6 @@
                                 </relocation>
                             </relocations>
                         </configuration>
-
                     </execution>
                 </executions>
             </plugin>
@@ -136,52 +134,69 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>package-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/multiversion.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-
     </build>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <activation>
-                <property>
-                    <name>release</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.4</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-
+    <!-- This will need to be fixed to work with a MultiModule system -->
+    <!--<profiles>-->
+        <!--<profile>-->
+            <!--<id>release</id>-->
+            <!--<activation>-->
+                <!--<property>-->
+                    <!--<name>release</name>-->
+                <!--</property>-->
+            <!--</activation>-->
+            <!--<build>-->
+                <!--<plugins>-->
+                    <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-source-plugin</artifactId>-->
+                        <!--<version>3.0.1</version>-->
+                        <!--<executions>-->
+                            <!--<execution>-->
+                                <!--<id>attach-sources</id>-->
+                                <!--<phase>package</phase>-->
+                                <!--<goals>-->
+                                    <!--<goal>jar</goal>-->
+                                <!--</goals>-->
+                            <!--</execution>-->
+                        <!--</executions>-->
+                    <!--</plugin>-->
+                    <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+                        <!--<version>2.10.4</version>-->
+                        <!--<executions>-->
+                            <!--<execution>-->
+                                <!--<id>attach-javadocs</id>-->
+                                <!--<phase>package</phase>-->
+                                <!--<goals>-->
+                                    <!--<goal>jar</goal>-->
+                                <!--</goals>-->
+                            <!--</execution>-->
+                        <!--</executions>-->
+                    <!--</plugin>-->
+                <!--</plugins>-->
+            <!--</build>-->
+        <!--</profile>-->
+    <!--</profiles>-->
 </project>
