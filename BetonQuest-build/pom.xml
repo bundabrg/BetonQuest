@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>pl.betoncraft.betonquest</groupId>
-        <artifactId>BetonQuest-parent</artifactId>
+        <artifactId>BetonQuest</artifactId>
         <version>1.11-brg.15-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>BetonQuest</artifactId>
+    <artifactId>BetonQuest-build</artifactId>
 
     <dependencies>
         <dependency>
@@ -71,7 +71,7 @@
 
     <build>
         <directory>../target</directory>
-        <finalName>${project.artifactId}-${project.parent.version}</finalName>
+        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
 
         <resources>
             <resource>
@@ -112,12 +112,12 @@
                                     </excludes>
                                 </filter>
                             </filters>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.bstats</pattern>
-                                    <shadedPattern>pl.betoncraft.betonquest.bstats</shadedPattern>
-                                </relocation>
-                            </relocations>
+                            <!--<relocations>-->
+                                <!--<relocation>-->
+                                    <!--<pattern>org.bstats</pattern>-->
+                                    <!--<shadedPattern>pl.betoncraft.betonquest.bstats</shadedPattern>-->
+                                <!--</relocation>-->
+                            <!--</relocations>-->
                         </configuration>
                     </execution>
                 </executions>
