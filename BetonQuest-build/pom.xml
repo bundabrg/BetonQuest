@@ -112,12 +112,12 @@
                                     </excludes>
                                 </filter>
                             </filters>
-                            <!--<relocations>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>org.bstats</pattern>-->
-                                    <!--<shadedPattern>pl.betoncraft.betonquest.bstats</shadedPattern>-->
-                                <!--</relocation>-->
-                            <!--</relocations>-->
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>pl.betoncraft.betonquest.bstats</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
