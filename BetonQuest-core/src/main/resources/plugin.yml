@@ -30,7 +30,7 @@ loadbefore:
 - BountifulAPI
 - ProtocolLib
 - Brewery
-version: 1.11-brg.15-SNAPSHOT
+version: 1.11-brg.16-SNAPSHOT
 commands:
   betonquest:
     description: General quest command
