@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.betoncraft.betonquest</groupId>
-    <artifactId>BetonQuest</artifactId>
+    <artifactId>BetonQuest-parent</artifactId>
     <packaging>pom</packaging>
+    <version>1.11-brg.17-SNAPSHOT</version>
 
-    <version>1.11-brg.16-SNAPSHOT</version>
     <modules>
         <module>BetonQuest-v1.8-R3</module>
         <module>BetonQuest-v1.9-R2</module>
@@ -24,20 +24,102 @@
     <repositories>
         <repository>
             <id>spigot-api</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots</url>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <!-- PaperMC -->
+        <repository>
+            <id>destroystokyo-repo</id>
+            <url>https://papermc.io/repo/repository/maven-snapshots/</url>
+        </repository>
+        <repository>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+
+        <!-- BetonQuest Repo -->
         <repository>
             <id>betonquest-repo</id>
             <url>https://betonquest.pl/mvn</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
+
+        <!-- Bundabrg's Repo -->
+        <repository>
+            <id>bundabrg-repo</id>
+            <url>https://repo.worldguard.com.au/repository/maven-public</url>
+        </repository>
+
+        <!-- WorldGuard,WorldEdit -->
+        <repository>
+            <id>sk89q-repo</id>
+            <url>http://maven.sk89q.com/repo/</url>
+        </repository>
+
+        <!-- CitizenNPC Repo -->
+        <repository>
+            <id>everything</id>
+            <url>http://repo.citizensnpcs.co/</url>
+        </repository>
+
+        <!-- Vault Repo -->
+        <repository>
+            <id>vault</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
+        </repository>
+
+        <!-- Elmakers Repo - MagicAPI, EffectLib -->
+        <repository>
+            <id>elmakers-repo</id>
+            <url>http://maven.elmakers.com/repository/</url>
+        </repository>
+
         <repository>
             <id>bstats-repo</id>
             <url>http://repo.bstats.org/content/repositories/releases/</url>
         </repository>
+
+        <!-- ProtocolLib -->
         <repository>
             <id>dmulloy2-repo</id>
             <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
         </repository>
+
+        <!-- Quests -->
+        <repository>
+            <id>quests</id>
+            <url>http://ci.ac3-servers.eu/job/Quests/316/maven-repository/repository/</url>
+        </repository>
+
+        <!-- Races and Classes -->
+        <repository>
+            <id>racesandclasses</id>
+            <url>https://mymavenrepo.com/repo/0MUWpMJRPRou7zFXAsU7/</url>
+        </repository>
+
+        <!-- Mythic Mobs -->
+        <repository>
+            <id>mythic</id>
+            <url>http://dev.lumine.io:8081/repository/maven-releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- Denizen -->
+        <repository>
+            <id>denizen</id>
+            <url>http://ci.citizensnpcs.co/job/denizen/lastBuild/maven-repository/repository/</url>
+        </repository>
+
+        <!-- MCMMO -->
+        <repository>
+            <id>mcmmo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+        </repository>
+
+        <!-- Shopkeeper -->
         <repository>
             <id>shopkeepers-releases</id>
             <url>http://nexus3.cube-nation.de/repository/releases</url>
@@ -45,10 +127,28 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <!-- WorldGuard,WorldEdit -->
+
+        <!-- HolographicDisplays -->
         <repository>
-            <id>sk89q-repo</id>
-            <url>http://maven.sk89q.com/repo/</url>
+            <id>filoghost-repo</id>
+            <url>https://ci.filoghost.me/plugin/repository/everything/</url>
+        </repository>
+
+        <!-- PlayerPoints -->
+        <repository>
+            <id>playerpoints-repo</id>
+            <url>https://repo.dakanilabs.com/repository/public/</url>
+        </repository>
+
+        <!-- PlaceHolderAPI -->
+        <repository>
+            <id>placeholderapi-repo</id>
+            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -83,4 +183,17 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Releases</name>
+            <url>https://repo.worldguard.com.au/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Snapshot</name>
+            <url>https://repo.worldguard.com.au/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

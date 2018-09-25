@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>pl.betoncraft.betonquest</groupId>
-        <artifactId>BetonQuest</artifactId>
-        <version>1.11-brg.16-SNAPSHOT</version>
+        <artifactId>BetonQuest-parent</artifactId>
+        <version>1.11-brg.17-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,21 +36,21 @@
 
         <!-- 3rd Party Dependencies -->
         <dependency>
-            <groupId>com.sk89q.worldguard</groupId>
+            <groupId>com.sk89q</groupId>
             <artifactId>worldguard</artifactId>
             <version>6.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
-            <artifactId>worldedit</artifactId>
+            <artifactId>worldedit-bukkit</artifactId>
             <version>6.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.elmakers.mine.bukkit.api</groupId>
+            <groupId>com.elmakers.mine.bukkit</groupId>
             <artifactId>MagicAPI</artifactId>
-            <version>3.4</version>
+            <version>8.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 

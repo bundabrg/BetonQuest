@@ -248,7 +248,7 @@ public class CitizensParticle extends BukkitRunnable {
                         effect.settings,
                         new DynamicLocation(loc, null),
                         new DynamicLocation(null, null),
-                        null,
+                        (Map<String, String>) null,
                         player);
 
             }

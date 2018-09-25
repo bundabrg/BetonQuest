@@ -10,7 +10,7 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>pl.betoncraft.betonquest:BetonQuest-build</include>
+                <include>pl.betoncraft.betonquest:BetonQuest</include>
             </includes>
 
             <binaries>

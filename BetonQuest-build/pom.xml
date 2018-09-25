@@ -2,14 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.betoncraft.betonquest</groupId>
-        <artifactId>BetonQuest</artifactId>
-        <version>1.11-brg.16-SNAPSHOT</version>
+        <artifactId>BetonQuest-parent</artifactId>
+        <version>1.11-brg.17-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>BetonQuest-build</artifactId>
+    <artifactId>BetonQuest</artifactId>
 
     <dependencies>
         <dependency>
@@ -71,7 +70,7 @@
 
     <build>
         <directory>../target</directory>
-        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
+        <finalName>${project.artifactId}-${project.parent.version}</finalName>
 
         <resources>
             <resource>
