@@ -7,7 +7,7 @@
     <groupId>pl.betoncraft.betonquest</groupId>
     <artifactId>BetonQuest-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.11-brg.17-SNAPSHOT</version>
+    <version>1.11-brg-SNAPSHOT</version>
 
     <modules>
         <module>BetonQuest-v1.8-R3</module>
