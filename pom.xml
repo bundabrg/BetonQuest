@@ -138,6 +138,9 @@
         <repository>
             <id>playerpoints-repo</id>
             <url>https://repo.dakanilabs.com/repository/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
 
         <!-- PlaceHolderAPI -->
