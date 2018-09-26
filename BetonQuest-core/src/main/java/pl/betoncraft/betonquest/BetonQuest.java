@@ -61,15 +61,15 @@ public class BetonQuest extends VersionPlugin {
 	private final static String ERROR = "There was some error. Please send it to the"
 			+ " developer: <coosheck@gmail.com>";
 
-	protected static BetonQuest instance;
+	private static BetonQuest instance;
 
-	protected Database database;
-	protected boolean isMySQLUsed;
-	protected Saver saver;
-	protected Updater updater;
+	private Database database;
+	private boolean isMySQLUsed;
+	private Saver saver;
+	private Updater updater;
 
-	protected ConcurrentHashMap<String, PlayerData> playerDataMap = new ConcurrentHashMap<>();
-	protected GlobalData globalData;
+	private ConcurrentHashMap<String, PlayerData> playerDataMap = new ConcurrentHashMap<>();
+	private GlobalData globalData;
 
 	private static HashMap<String, Class<? extends Condition>> conditionTypes = new HashMap<>();
 	private static HashMap<String, Class<? extends QuestEvent>> eventTypes = new HashMap<>();
@@ -79,7 +79,7 @@ public class BetonQuest extends VersionPlugin {
 
 	private static HashMap<ConditionID, Condition> conditions = new HashMap<>();
 	private static HashMap<EventID, QuestEvent> events = new HashMap<>();
-	protected static HashMap<ObjectiveID, Objective> objectives = new HashMap<>();
+	private static HashMap<ObjectiveID, Objective> objectives = new HashMap<>();
 	private static HashMap<String, ConversationData> conversations = new HashMap<>();
 	private static HashMap<VariableID, Variable> variables = new HashMap<>();
 

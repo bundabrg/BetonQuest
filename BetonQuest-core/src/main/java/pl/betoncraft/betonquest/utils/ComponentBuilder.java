@@ -87,7 +87,7 @@ public interface ComponentBuilder {
 
     class BugeeCordAPIBuilder implements ComponentBuilder {
 
-        protected net.md_5.bungee.api.chat.ComponentBuilder builder;
+        private net.md_5.bungee.api.chat.ComponentBuilder builder;
 
         public BugeeCordAPIBuilder() throws LinkageError {
             builder = new net.md_5.bungee.api.chat.ComponentBuilder("");

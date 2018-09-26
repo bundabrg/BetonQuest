@@ -76,7 +76,7 @@ import pl.betoncraft.betonquest.utils.Utils;
 public class QuestCommand implements CommandExecutor,SimpleTabCompleter {
 
 	private BetonQuest instance = BetonQuest.getInstance();
-	protected String defaultPack = Config.getString("config.default_package");
+	private String defaultPack = Config.getString("config.default_package");
 
 	/**
 	 * Registers a new executor and a new tab completer of the /betonquest command
@@ -1732,11 +1732,11 @@ public class QuestCommand implements CommandExecutor,SimpleTabCompleter {
 		builder.send(sender);
 	}
 
-	protected void sendMessage(CommandSender sender, String messageName) {
+	private void sendMessage(CommandSender sender, String messageName) {
 		sendMessage(sender, messageName, null);
 	}
 
-	protected void sendMessage(CommandSender sender, String messageName, String[] variables) {
+	private void sendMessage(CommandSender sender, String messageName, String[] variables) {
 		if (sender instanceof Player) {
 			Config.sendMessage(PlayerConverter.getID((Player) sender), messageName, variables);
 		} else {
