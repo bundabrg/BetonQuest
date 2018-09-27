@@ -291,6 +291,7 @@ public class BetonQuest extends VersionPlugin {
 		registerConversationIO("tellraw", TellrawConvIO.class);
 		registerConversationIO("chest", InventoryConvIO.class);
 		registerConversationIO("combined", InventoryConvIO.Combined.class);
+		registerConversationIO("slowtellraw", SlowTellrawConvIO.class);
 
 		// register variable types
 		registerVariable("player", PlayerNameVariable.class);
