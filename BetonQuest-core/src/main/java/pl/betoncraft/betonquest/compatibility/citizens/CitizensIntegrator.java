@@ -62,6 +62,7 @@ public class CitizensIntegrator implements Integrator {
     public void reload() {
         if (Compatibility.getHooked().containsAll(Arrays.asList("Citizens", "EffectLib"))) {
             CitizensParticle.reload();
+            CitizensHologram.reload();
         }
     }
 

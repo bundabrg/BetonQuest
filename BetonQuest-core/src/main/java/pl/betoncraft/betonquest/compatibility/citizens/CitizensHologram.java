@@ -145,12 +145,11 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
                         hologramConfig.conditions = new ArrayList<>();
                         String rawConditions = settings.getString("conditions");
                         if (rawConditions != null) {
-                            String[] parts = rawConditions.split(",");
                             for (String part : rawConditions.split(",")) {
                                 try {
                                     hologramConfig.conditions.add(new ConditionID(pack, part));
                                 } catch (ObjectNotFoundException e) {
-                                    Debug.error("Error while loading " + parts + " condition for hologram " + pack.getName() + "."
+                                    Debug.error("Error while loading " + part + " condition for hologram " + pack.getName() + "."
                                             + key + ": " + e.getMessage());
                                 }
                             }
@@ -233,10 +232,27 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
                             }
                             npcHologram.hologram = hologram;
                         }
-                        npcHologram.hologram.getVisibilityManager().showTo(player);
+
+                        // We this a tick later to work around a bug where holograms simply don't appear
+                        Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(BetonQuest.getPlugin(), new Runnable() {
+                            @Override
+                            public void run() {
+                                if (npcHologram.hologram != null) {
+                                    npcHologram.hologram.getVisibilityManager().showTo(player);
+                                }
+                            }
+                        },1);
+
                     } else {
                         if (npcHologram.hologram != null) {
-                            npcHologram.hologram.getVisibilityManager().hideTo(player);
+                            Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(BetonQuest.getPlugin(), new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (npcHologram.hologram != null) {
+                                        npcHologram.hologram.getVisibilityManager().hideTo(player);
+                                    }
+                                }
+                            },1);
                         }
                     }
                 }
@@ -246,6 +262,7 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
                 } else {
                     // Destroy hologram
                     if (npcHologram.hologram != null) {
+
                         npcHologram.hologram.delete();
                         npcHologram.hologram = null;
                     }
