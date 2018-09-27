@@ -315,6 +315,33 @@ public class ConversationData {
 	}
 
 	/**
+	 * Check if conversation has at least one valid option for player
+	 */
+	public boolean isReady(String playerID) {
+		options:
+		for (String option : getStartingOptions()) {
+			String convName, optionName;
+			if (option.contains(".")) {
+				String[] parts = option.split("\\.");
+				convName = parts[0];
+				optionName = parts[1];
+			} else {
+				convName = getName();
+				optionName = option;
+			}
+			ConfigPackage pack = Config.getPackages().get(getPackName());
+			ConversationData currentData = BetonQuest.getInstance().getConversation(pack.getName() + "." + convName);
+			for (ConditionID condition : currentData.getConditionIDs(optionName, ConversationData.OptionType.NPC)) {
+				if (!BetonQuest.condition(playerID, condition)) {
+					continue options;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Checks if external pointers point to valid options. It cannot be checked
 	 * when constructing ConversationData objects because conversations that are
 	 * being pointed to may not yet exist.

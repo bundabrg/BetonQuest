@@ -210,6 +210,7 @@ public class BetonQuest extends VersionPlugin {
 		registerConditions("dayofweek", DayOfWeekCondition.class);
 		registerConditions("partialdate", PartialDateCondition.class);
 		registerConditions("realtime", RealTimeCondition.class);
+		registerConditions("conversation", ConversationCondition.class);
 
 		// register events
 		registerEvents("message", MessageEvent.class);

@@ -229,3 +229,9 @@ This will check if the player is currently flying (Elytra type of flight).
 This condition will check if the player is in specified biome. The only argument is the [biome type](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/block/Biome.html).
 
 **Example**: `biome savanna_rock`
+
+## Conversation: `conversation`
+
+This condition will check if a conversation has an available starting option. If no starting option has a condition that returns true then this will return false.
+
+**Example**: `conversation innkeeper`
