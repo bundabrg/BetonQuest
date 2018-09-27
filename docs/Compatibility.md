@@ -291,6 +291,31 @@ In order to create a hologram, you have to add `holograms` section in your _cust
 
 The holograms are updated every 10 seconds. If you want to make it faster, add `hologram_update_interval` option in _config.yml_ file and set it to a number of ticks you want to pass between updates (one second is 20 ticks). Don't set it to 0 or negative numbers, it will result in an error.
 
+If Citizens is also installed then you can have holograms configured relative to an npc. Add the following to _custom.yml_.
+
+    npc_holograms:
+      # How often to check conditions
+      check_interval: 100
+
+      # Disable npc_holograms
+      disabled: false
+
+      # Hologram Settings
+      default:
+        # Lines in hologram
+        lines:
+          - !
+        # Vector offset to NPC position to place hologram
+        vector: 0;3;0
+
+        # Conditions to display hologram
+        conditions: has_some_quest, !finished_some_quest
+
+        # NPC's to apply these settings to. If blank, applies by default
+        npcs:
+          - 0
+          - 22
+
 ## [RacesAndClasses](http://dev.bukkit.org/bukkit-plugins/racesandclasses/)
 
 Another race/class/skill plugin. By installing RacesAndClasses you gain access to these events, conditions and variables:
