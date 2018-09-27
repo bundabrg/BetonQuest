@@ -143,10 +143,16 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
 
                         // load all conditions
                         hologramConfig.conditions = new ArrayList<>();
-                        for (String cond : settings.getStringList("conditions")) {
-                            try {
-                                hologramConfig.conditions.add(new ConditionID(pack, cond));
-                            } catch (ObjectNotFoundException e) {
+                        String rawConditions = settings.getString("conditions");
+                        if (rawConditions != null) {
+                            String[] parts = rawConditions.split(",");
+                            for (String part : rawConditions.split(",")) {
+                                try {
+                                    hologramConfig.conditions.add(new ConditionID(pack, part));
+                                } catch (ObjectNotFoundException e) {
+                                    Debug.error("Error while loading " + parts + " condition for hologram " + pack.getName() + "."
+                                            + key + ": " + e.getMessage());
+                                }
                             }
                         }
 
