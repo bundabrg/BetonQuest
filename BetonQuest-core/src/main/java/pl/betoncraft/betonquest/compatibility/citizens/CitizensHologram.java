@@ -189,6 +189,8 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
      */
     public static void reload() {
         if (instance.enabled) {
+            instance.cleanUp();
+
             instance.cancel();
         }
         new CitizensHologram();
@@ -197,6 +199,24 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
     @Override
     public void run() {
         updateHolograms();
+    }
+
+    private void cleanUp() {
+        // Cancel Updater
+        if (updater != null) {
+            updater.cancel();
+            updater = null;
+        }
+
+        // Destroy all holograms
+        for (NPC npc : npcs.keySet()) {
+            for (NPCHologram npcHologram : npcs.get(npc)) {
+                if (npcHologram.hologram != null) {
+                    npcHologram.hologram.delete();
+                    npcHologram.hologram = null;
+                }
+            }
+        }
     }
 
     private void updateHolograms() {
@@ -233,7 +253,7 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
                             npcHologram.hologram = hologram;
                         }
 
-                        // We this a tick later to work around a bug where holograms simply don't appear
+                        // We do this a tick later to work around a bug where holograms simply don't appear
                         Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(BetonQuest.getPlugin(), new Runnable() {
                             @Override
                             public void run() {
@@ -241,7 +261,7 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
                                     npcHologram.hologram.getVisibilityManager().showTo(player);
                                 }
                             }
-                        },1);
+                        },2);
 
                     } else {
                         if (npcHologram.hologram != null) {
@@ -252,7 +272,7 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
                                         npcHologram.hologram.getVisibilityManager().hideTo(player);
                                     }
                                 }
-                            },1);
+                            },2);
                         }
                     }
                 }
