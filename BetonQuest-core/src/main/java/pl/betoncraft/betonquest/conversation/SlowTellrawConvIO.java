@@ -14,6 +14,7 @@ import java.util.List;
 public class SlowTellrawConvIO extends TellrawConvIO {
 
     private String npcTextColor;
+    private List<String> endLines;
 
     public SlowTellrawConvIO(Conversation conv, String playerID) {
         super(conv, playerID);
@@ -22,6 +23,7 @@ public class SlowTellrawConvIO extends TellrawConvIO {
             string.append(color);
         }
         this.npcTextColor = string.toString();
+
     }
 
     @Override
@@ -35,6 +37,8 @@ public class SlowTellrawConvIO extends TellrawConvIO {
         List<String> lines = new ArrayList<>(Arrays.asList(ChatPaginator.wordWrap(
                 Utils.multiLineColorCodes(textFormat.replace("%npc%", npcName) + npcText, npcTextColor),
                 ChatPaginator.AVERAGE_CHAT_PAGE_WIDTH-2)));
+
+        endLines = new ArrayList<>();
 
         new BukkitRunnable(){
             @Override
@@ -51,6 +55,13 @@ public class SlowTellrawConvIO extends TellrawConvIO {
                                         + hashes.get(j) + "\"}}]");
                     }
 
+                    // Display endLines
+                    for(String message : endLines) {
+                        SlowTellrawConvIO.super.print(message);
+                    }
+
+                    endLines = null;
+
                     this.cancel();
                     return;
                 }
@@ -58,5 +69,16 @@ public class SlowTellrawConvIO extends TellrawConvIO {
                 player.sendMessage(lines.remove(0));
             }
         }.runTaskTimer(BetonQuest.getPlugin(), 0, 10);
+    }
+
+    @Override
+    public void print(String message) {
+        if (endLines == null) {
+            super.print(message);
+            return;
+        }
+
+        // If endLines is defined, we add to it to be outputted after we have outputted our previous text
+        endLines.add(message);
     }
 }
