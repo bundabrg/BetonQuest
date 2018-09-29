@@ -18,7 +18,9 @@
 package pl.betoncraft.betonquest.conversation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -160,13 +162,21 @@ public class ConversationData {
 				playerOptions.put(key, new PlayerOption(key));
 			}
 		}
-		// check if every pointer points to existing option
+
+		// check if every pointer points to existing option.
 		for (Option option : NPCOptions.values()) {
 			for (String pointer : option.getPointers()) {
 				if (!playerOptions.containsKey(pointer)) {
 					throw new InstructionParseException(
 							String.format("NPC option %s points to %s player option, but it does not exist",
 									option.getName(), pointer));
+				}
+			}
+			for (String include : option.getIncludes()) {
+				if (!NPCOptions.containsKey(include)) {
+					throw new InstructionParseException(
+							String.format("NPC option %s includes %s, but it does not exist",
+									option.getName(), include));
 				}
 			}
 		}
@@ -181,7 +191,15 @@ public class ConversationData {
 									option.getName(), pointer));
 				}
 			}
+			for (String include : option.getIncludes()) {
+				if (!playerOptions.containsKey(include)) {
+					throw new InstructionParseException(
+							String.format("Player option %s includes %s, but it does not exist",
+									option.getName(), include));
+				}
+			}
 		}
+
 		// done, everything will work
 		Debug.info(String.format("Conversation loaded: %d NPC options and %d player options", NPCOptions.size(),
 				playerOptions.size()));
@@ -389,89 +407,98 @@ public class ConversationData {
 		private ConditionID[] conditions;
 		private EventID[] events;
 		private String[] pointers;
+		private List<String> includes = new ArrayList<>();
 
 		public Option(String name, String type, String visibleType) throws InstructionParseException {
 			this.name = name;
 			String defaultLang = Config.getLanguage();
-			FileConfiguration conv = pack.getConversation(convName).getConfig();
-			if (conv.isConfigurationSection(type + "." + name + ".prefix")) {
-				for (String lang : conv.getConfigurationSection(type + "." + name + ".prefix").getKeys(false)) {
-					String pref = pack .getString("conversations." + convName + "." + type + "." + name + ".prefix."
-							+ lang);
+			ConfigurationSection conv = pack.getConversation(convName).getConfig().getConfigurationSection(type + "." + name);
+
+			// Prefix
+			if (conv.contains("prefix")) {
+				if (conv.isConfigurationSection("prefix")) {
+					for (String lang : conv.getConfigurationSection("prefix").getKeys(false)) {
+						String pref = conv.getConfigurationSection("prefix").getString(lang);
+						if (pref != null && !pref.equals("")) {
+							inlinePrefix.put(lang, pref);
+						}
+					}
+					if (!inlinePrefix.containsKey(defaultLang)) {
+						throw new InstructionParseException("No default language for " + name + " " + visibleType
+								+ " prefix");
+					}
+				} else {
+					String pref = conv.getString("prefix");
 					if (pref != null && !pref.equals("")) {
-						inlinePrefix.put(lang, pref);
+						inlinePrefix.put(defaultLang, pref);
 					}
 				}
-				if (!inlinePrefix.containsKey(defaultLang)) {
-					throw new InstructionParseException("No default language for " + name + " " + visibleType
-							+ " prefix");
+			}
+
+			// Text
+			if (conv.contains("text")) {
+				if (conv.isConfigurationSection("text")) {
+					for (String lang : conv.getConfigurationSection("text").getKeys(false)) {
+						text.put(lang, conv.getConfigurationSection("text").getString(lang).replace("\\n", "\n"));
+					}
+					if (!text.containsKey(defaultLang)) {
+						throw new InstructionParseException("No default language for " + name + " " + visibleType);
+					}
+				} else {
+					text.put(defaultLang, conv.getString("text").replace("\\n", "\n"));
 				}
-			} else {
-				String pref = pack.getString("conversations." + convName + "." + type + "." + name + ".prefix");
-				if (pref != null && !pref.equals("")) {
-					inlinePrefix.put(defaultLang, pref);
+
+				ArrayList<String> variables = new ArrayList<>();
+				for (String theText : text.values()) {
+					if (theText == null || theText.equals(""))
+						throw new InstructionParseException("Text not defined in " + visibleType + " " + name);
+					// variables are possibly duplicated because there probably is
+					// the same variable in every language
+					ArrayList<String> possiblyDuplicatedVariables = BetonQuest.resolveVariables(theText);
+					for (String possiblyDuplicatedVariable : possiblyDuplicatedVariables) {
+						if (variables.contains(possiblyDuplicatedVariable))
+							continue;
+						variables.add(possiblyDuplicatedVariable);
+					}
+				}
+				for (String variable : variables) {
+					try {
+						BetonQuest.createVariable(pack, variable);
+					} catch (InstructionParseException e) {
+						throw new InstructionParseException("Error while creating '" + variable + "' variable: "
+								+ e.getMessage());
+					}
 				}
 			}
-			if (conv.isConfigurationSection(type + "." + name + ".text")) {
-				for (String lang : conv.getConfigurationSection(type + "." + name + ".text").getKeys(false)) {
-					text.put(lang, pack.getString("conversations." + convName + "." + type + "." + name + ".text."
-							+ lang).replace("\\n", "\n"));
+
+			// Conditions
+			if (conv.contains("conditions") || conv.contains("condition")) {
+				String rawConditions = pack
+						.getString("conversations." + convName + "." + type + "." + name + ".conditions");
+				String[] cond1 = new String[]{};
+				if (rawConditions != null && !rawConditions.equals("")) {
+					cond1 = rawConditions.split(",");
 				}
-				if (!text.containsKey(defaultLang)) {
-					throw new InstructionParseException("No default language for " + name + " " + visibleType);
+				String rawCondition = pack.getString("conversations." + convName + "." + type + "." + name + ".condition");
+				String[] cond2 = new String[]{};
+				if (rawCondition != null && !rawCondition.equals("")) {
+					cond2 = rawCondition.split(",");
 				}
-			} else if (conv.isSet(type + "." + name + ".text")) {
-				text.put(defaultLang, pack.getString("conversations." + convName + "." + type + "." + name + ".text")
-						.replace("\\n", "\n"));
-			} else {
-			    throw new InstructionParseException(String.format("Text is not defined in '%s' %s.", name, visibleType));
-			}
-			ArrayList<String> variables = new ArrayList<>();
-			for (String theText : text.values()) {
-				if (theText == null || theText.equals(""))
-					throw new InstructionParseException("Text not defined in " + visibleType + " " + name);
-				// variables are possibly duplicated because there probably is
-				// the same variable in every language
-				ArrayList<String> possiblyDuplicatedVariables = BetonQuest.resolveVariables(theText);
-				for (String possiblyDuplicatedVariable : possiblyDuplicatedVariables) {
-					if (variables.contains(possiblyDuplicatedVariable))
-						continue;
-					variables.add(possiblyDuplicatedVariable);
-				}
-			}
-			for (String variable : variables) {
+				conditions = new ConditionID[cond1.length + cond2.length];
+				int count = 0;
 				try {
-					BetonQuest.createVariable(pack, variable);
-				} catch (InstructionParseException e) {
-					throw new InstructionParseException("Error while creating '" + variable + "' variable: "
+					for (String cond : cond1) {
+						conditions[count] = new ConditionID(pack, cond.trim());
+						count++;
+					}
+					for (String cond : cond2) {
+						conditions[count] = new ConditionID(pack, cond.trim());
+						count++;
+					}
+				} catch (ObjectNotFoundException e) {
+					throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's conditions: "
 							+ e.getMessage());
 				}
-			}
-			String rawConditions = pack
-					.getString("conversations." + convName + "." + type + "." + name + ".conditions");
-			String[] cond1 = new String[] {};
-			if (rawConditions != null && !rawConditions.equals("")) {
-				cond1 = rawConditions.split(",");
-			}
-			String rawCondition = pack.getString("conversations." + convName + "." + type + "." + name + ".condition");
-			String[] cond2 = new String[] {};
-			if (rawCondition != null && !rawCondition.equals("")) {
-				cond2 = rawCondition.split(",");
-			}
-			conditions = new ConditionID[cond1.length + cond2.length];
-			int count = 0;
-			try {
-				for (String cond : cond1) {
-					conditions[count] = new ConditionID(pack, cond.trim());
-					count++;
-				}
-				for (String cond : cond2) {
-					conditions[count] = new ConditionID(pack, cond.trim());
-					count++;
-				}
-			} catch (ObjectNotFoundException e) {
-				throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's conditions: "
-						+ e.getMessage());
 			}
 			String rawEvents = pack.getString("conversations." + convName + "." + type + "." + name + ".events");
 			String[] event1 = new String[] {};
@@ -508,6 +535,7 @@ public class ConversationData {
 			if (rawPointer != null && !rawPointer.equals("")) {
 				pointer2 = rawPointer.split(",");
 			}
+
 			pointers = new String[pointer1.length + pointer2.length];
 			count = 0;
 			for (String pointer : pointer1) {
@@ -518,6 +546,10 @@ public class ConversationData {
 				pointers[count] = pointer.trim();
 				count++;
 			}
+
+			includes.addAll(Arrays.asList(pack.getString("conversations." + convName + "." + type + "." + name + "includes", "").split(",")));
+			includes.addAll(Arrays.asList(pack.getString("conversations." + convName + "." + type + "." + name + "include", "").split(",")));
+
 		}
 
 		public String getName() {
@@ -533,10 +565,12 @@ public class ConversationData {
 		}
 
 		public String getText(String lang) {
+
 			String theText = text.get(lang);
 			if (theText == null) {
 				theText = text.get(Config.getLanguage());
 			}
+
 			return theText;
 		}
 
@@ -550,6 +584,10 @@ public class ConversationData {
 
 		public String[] getPointers() {
 			return pointers;
+		}
+
+		public String[] getIncludes() {
+			return includes.toArray(new String[0]);
 		}
 	}
 

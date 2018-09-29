@@ -150,16 +150,26 @@ public class ConfigPackage {
 	}
 
 	/**
+	 * Return a string with inserted variables. Default of null
+	 *
+	 * @param address address of the string
+	 * @return the string
+	 */
+	public String getString(String address) {
+		return getString(address, null);
+	}
+
+	/**
 	 * Returns a string with inserted variables
 	 * 
 	 * @param address
 	 *            address of the string
 	 * @return the string
 	 */
-	public String getString(String address) {
+	public String getString(String address, String def) {
 		String value = getRawString(address);
 		if (value == null) {
-			return null;
+			return def;
 		}
 		if (!value.contains("$")) {
 			return value;
@@ -175,7 +185,7 @@ public class ConfigPackage {
 			String varVal = main.getConfig().getString("variables." + varName);
 			if (varVal == null) {
 				Debug.error(String.format("Variable %s not defined in package %s", varName, name));
-				return null;
+				return def;
 			} else if (varVal
 					.matches("^\\$[a-zA-Z0-9]+\\$->\\(\\-?\\d+\\.?\\d*;\\-?\\d+\\.?\\d*;\\-?\\d+\\.?\\d*\\)$")) {
 				// handle location variables
@@ -185,13 +195,13 @@ public class ConfigPackage {
 				if (innerVarVal == null) {
 					Debug.error(String.format("Location variable %s is not defined, in variable %s, package %s.",
 							innerVarName, varName, name));
-					return null;
+					return def;
 				}
 				if (!innerVarVal.matches("^\\-?\\d+;\\-?\\d+;\\-?\\d+;.+$")) {
 					Debug.error(
 							String.format("Inner variable %s is not valid location, in variable %s, package %s.",
 									innerVarName, varName, name));
-					return null;
+					return def;
 				}
 				double x1, y1, z1;
 				String rest;
@@ -208,7 +218,7 @@ public class ConfigPackage {
 					Debug.error(String.format(
 							"Could not parse coordinates in inner variable %s in variable %s in package %s",
 							innerVarName, varName, name));
-					return null;
+					return def;
 				}
 				// parse the vector
 				double x2, y2, z2;
@@ -223,7 +233,7 @@ public class ConfigPackage {
 				} catch (NumberFormatException e) {
 					Debug.error(String.format("Could not parse vector inlocation variable %s in package %s",
 							varName, name));
-					return null;
+					return def;
 				}
 				double x3 = x1 + x2, y3 = y1 + y2, z3 = z1 + z2;
 				value = value.replace("$" + varName + "$", String.format("%.2f;%.2f;%.2f%s", x3, y3, z3, rest));
