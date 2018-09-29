@@ -316,6 +316,8 @@ If Citizens is also installed then you can have holograms configured relative to
           - 0
           - 22
 
+Item lines are also supported here.
+
 ## [RacesAndClasses](http://dev.bukkit.org/bukkit-plugins/racesandclasses/)
 
 Another race/class/skill plugin. By installing RacesAndClasses you gain access to these events, conditions and variables:
