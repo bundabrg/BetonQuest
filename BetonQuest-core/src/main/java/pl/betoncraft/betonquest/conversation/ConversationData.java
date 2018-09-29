@@ -17,11 +17,10 @@
  */
 package pl.betoncraft.betonquest.conversation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -172,11 +171,11 @@ public class ConversationData {
 									option.getName(), pointer));
 				}
 			}
-			for (String include : option.getIncludes()) {
-				if (!NPCOptions.containsKey(include)) {
+			for (String extend : option.getExtends()) {
+				if (!NPCOptions.containsKey(extend)) {
 					throw new InstructionParseException(
-							String.format("NPC option %s includes %s, but it does not exist",
-									option.getName(), include));
+							String.format("NPC option %s extends %s, but it does not exist",
+									option.getName(), extend));
 				}
 			}
 		}
@@ -191,11 +190,11 @@ public class ConversationData {
 									option.getName(), pointer));
 				}
 			}
-			for (String include : option.getIncludes()) {
-				if (!playerOptions.containsKey(include)) {
+			for (String extend : option.getExtends()) {
+				if (!playerOptions.containsKey(extend)) {
 					throw new InstructionParseException(
-							String.format("Player option %s includes %s, but it does not exist",
-									option.getName(), include));
+							String.format("Player option %s extends %s, but it does not exist",
+									option.getName(), extend));
 				}
 			}
 		}
@@ -332,6 +331,10 @@ public class ConversationData {
 		return options.get(option).getPointers();
 	}
 
+	public Option getOption(String option, OptionType type) {
+		return type == OptionType.NPC?NPCOptions.get(option):playerOptions.get(option);
+	}
+
 	/**
 	 * Check if conversation has at least one valid option for player
 	 */
@@ -401,16 +404,18 @@ public class ConversationData {
 	private abstract class Option {
 
 		private String name;
+		private OptionType type;
 		private HashMap<String, String> inlinePrefix = new HashMap<>();
 
 		private HashMap<String, String> text = new HashMap<>();
-		private List<ConditionID> conditions;
-		private List<EventID> events;
+		private List<ConditionID> conditions = new ArrayList<>();
+		private List<EventID> events = new ArrayList<>();
 		private List<String> pointers;
-		private List<String> includes = new ArrayList<>();
+		private List<String> extendLinks;
 
 		public Option(String name, String type, String visibleType) throws InstructionParseException {
 			this.name = name;
+			this.type = type.equals("player_options")?OptionType.PLAYER:OptionType.NPC;
 			String defaultLang = Config.getLanguage();
 			ConfigurationSection conv = pack.getConversation(convName).getConfig().getConfigurationSection(type + "." + name);
 
@@ -418,7 +423,7 @@ public class ConversationData {
 			if (conv.contains("prefix")) {
 				if (conv.isConfigurationSection("prefix")) {
 					for (String lang : conv.getConfigurationSection("prefix").getKeys(false)) {
-						String pref = conv.getConfigurationSection("prefix").getString(lang);
+						String pref = pack.subst(conv.getConfigurationSection("prefix").getString(lang));
 						if (pref != null && !pref.equals("")) {
 							inlinePrefix.put(lang, pref);
 						}
@@ -428,7 +433,7 @@ public class ConversationData {
 								+ " prefix");
 					}
 				} else {
-					String pref = conv.getString("prefix");
+					String pref = pack.subst(conv.getString("prefix"));
 					if (pref != null && !pref.equals("")) {
 						inlinePrefix.put(defaultLang, pref);
 					}
@@ -439,13 +444,13 @@ public class ConversationData {
 			if (conv.contains("text")) {
 				if (conv.isConfigurationSection("text")) {
 					for (String lang : conv.getConfigurationSection("text").getKeys(false)) {
-						text.put(lang, conv.getConfigurationSection("text").getString(lang).replace("\\n", "\n"));
+						text.put(lang, pack.subst(conv.getConfigurationSection("text").getString(lang).replace("\\n", "\n")));
 					}
 					if (!text.containsKey(defaultLang)) {
 						throw new InstructionParseException("No default language for " + name + " " + visibleType);
 					}
 				} else {
-					text.put(defaultLang, conv.getString("text").replace("\\n", "\n"));
+					text.put(defaultLang, pack.subst(conv.getString("text").replace("\\n", "\n")));
 				}
 
 				ArrayList<String> variables = new ArrayList<>();
@@ -472,51 +477,40 @@ public class ConversationData {
 			}
 
 			// Conditions
-			if (conv.contains("conditions") || conv.contains("condition")) {
-				conditions = new ArrayList<>();
-				List<String> rawConditions = new ArrayList<>();
-
-				rawConditions.addAll(Arrays.asList(conv.getString("conditions", "").split(",")));
-				rawConditions.addAll(Arrays.asList(conv.getString("condition", "").split(",")));
-
-				try {
-					for (String rawCondition : rawConditions) {
+			try {
+				for (String rawCondition : pack.subst(conv.getString("conditions", conv.getString("condition", ""))).split(",")) {
+					if (!Objects.equals(rawCondition, "")) {
 						conditions.add(new ConditionID(pack, rawCondition.trim()));
 					}
-				} catch (ObjectNotFoundException e) {
-					throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's conditions: "
-							+ e.getMessage());
 				}
+			} catch (ObjectNotFoundException e) {
+				throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's conditions: "
+						+ e.getMessage());
 			}
 
 			// Events
-			if (conv.contains("events") || conv.contains("event")) {
-				events = new ArrayList<>();
-				List<String> rawEvents = new ArrayList<>();
-
-				rawEvents.addAll(Arrays.asList(conv.getString("events", "").split(",")));
-				rawEvents.addAll(Arrays.asList(conv.getString("event", "").split(",")));
-
-				try {
-					for (String rawEvent : rawEvents) {
+			try {
+				for (String rawEvent : pack.subst(conv.getString("events", conv.getString("event", ""))).split(",")) {
+					if (!Objects.equals(rawEvent, "")) {
 						events.add(new EventID(pack, rawEvent.trim()));
 					}
-				} catch (ObjectNotFoundException e) {
-					throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's events: "
-							+ e.getMessage());
 				}
+			} catch (ObjectNotFoundException e) {
+				throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's events: "
+						+ e.getMessage());
 			}
 
 			// Pointers
-			if (conv.contains("pointers") || conv.contains("pointer")) {
-				pointers = new ArrayList<>();
+			pointers = Arrays.stream(pack.subst(conv.getString("pointers", conv.getString("pointer", ""))).split(","))
+					.filter(StringUtils::isNotEmpty)
+					.map(String::trim)
+					.collect(Collectors.toList());
 
-				pointers.addAll(Arrays.asList(conv.getString("pointers", "").split(",")));
-				pointers.addAll(Arrays.asList(conv.getString("pointer", "").split(",")));
-			}
 
-			includes.addAll(Arrays.asList(pack.getString("conversations." + convName + "." + type + "." + name + "includes", "").split(",")));
-			includes.addAll(Arrays.asList(pack.getString("conversations." + convName + "." + type + "." + name + "include", "").split(",")));
+			extendLinks = Arrays.stream(pack.subst(conv.getString("extends", conv.getString("extend", ""))).split(","))
+					.filter(StringUtils::isNotEmpty)
+					.map(String::trim)
+					.collect(Collectors.toList());
 		}
 
 		public String getName() {
@@ -532,28 +526,85 @@ public class ConversationData {
 		}
 
 		public String getText(String lang) {
-			String theText = text.get(lang);
-			if (theText == null) {
-				theText = text.get(Config.getLanguage());
-			}
+			return getText(lang, new ArrayList<>());
+		}
 
-			return theText;
+		public String getText(String lang, List<String> optionPath) {
+			// Prevent infinite loops
+			if (optionPath.contains(getName())) {
+				return "";
+			}
+			optionPath.add(getName());
+
+			StringBuilder ret = new StringBuilder(text.getOrDefault(lang, text.getOrDefault(Config.getLanguage(), "")));
+
+			for (String extend : extendLinks) {
+				ret.append(getOption(extend, type).getText(lang, optionPath));
+			}
+			return ret.toString();
 		}
 
 		public ConditionID[] getConditions() {
-			return conditions.toArray(new ConditionID[0]);
+			return getConditions(new ArrayList<>());
+		}
+
+		public ConditionID[] getConditions(List<String> optionPath) {
+			// Prevent infinite loops
+			if (optionPath.contains(getName())) {
+				return new ConditionID[0];
+			}
+			optionPath.add(getName());
+
+			List<ConditionID> ret = new ArrayList<>(conditions);
+
+			for (String extend : extendLinks) {
+				ret.addAll(Arrays.asList(getOption(extend, type).getConditions(optionPath)));
+			}
+
+			return ret.toArray(new ConditionID[0]);
 		}
 
 		public EventID[] getEvents() {
-			return events.toArray(new EventID[0]);
+			return getEvents(new ArrayList<>());
+		}
+
+		public EventID[] getEvents(List<String> optionPath) {
+			// Prevent infinite loops
+			if (optionPath.contains(getName())) {
+				return new EventID[0];
+			}
+			optionPath.add(getName());
+
+			List<EventID> ret = new ArrayList<>(events);
+
+			for (String extend : extendLinks) {
+				ret.addAll(Arrays.asList(getOption(extend, type).getEvents(optionPath)));
+			}
+
+			return ret.toArray(new EventID[0]);
 		}
 
 		public String[] getPointers() {
-			return pointers.toArray(new String[0]);
+			return getPointers(new ArrayList<>());
 		}
 
-		public String[] getIncludes() {
-			return includes.toArray(new String[0]);
+		public String[] getPointers(List<String> optionPath) {
+			// Prevent infinite loops
+			if (optionPath.contains(getName())) {
+				return new String[0];
+			}
+			optionPath.add(getName());
+
+			List<String> ret = new ArrayList<>(pointers);
+
+			for (String extend : extendLinks) {
+				ret.addAll(Arrays.asList(getOption(extend, type).getPointers(optionPath)));
+			}
+			return ret.toArray(new String[0]);
+		}
+
+		public String[] getExtends() {
+			return extendLinks.toArray(new String[0]);
 		}
 	}
 
@@ -575,7 +626,7 @@ public class ConversationData {
 		}
 	}
 
-	public static enum OptionType {
+	public enum OptionType {
 		NPC, PLAYER
 	}
 }
