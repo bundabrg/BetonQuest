@@ -404,9 +404,9 @@ public class ConversationData {
 		private HashMap<String, String> inlinePrefix = new HashMap<>();
 
 		private HashMap<String, String> text = new HashMap<>();
-		private ConditionID[] conditions;
-		private EventID[] events;
-		private String[] pointers;
+		private List<ConditionID> conditions;
+		private List<EventID> events;
+		private List<String> pointers;
 		private List<String> includes = new ArrayList<>();
 
 		public Option(String name, String type, String visibleType) throws InstructionParseException {
@@ -473,83 +473,50 @@ public class ConversationData {
 
 			// Conditions
 			if (conv.contains("conditions") || conv.contains("condition")) {
-				String rawConditions = pack
-						.getString("conversations." + convName + "." + type + "." + name + ".conditions");
-				String[] cond1 = new String[]{};
-				if (rawConditions != null && !rawConditions.equals("")) {
-					cond1 = rawConditions.split(",");
-				}
-				String rawCondition = pack.getString("conversations." + convName + "." + type + "." + name + ".condition");
-				String[] cond2 = new String[]{};
-				if (rawCondition != null && !rawCondition.equals("")) {
-					cond2 = rawCondition.split(",");
-				}
-				conditions = new ConditionID[cond1.length + cond2.length];
-				int count = 0;
+				conditions = new ArrayList<>();
+				List<String> rawConditions = new ArrayList<>();
+
+				rawConditions.addAll(Arrays.asList(conv.getString("conditions", "").split(",")));
+				rawConditions.addAll(Arrays.asList(conv.getString("condition", "").split(",")));
+
 				try {
-					for (String cond : cond1) {
-						conditions[count] = new ConditionID(pack, cond.trim());
-						count++;
-					}
-					for (String cond : cond2) {
-						conditions[count] = new ConditionID(pack, cond.trim());
-						count++;
+					for (String rawCondition : rawConditions) {
+						conditions.add(new ConditionID(pack, rawCondition.trim()));
 					}
 				} catch (ObjectNotFoundException e) {
 					throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's conditions: "
 							+ e.getMessage());
 				}
 			}
-			String rawEvents = pack.getString("conversations." + convName + "." + type + "." + name + ".events");
-			String[] event1 = new String[] {};
-			if (rawEvents != null && !rawEvents.equals("")) {
-				event1 = rawEvents.split(",");
-			}
-			String rawEvent = pack.getString("conversations." + convName + "." + type + "." + name + ".event");
-			String[] event2 = new String[] {};
-			if (rawEvent != null && !rawEvent.equals("")) {
-				event2 = rawEvent.split(",");
-			}
-			events = new EventID[event1.length + event2.length];
-			count = 0;
-			try {
-				for (String event : event1) {
-					events[count] = new EventID(pack, event.trim());
-					count++;
+
+			// Events
+			if (conv.contains("events") || conv.contains("event")) {
+				events = new ArrayList<>();
+				List<String> rawEvents = new ArrayList<>();
+
+				rawEvents.addAll(Arrays.asList(conv.getString("events", "").split(",")));
+				rawEvents.addAll(Arrays.asList(conv.getString("event", "").split(",")));
+
+				try {
+					for (String rawEvent : rawEvents) {
+						events.add(new EventID(pack, rawEvent.trim()));
+					}
+				} catch (ObjectNotFoundException e) {
+					throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's events: "
+							+ e.getMessage());
 				}
-				for (String event : event2) {
-					events[count] = new EventID(pack, event.trim());
-					count++;
-				}
-			} catch (ObjectNotFoundException e) {
-				throw new InstructionParseException("Error in '" + name + "' " + visibleType + " option's events: "
-						+ e.getMessage());
-			}
-			String rawPointers = pack.getString("conversations." + convName + "." + type + "." + name + ".pointers");
-			String[] pointer1 = new String[] {};
-			if (rawPointers != null && !rawPointers.equals("")) {
-				pointer1 = rawPointers.split(",");
-			}
-			String rawPointer = pack.getString("conversations." + convName + "." + type + "." + name + ".pointer");
-			String[] pointer2 = new String[] {};
-			if (rawPointer != null && !rawPointer.equals("")) {
-				pointer2 = rawPointer.split(",");
 			}
 
-			pointers = new String[pointer1.length + pointer2.length];
-			count = 0;
-			for (String pointer : pointer1) {
-				pointers[count] = pointer.trim();
-				count++;
-			}
-			for (String pointer : pointer2) {
-				pointers[count] = pointer.trim();
-				count++;
+			// Pointers
+			if (conv.contains("pointers") || conv.contains("pointer")) {
+				pointers = new ArrayList<>();
+
+				pointers.addAll(Arrays.asList(conv.getString("pointers", "").split(",")));
+				pointers.addAll(Arrays.asList(conv.getString("pointer", "").split(",")));
 			}
 
 			includes.addAll(Arrays.asList(pack.getString("conversations." + convName + "." + type + "." + name + "includes", "").split(",")));
 			includes.addAll(Arrays.asList(pack.getString("conversations." + convName + "." + type + "." + name + "include", "").split(",")));
-
 		}
 
 		public String getName() {
@@ -565,7 +532,6 @@ public class ConversationData {
 		}
 
 		public String getText(String lang) {
-
 			String theText = text.get(lang);
 			if (theText == null) {
 				theText = text.get(Config.getLanguage());
@@ -575,15 +541,15 @@ public class ConversationData {
 		}
 
 		public ConditionID[] getConditions() {
-			return conditions;
+			return conditions.toArray(new ConditionID[0]);
 		}
 
 		public EventID[] getEvents() {
-			return events;
+			return events.toArray(new EventID[0]);
 		}
 
 		public String[] getPointers() {
-			return pointers;
+			return pointers.toArray(new String[0]);
 		}
 
 		public String[] getIncludes() {
