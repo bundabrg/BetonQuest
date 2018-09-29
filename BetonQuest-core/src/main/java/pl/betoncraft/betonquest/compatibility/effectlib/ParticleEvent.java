@@ -17,7 +17,14 @@
  */
 package pl.betoncraft.betonquest.compatibility.effectlib;
 
+import java.util.Map;
+
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
+import de.slikey.effectlib.util.DynamicLocation;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;
@@ -27,37 +34,44 @@ import pl.betoncraft.betonquest.utils.PlayerConverter;
 
 /**
  * Displays an effect.
- * 
+ *
  * @author Jakub Sapalski
  */
 public class ParticleEvent extends QuestEvent {
 
-	private String effectClass;
-	private ConfigurationSection parameters;
-	private LocationData loc;
+    private String effectClass;
+    private ConfigurationSection parameters;
+    private LocationData loc;
+    private boolean pr1vate;
 
-	public ParticleEvent(Instruction instruction) throws InstructionParseException {
-		super(instruction);
-		String string = instruction.next();
-		parameters = instruction.getPackage().getCustom().getConfig().getConfigurationSection("effects." + string);
-		if (parameters == null) {
-			throw new InstructionParseException("Effect '" + string + "' does not exist!");
-		}
-		effectClass = parameters.getString("class");
-		if (effectClass == null) {
-			throw new InstructionParseException("Effect '" + string + "' is incorrectly defined");
-		}
-		loc = instruction.getLocation(instruction.getOptional("loc"));
+    public ParticleEvent(Instruction instruction) throws InstructionParseException {
+        super(instruction);
+        String string = instruction.next();
+        parameters = instruction.getPackage().getCustom().getConfig().getConfigurationSection("effects." + string);
+        if (parameters == null) {
+            throw new InstructionParseException("Effect '" + string + "' does not exist!");
+        }
+        effectClass = parameters.getString("class");
+        if (effectClass == null) {
+            throw new InstructionParseException("Effect '" + string + "' is incorrectly defined");
+        }
+        loc = instruction.getLocation(instruction.getOptional("loc"));
+        pr1vate = instruction.hasArgument("private");
 
-	}
+    }
 
-	@Override
-	public void run(String playerID) throws QuestRuntimeException {
-		if (loc == null) {
-			EffectLibIntegrator.getEffectManager().start(effectClass, parameters, PlayerConverter.getPlayer(playerID));
-		} else {
-		    EffectLibIntegrator.getEffectManager().start(effectClass, parameters, loc.getLocation(playerID));
-		}
-	}
+    @Override
+    public void run(String playerID) throws QuestRuntimeException {
+        Player p = PlayerConverter.getPlayer(playerID);
+        Location location = (loc == null) ? p.getLocation() : loc.getLocation(playerID);
+        Entity originEntity = (loc == null) ? p : null;
+        Player targetPlayer = pr1vate ? p : null;
+        EffectLibIntegrator.getEffectManager().start(effectClass,
+                                                     parameters,
+                                                     new DynamicLocation(location, null),
+                                                     new DynamicLocation(null, null),
+                                                     (Map<String, String>) null,
+                                                     targetPlayer);
+    }
 
 }
