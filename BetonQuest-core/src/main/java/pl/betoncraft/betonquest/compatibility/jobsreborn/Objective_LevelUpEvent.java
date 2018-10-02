@@ -1,7 +1,7 @@
 package pl.betoncraft.betonquest.compatibility.jobsreborn;
 
 import com.gamingmesh.jobs.Jobs;
-import com.gamingmesh.jobs.api.JobsJoinEvent;
+import com.gamingmesh.jobs.api.JobsLevelUpEvent;
 import com.gamingmesh.jobs.container.Job;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -13,11 +13,11 @@ import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Objective;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 
-public class Objective_JoinJob extends Objective implements Listener
+public class Objective_LevelUpEvent extends Objective implements Listener
 {
 	private final String sJobName;
 	
-	public Objective_JoinJob(Instruction instructions) throws InstructionParseException
+	public Objective_LevelUpEvent(Instruction instructions) throws InstructionParseException
 	{
         super(instructions);
         template = ObjectiveData.class;
@@ -36,9 +36,9 @@ public class Objective_JoinJob extends Objective implements Listener
     }
 	
 	@EventHandler
-    public void onJobsJoinEvent(JobsJoinEvent event) 
+    public void onJobsLevelUpEvent(JobsLevelUpEvent event) 
 	{
-		if (event.getJob().getName().equalsIgnoreCase(this.sJobName))
+		if (event.getJobName().equalsIgnoreCase(this.sJobName))
 		{
 			String playerID = PlayerConverter.getID(event.getPlayer().getPlayer().getPlayer());
             if (containsPlayer(playerID) && checkConditions(playerID)) {
@@ -49,7 +49,7 @@ public class Objective_JoinJob extends Objective implements Listener
     
     @Override
     public void start() {
-        Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
+        Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
     }
 
     @Override
