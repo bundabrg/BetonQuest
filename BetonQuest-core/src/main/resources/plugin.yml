@@ -30,6 +30,7 @@ softdepend:
 - BountifulAPI
 - ProtocolLib
 - Brewery
+- Jobs
 version: 1.11-SNAPSHOT
 commands:
   betonquest:
