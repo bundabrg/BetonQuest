@@ -144,7 +144,7 @@ public class Compatibility implements Listener {
 		integrators.put("BountifulAPI", new BountifulAPIIntegrator());
 		integrators.put("ProtocolLib", new ProtocolLibIntegrator());
 		integrators.put("Brewery", new BreweryIntegrator());
-		integrators.put("JobsReborn", new JobsRebornIntegrator());
+		integrators.put("Jobs", new JobsRebornIntegrator());
 
 		// hook into already enabled plugins in case Bukkit messes up the loading order
 		for (Plugin hook : Bukkit.getPluginManager().getPlugins()) {
