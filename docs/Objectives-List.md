@@ -10,11 +10,27 @@ Location objective contains one property, `location`. It's a string formatted li
 
 ## Block: `block`
 
+### Below v1.13
+
 To complete this objective player must break or place specified amount of blocks. First argument after name is type of the block and data value after a colon (WOOD:2 means birch wooden planks). You can find possible types at Bukkit reference page there: [material types](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html). Next is amount. It can be more than 0 for placing and less than 0 for destroying. You can also use `notify` keyword to display messages to the player each time he updates amount of blocks, optionally with the notification interval after colon.
 
 This objective has two properties, `amount` and `left`. Amount is current amount of blocks in the objective, left is amount needed to complete the objective. Note that it may sometimes be negative!
 
 **Example**: `block LOG:2 -16 events:reward notify:5`
+
+### v1.13 and above
+
+To complete this objective player must break or place specified amount of blocks. First argument after name is a block selector of the format `prefix:material[state=value,...]`. Prefix is optional and and if left out will match 'minecraft'. You can find possible materials at Bukkit reference page there: [material types](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html). Material can contain one or more wildcards (*, ?). Any states mentioned must exist on the matching block. Any states left out will be ignored on the block. 
+
+Next is amount. It can be more than 0 for placing and less than 0 for destroying. You can also use `notify` keyword to display messages to the player each time he updates amount of blocks, optionally with the notification interval after colon.
+
+This objective has two properties, `amount` and `left`. Amount is current amount of blocks in the objective, left is amount needed to complete the objective. Note that it may sometimes be negative!
+
+**Example**: `block sign[rotation=4] 1 events:reward`
+
+**Example**: `block *_LOG -16 events:reward notify:5`
+
+
 
 ## Mob Kill: `mobkill`
 

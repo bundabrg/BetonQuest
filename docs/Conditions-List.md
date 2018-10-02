@@ -148,9 +148,18 @@ This condition will return true if the player has specified entry in his journal
 
 ## Test for block: `testforblock` _persistent_, _static_
 
+### Below v1.13
 This condition is met if the block at specified location matches the given material. First argument is a location, and the second one is material of the block to check against, from [this list](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html). There's also an optional `data:` argument which takes a data value. The condition will require you to click on a block with that data (i.e. wool color). 
 
 **Example**: `testforblock 100;200;300;world STONE data:1`
+
+### v1.13 and above
+
+This condition is met if the block at specified location matches the given material. First argument is a location, and the second one is a block selector of the format:  `prefix:material[state=value,...]`. Material can be looked up in [this list](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html). Material can contain one or more wildcards (*, ?). Any states mentioned must exist on the matching block. Any states left out will be ignored on the block. 
+
+**Example**: `testforblock 100;200;300;world redstone_wire[power=5]`
+
+**Example**: `testforblock 100;200;300;world *_log`
 
 ## Empty inventory slots: `empty`
 
