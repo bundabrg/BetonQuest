@@ -24,13 +24,11 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.api.Objective;
 import pl.betoncraft.betonquest.config.Config;
-import pl.betoncraft.betonquest.utils.BlockSelector;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 
 /**
@@ -42,15 +40,18 @@ import pl.betoncraft.betonquest.utils.PlayerConverter;
 @SuppressWarnings("deprecation")
 public class BlockObjective extends Objective implements Listener {
 
+	private final Material material;
+	private final byte data;
 	private final int neededAmount;
 	private final boolean notify;
 	private final int notifyInterval;
-	private final BlockSelector selector;
 
 	public BlockObjective(Instruction instruction) throws InstructionParseException {
 		super(instruction);
 		template = BlockData.class;
-		selector = new BlockSelector(instruction.next());
+		String[] string = instruction.next().split(":");
+		material = instruction.getMaterial(string[0]);
+		data = string.length > 1 ? instruction.getByte(string[1], (byte) -1) : -1;
 		neededAmount = instruction.getInt();
 		notifyInterval = instruction.getInt(instruction.getOptional("notify"), 1);
 		notify = instruction.hasArgument("notify") || notifyInterval > 1;
@@ -61,7 +62,8 @@ public class BlockObjective extends Objective implements Listener {
 		String playerID = PlayerConverter.getID(event.getPlayer());
 		// if the player has this objective, the event isn't canceled,
 		// the block is correct and conditions are met
-		if (containsPlayer(playerID) && !event.isCancelled() && selector.match(event.getBlock()) && checkConditions(playerID)) {
+		if (containsPlayer(playerID) && !event.isCancelled() && event.getBlock().getType().equals(material)
+				&& (data < 0 || event.getBlock().getData() == data) && checkConditions(playerID)) {
 			// add the block to the total amount
 			BlockData playerData = (BlockData) dataMap.get(playerID);
 			playerData.add();
@@ -71,13 +73,11 @@ public class BlockObjective extends Objective implements Listener {
 			} else if (notify && playerData.getAmount() % notifyInterval == 0) {
 				// or maybe display a notification
 				if (playerData.getAmount() > neededAmount) {
-					Config.sendNotify(playerID, "blocks_to_break",
-							new String[] { String.valueOf(playerData.getAmount() - neededAmount) },
-							"blocks_to_break,info");
+					Config.sendMessage(playerID, "blocks_to_break",
+							new String[] { String.valueOf(playerData.getAmount() - neededAmount) });
 				} else {
-					Config.sendNotify(playerID, "blocks_to_place",
-							new String[] { String.valueOf(neededAmount - playerData.getAmount()) },
-							"blocks_to_place,info");
+					Config.sendMessage(playerID, "blocks_to_place",
+							new String[] { String.valueOf(neededAmount - playerData.getAmount()) });
 				}
 			}
 		}
@@ -88,7 +88,8 @@ public class BlockObjective extends Objective implements Listener {
 		String playerID = PlayerConverter.getID(event.getPlayer());
 		// if the player has this objective, the event isn't canceled,
 		// the block is correct and conditions are met
-		if (containsPlayer(playerID) && !event.isCancelled() && selector.match(event.getBlock()) && checkConditions(playerID)) {
+		if (containsPlayer(playerID) && !event.isCancelled() && event.getBlock().getType().equals(material)
+				&& (data < 0 || event.getBlock().getData() == data) && checkConditions(playerID)) {
 			// remove the block from the total amount
 			BlockData playerData = (BlockData) dataMap.get(playerID);
 			playerData.remove();
@@ -98,13 +99,11 @@ public class BlockObjective extends Objective implements Listener {
 			} else if (notify && playerData.getAmount() % notifyInterval == 0) {
 				// or maybe display a notification
 				if (playerData.getAmount() > neededAmount) {
-					Config.sendNotify(playerID, "blocks_to_break",
-							new String[] { String.valueOf(playerData.getAmount() - neededAmount) },
-							"blocks_to_break,info");
+					Config.sendMessage(playerID, "blocks_to_break",
+							new String[] { String.valueOf(playerData.getAmount() - neededAmount) });
 				} else {
-					Config.sendNotify(playerID, "blocks_to_place",
-							new String[] { String.valueOf(neededAmount - playerData.getAmount()) },
-							"blocks_to_place,info");
+					Config.sendMessage(playerID, "blocks_to_place",
+							new String[] { String.valueOf(neededAmount - playerData.getAmount()) });
 				}
 			}
 		}
