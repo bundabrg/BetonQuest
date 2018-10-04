@@ -68,7 +68,7 @@ public class AdvancementNotifyIO extends NotifyIO {
 
     @Override
     public void sendNotify(String message, Collection<? extends Player> players) {
-        NamespacedKey id = new NamespacedKey(BetonQuest.getInstance(), "notify/" + UUID.randomUUID().toString());
+        NamespacedKey id = new NamespacedKey(BetonQuest.getPlugin(), "notify/" + UUID.randomUUID().toString());
 
         // Add the advancement. Pre 1.13 we have to catch some errors here
         try {
@@ -93,7 +93,7 @@ public class AdvancementNotifyIO extends NotifyIO {
                 }
                 remove(id);
             }
-        }.runTaskLater(BetonQuest.getInstance(), 10);
+        }.runTaskLater(BetonQuest.getPlugin(), 10);
 
         super.sendNotify(message, players);
     }
