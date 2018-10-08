@@ -51,8 +51,7 @@ public class CubeNPCListener implements Listener {
      * This limits NPC creation by canceling all sign edits where first line is
      * "[NPC]"
      *
-     * @param event
-     *            SignChangeEvent
+     * @param event SignChangeEvent
      */
     @EventHandler
     public void onSignPlace(SignChangeEvent event) {
@@ -60,7 +59,7 @@ public class CubeNPCListener implements Listener {
             // if the player doesn't have the required permission deny the
             // editing
             event.setCancelled(true);
-            Config.sendMessage(PlayerConverter.getID(event.getPlayer()), "no_permission");
+            Config.sendNotify(PlayerConverter.getID(event.getPlayer()), "no_permission", "no_permission,error");
         }
     }
 
@@ -68,8 +67,7 @@ public class CubeNPCListener implements Listener {
      * This checks if the player clicked on valid NPC, and starts the
      * conversation
      *
-     * @param event
-     *            PlayerInteractEvent
+     * @param event PlayerInteractEvent
      */
     @EventHandler
     public void onNPCClick(final PlayerInteractEvent event) {

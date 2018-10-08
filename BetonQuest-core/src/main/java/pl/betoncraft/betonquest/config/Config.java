@@ -24,6 +24,7 @@ import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.config.ConfigAccessor.AccessorType;
 import pl.betoncraft.betonquest.database.PlayerData;
+import pl.betoncraft.betonquest.notify.Notify;
 import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 
@@ -63,8 +64,7 @@ public class Config {
     /**
      * Creates new instance of the Config handler
      *
-     * @param verboose
-     *            controls if this object should log it's actions to the file
+     * @param verboose controls if this object should log it's actions to the file
      */
     public Config(boolean verboose) {
 
@@ -122,8 +122,7 @@ public class Config {
     /**
      * Creates package with the given name and populates it with default quest
      *
-     * @param packName
-     *            name of the new package
+     * @param packName name of the new package
      * @return true if the package was created, false if it already existed
      */
     public static boolean createPackage(String packName) {
@@ -155,10 +154,8 @@ public class Config {
     /**
      * Saves resource in a root directory
      *
-     * @param root
-     *            directory where the resource will be saved
-     * @param resource
-     *            resource name, also name of the file
+     * @param root     directory where the resource will be saved
+     * @param resource resource name, also name of the file
      */
     private static void saveResource(File root, String resource) {
         saveResource(root, resource, resource);
@@ -167,12 +164,9 @@ public class Config {
     /**
      * Saves the resource with the name in a root directory
      *
-     * @param root
-     *            directory where the resource will be saved
-     * @param resource
-     *            resource name
-     * @param name
-     *            file name
+     * @param root     directory where the resource will be saved
+     * @param resource resource name
+     * @param name     file name
      */
     private static void saveResource(File root, String resource, String name) {
         if (!root.isDirectory())
@@ -216,14 +210,11 @@ public class Config {
      * Retrieves the message from the configuration in specified language and
      * replaces the variables
      *
-     * @param lang
-     *            language in which the message should be retrieved
-     * @param message
-     *            name of the message to retrieve
-     * @param variables
-     *            array of variables to replace
+     * @param lang      language in which the message should be retrieved
+     * @param message   name of the message to retrieve
+     * @param variables array of variables to replace
      * @return message in that language, or message in English, or null if it
-     *         does not exist
+     * does not exist
      */
     public static String getMessage(String lang, String message, String[] variables) {
         String result = messages.getConfig().getString(lang + "." + message);
@@ -252,12 +243,10 @@ public class Config {
     /**
      * Retrieves the message from the configuration in specified language
      *
-     * @param message
-     *            name of the message to retrieve
-     * @param lang
-     *            language in which the message should be retrieved
+     * @param message name of the message to retrieve
+     * @param lang    language in which the message should be retrieved
      * @return message in that language, or message in English, or null if it
-     *         does not exist
+     * does not exist
      */
     public static String getMessage(String lang, String message) {
         return getMessage(lang, message, null);
@@ -275,8 +264,7 @@ public class Config {
      * replaced! To replace variables automatically just call getString() method
      * on ConfigPackage.
      *
-     * @param address
-     *            address of the string
+     * @param address address of the string
      * @return the requested string
      */
     public static String getString(String address) {
@@ -301,10 +289,8 @@ public class Config {
     /**
      * Sets the string at specified address
      *
-     * @param address
-     *            address of the variable
-     * @param value
-     *            value that needs to be set
+     * @param address address of the variable
+     * @param value   value that needs to be set
      * @return true if it was set, false otherwise
      */
     public static boolean setString(String address, String value) {
@@ -349,10 +335,9 @@ public class Config {
      * packages. If there are multiple assignments for the same value, the first
      * one will be returned.
      *
-     * @param value
-     *            the name of the NPC (as defined in <i>main.yml</i>)
+     * @param value the name of the NPC (as defined in <i>main.yml</i>)
      * @return the ID of the conversation assigned to this NPC or null if there
-     *         isn't one
+     * isn't one
      */
     public static String getNpc(String value) {
         // load npc assignments from all packages
@@ -372,10 +357,8 @@ public class Config {
      * Sends a message to player in his chosen language or default or English
      * (if previous not found).
      *
-     * @param playerID
-     *            ID of the player
-     * @param messageName
-     *            ID of the message
+     * @param playerID    ID of the player
+     * @param messageName ID of the message
      */
     public static void sendMessage(String playerID, String messageName) {
         sendMessage(playerID, messageName, null, null, null, null);
@@ -386,12 +369,9 @@ public class Config {
      * (if previous not found). It will replace all {x} sequences with the
      * variables.
      *
-     * @param playerID
-     *            ID of the player
-     * @param messageName
-     *            ID of the message
-     * @param variables
-     *            array of variables which will be inserted into the string
+     * @param playerID    ID of the player
+     * @param messageName ID of the message
+     * @param variables   array of variables which will be inserted into the string
      */
     public static void sendMessage(String playerID, String messageName, String[] variables) {
         sendMessage(playerID, messageName, variables, null, null, null);
@@ -402,14 +382,10 @@ public class Config {
      * (if previous not found). It will replace all {x} sequences with the
      * variables and play the sound.
      *
-     * @param playerID
-     *            ID of the player
-     * @param messageName
-     *            ID of the message
-     * @param variables
-     *            array of variables which will be inserted into the string
-     * @param soundName
-     *            name of the sound to play to the player
+     * @param playerID    ID of the player
+     * @param messageName ID of the message
+     * @param variables   array of variables which will be inserted into the string
+     * @param soundName   name of the sound to play to the player
      */
     public static void sendMessage(String playerID, String messageName, String[] variables, String soundName) {
         sendMessage(playerID, messageName, variables, soundName, null, null);
@@ -420,18 +396,12 @@ public class Config {
      * (if previous not found). It will replace all {x} sequences with the
      * variables and play the sound. It will also add a prefix to the message.
      *
-     * @param playerID
-     *            ID of the player
-     * @param messageName
-     *            ID of the message
-     * @param variables
-     *            array of variables which will be inserted into the message
-     * @param soundName
-     *            name of the sound to play to the player
-     * @param prefixName
-     *            ID of the prefix
-     * @param prefixVariables
-     *            array of variables which will be inserted into the prefix
+     * @param playerID        ID of the player
+     * @param messageName     ID of the message
+     * @param variables       array of variables which will be inserted into the message
+     * @param soundName       name of the sound to play to the player
+     * @param prefixName      ID of the prefix
+     * @param prefixVariables array of variables which will be inserted into the prefix
      */
     public static void sendMessage(String playerID, String messageName, String[] variables, String soundName,
                                    String prefixName, String[] prefixVariables) {
@@ -446,28 +416,71 @@ public class Config {
         }
     }
 
+    public static void sendNotify(String playerID, String messageName, String category) {
+        sendNotify(playerID, messageName, null, category);
+    }
+
+    public static void sendNotify(Player player, String messageName, String category) {
+        sendNotify(player, messageName, null, category);
+    }
+
+    public static void sendNotify(String playerID, String messageName, String[] variables, String category) {
+        sendNotify(playerID, messageName, variables, category, null);
+    }
+
+    public static void sendNotify(Player player, String messageName, String[] variables, String category) {
+        sendNotify(player, messageName, variables, category, null);
+    }
+
+    public static void sendNotify(String playerID, String messageName, String[] variables, String category, Map<String, String> data) {
+        sendNotify(PlayerConverter.getPlayer(playerID), messageName, variables, category, data);
+    }
+
+    /**
+     * Sends a notification to player in his chosen language or default or English
+     * (if previous not found). It will replace all {x} sequences with the
+     * variables and play the sound. It will also add a prefix to the message.
+     *
+     * @param player      player
+     * @param messageName ID of the message
+     * @param variables   array of variables which will be inserted into the message
+     * @param category    notification category
+     * @param data        custom notifyIO data
+     */
+    public static void sendNotify(Player player, String messageName, String[] variables, String category, Map<String, String> data) {
+        String message = parseMessage(player, messageName, variables);
+        if (message == null || message.length() == 0)
+            return;
+
+        Notify.get(category, data).sendNotify(message, player);
+    }
+
     public static String parseMessage(String playerID, String messageName, String[] variables) {
         return parseMessage(playerID, messageName, variables, null, null);
     }
 
-    /**
-     * Retrieve's a message in the language of the player, replacing variables
-     * @param playerID
-     * 			name of the player
-     * @param messageName
-     * 			name of the message to retrieve
-     * @param variables
-     * 			Variables to replace in message
-     * @param prefixName
-     *            ID of the prefix
-     * @param prefixVariables
-     *            array of variables which will be inserted into the prefix
-     */
+    public static String parseMessage(Player player, String messageName, String[] variables) {
+        return parseMessage(player, messageName, variables, null, null);
+    }
+
     public static String parseMessage(String playerID, String messageName, String[] variables, String prefixName,
                                       String[] prefixVariables) {
-        Player player = PlayerConverter.getPlayer(playerID);
-        PlayerData playerData = BetonQuest.getInstance().getPlayerData(playerID);
-        if (player == null || playerData == null)
+        return parseMessage(PlayerConverter.getPlayer(playerID), messageName, variables, prefixName, prefixVariables);
+    }
+
+    /**
+     * Retrieve's a message in the language of the player, replacing variables
+     *
+     * @param player          player
+     * @param messageName     name of the message to retrieve
+     * @param variables       Variables to replace in message
+     * @param prefixName      ID of the prefix
+     * @param prefixVariables array of variables which will be inserted into the prefix
+     */
+    public static String parseMessage(Player player, String messageName, String[] variables, String prefixName,
+                                      String[] prefixVariables) {
+        PlayerData playerData = BetonQuest.getInstance().getPlayerData(PlayerConverter.getID(player));
+        if (playerData == null)
             return null;
         String language = playerData.getLanguage();
         String message = getMessage(language, messageName, variables);

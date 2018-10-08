@@ -81,12 +81,9 @@ public class Conversation implements Listener {
      * Starts a new conversation between player and npc at given location. It uses
      * starting options to determine where to start.
      *
-     * @param playerID
-     *            ID of the player
-     * @param conversationID
-     *            ID of the conversation
-     * @param location
-     *            location where the conversation has been started
+     * @param playerID       ID of the player
+     * @param conversationID ID of the conversation
+     * @param location       location where the conversation has been started
      */
     public Conversation(String playerID, String conversationID, Location location) {
         this(playerID, conversationID, location, null);
@@ -97,14 +94,10 @@ public class Conversation implements Listener {
      * starting with the given option. If the option is null, then it will start
      * from the beginning.
      *
-     * @param playerID
-     *            ID of the player
-     * @param conversationID
-     *            ID of the conversation
-     * @param location
-     *            location where the conversation has been started
-     * @param option
-     *            ID of the option from where to start
+     * @param playerID       ID of the player
+     * @param conversationID ID of the conversation
+     * @param location       location where the conversation has been started
+     * @param option         ID of the option from where to start
      */
     public Conversation(final String playerID, final String conversationID,
                         final Location location, String option) {
@@ -151,8 +144,7 @@ public class Conversation implements Listener {
     /**
      * Checks if the player is in a conversation
      *
-     * @param playerID
-     *            ID of the player
+     * @param playerID ID of the player
      * @return if the player is on the list of active conversations
      */
     public static boolean containsPlayer(String playerID) {
@@ -162,8 +154,7 @@ public class Conversation implements Listener {
     /**
      * Gets this player's active conversation.
      *
-     * @param playerID
-     *            ID of the player
+     * @param playerID ID of the player
      * @return player's active conversation or null if there is no conversation
      */
     public static Conversation getConversation(String playerID) {
@@ -173,11 +164,9 @@ public class Conversation implements Listener {
     /**
      * Chooses the first available option.
      *
-     * @param options
-     *            list of option pointers separated by commas
-     * @param force
-     *            setting it to true will force the first option, even if
-     *            conditions are not met
+     * @param options list of option pointers separated by commas
+     * @param force   setting it to true will force the first option, even if
+     *                conditions are not met
      */
     private void selectOption(String[] options, boolean force) {
 
@@ -236,8 +225,7 @@ public class Conversation implements Listener {
     /**
      * Passes given string as answer from player in a conversation.
      *
-     * @param number
-     *            the message player has sent on chat
+     * @param number the message player has sent on chat
      */
     public void passPlayerAnswer(int number) {
 
@@ -252,8 +240,7 @@ public class Conversation implements Listener {
     /**
      * Prints answers the player can choose.
      *
-     * @param options
-     *            list of pointers to player options separated by commas
+     * @param options list of pointers to player options separated by commas
      */
     private void printOptions(String[] options) {
         // i is for counting replies, like 1. something, 2. something else
@@ -347,7 +334,8 @@ public class Conversation implements Listener {
         String cmdName = event.getMessage().split(" ")[0].substring(1);
         if (blacklist.contains(cmdName)) {
             event.setCancelled(true);
-            Config.sendMessage(PlayerConverter.getID(event.getPlayer()), "command_blocked");
+
+            Config.sendNotify(PlayerConverter.getID(event.getPlayer()), "command_blocked", "command_blocked,error");
         }
     }
 

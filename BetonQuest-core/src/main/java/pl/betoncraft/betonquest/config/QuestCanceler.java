@@ -59,10 +59,8 @@ public class QuestCanceler {
     /**
      * Creates a new canceler with given name.
      *
-     * @param cancelerID
-     *            ID of the canceler (package.name)
-     * @throws InstructionParseException
-     *             when parsing the canceler fails for some reason
+     * @param cancelerID ID of the canceler (package.name)
+     * @throws InstructionParseException when parsing the canceler fails for some reason
      */
     public QuestCanceler(String cancelerID) throws InstructionParseException {
         if (cancelerID == null)
@@ -180,8 +178,7 @@ public class QuestCanceler {
      * Checks conditions of this canceler to decide if it should be shown to the
      * player or not.
      *
-     * @param playerID
-     *            ID of the player
+     * @param playerID ID of the player
      * @return true if all conditions are met, false otherwise
      */
     public boolean show(String playerID) {
@@ -198,8 +195,7 @@ public class QuestCanceler {
     /**
      * Cancels the quest for specified player.
      *
-     * @param playerID
-     *            ID of the player
+     * @param playerID ID of the player
      */
     public void cancel(String playerID) {
         Debug.info("Canceling the quest " + name + " for player " + PlayerConverter.getName(playerID));
@@ -258,7 +254,7 @@ public class QuestCanceler {
         // done
         Debug.info("Quest removed!");
         String questName = getName(playerID);
-        Config.sendMessage(playerID, "quest_canceled", new String[]{questName});
+        Config.sendNotify(playerID, "quest_canceled", new String[]{questName}, "quest_cancelled,quest_canceled,info");
     }
 
     /**
@@ -266,8 +262,7 @@ public class QuestCanceler {
      * default language, English or if none of above are specified, simply
      * "Quest". In that case, it will also log an error to the console.
      *
-     * @param playerID
-     *            ID of the player
+     * @param playerID ID of the player
      * @return the name of the quest canceler
      */
     public String getName(String playerID) {

@@ -110,8 +110,7 @@ public abstract class ChatConvIO implements ConversationIO, Listener {
      * Moves the player back a few blocks in the conversation's center
      * direction.
      *
-     * @param event
-     *            PlayerMoveEvent event, for extracting the necessary data
+     * @param event PlayerMoveEvent event, for extracting the necessary data
      */
     private void moveBack(PlayerMoveEvent event) {
         // if the player is in other world (he teleported himself), teleport him
@@ -134,7 +133,7 @@ public abstract class ChatConvIO implements ConversationIO, Listener {
         newLocation.setYaw(yaw);
         event.getPlayer().teleport(newLocation);
         if (Config.getString("config.notify_pullback").equalsIgnoreCase("true")) {
-            Config.sendMessage(PlayerConverter.getID(event.getPlayer()), "pullback");
+            Config.sendNotify(PlayerConverter.getID(event.getPlayer()), "pullback", "pullback,error");
         }
     }
 
