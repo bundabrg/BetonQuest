@@ -344,6 +344,7 @@ public final class BetonQuest extends JavaPlugin {
 		registerConditions("realtime", RealTimeCondition.class);
 		registerConditions("looking", LookingAtCondition.class);
 		registerConditions("facing", FacingCondition.class);
+		registerConditions("conversation", ConversationCondition.class);
 
 		// register events
 		registerEvents("message", MessageEvent.class);
