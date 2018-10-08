@@ -245,8 +245,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Checks if the condition described by conditionID is met
      *
-     * @param conditionID ID of the condition to check, as defined in conditions.yml
-     * @param playerID    ID of the player which should be checked
+     * @param conditionID
+     *            ID of the condition to check, as defined in conditions.yml
+     * @param playerID
+     *            ID of the player which should be checked
      * @return if the condition is met
      */
     public static boolean condition(String playerID, ConditionID conditionID) {
@@ -294,8 +296,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Fires the event described by eventID
      *
-     * @param eventID  ID of the event to fire, as defined in events.yml
-     * @param playerID ID of the player who the event is firing for
+     * @param eventID
+     *            ID of the event to fire, as defined in events.yml
+     * @param playerID
+     *            ID of the player who the event is firing for
      */
     public static void event(String playerID, EventID eventID) {
         // null check
@@ -331,8 +335,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Creates new objective for given player
      *
-     * @param playerID    ID of the player
-     * @param objectiveID ID of the objective
+     * @param playerID
+     *            ID of the player
+     * @param objectiveID
+     *            ID of the objective
      */
     public static void newObjective(String playerID, ObjectiveID objectiveID) {
         // null check
@@ -358,9 +364,12 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Resumes the existing objective for given player
      *
-     * @param playerID    ID of the player
-     * @param objectiveID ID of the objective
-     * @param instruction data instruction string
+     * @param playerID
+     *            ID of the player
+     * @param objectiveID
+     *            ID of the objective
+     * @param instruction
+     *            data instruction string
      */
     public static void resumeObjective(String playerID, ObjectiveID objectiveID, String instruction) {
         // null check
@@ -391,10 +400,13 @@ public class BetonQuest extends VersionPlugin {
      * Generates new instance of a Variable. If a similar one was already
      * created, it will return it instead of creating a new one.
      *
-     * @param pack        package in which the variable is defined
-     * @param instruction instruction of the variable, including both % characters.
+     * @param pack
+     *            package in which the variable is defined
+     * @param instruction
+     *            instruction of the variable, including both % characters.
      * @return the Variable instance
-     * @throws InstructionParseException when the variable parsing fails
+     * @throws InstructionParseException
+     *             when the variable parsing fails
      */
     public static Variable createVariable(ConfigPackage pack, String instruction) throws InstructionParseException {
         VariableID ID;
@@ -443,7 +455,8 @@ public class BetonQuest extends VersionPlugin {
      * the user uses the same variables multiple times, the list will contain
      * only one occurence of this variable.
      *
-     * @param text text from which the variables will be resolved
+     * @param text
+     *            text from which the variables will be resolved
      * @return the list of unique variable instructions
      */
     public static ArrayList<String> resolveVariables(String text) {
@@ -1004,8 +1017,10 @@ public class BetonQuest extends VersionPlugin {
      * Stores the PlayerData in a map, so it can be retrieved using
      * getPlayerData(String playerID)
      *
-     * @param playerID   ID of the player
-     * @param playerData PlayerData object to store
+     * @param playerID
+     *            ID of the player
+     * @param playerData
+     *            PlayerData object to store
      */
     public void putPlayerData(String playerID, PlayerData playerData) {
         Debug.info("Inserting data for " + PlayerConverter.getName(playerID));
@@ -1017,7 +1032,8 @@ public class BetonQuest extends VersionPlugin {
      * does not exist but the player is online, it will create new playerData on
      * the main thread and put it into the map.
      *
-     * @param playerID ID of the player
+     * @param playerID
+     *            ID of the player
      * @return PlayerData object for the player
      */
     public PlayerData getPlayerData(String playerID) {
@@ -1041,7 +1057,8 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Removes the database playerData from the map
      *
-     * @param playerID ID of the player whose playerData is to be removed
+     * @param playerID
+     *            ID of the player whose playerData is to be removed
      */
     public void removePlayerData(String playerID) {
         playerDataMap.remove(playerID);
@@ -1050,8 +1067,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Registers new condition classes by their names
      *
-     * @param name           name of the condition type
-     * @param conditionClass class object for the condition
+     * @param name
+     *            name of the condition type
+     * @param conditionClass
+     *            class object for the condition
      */
     public void registerConditions(String name, Class<? extends Condition> conditionClass) {
         Debug.info("Registering " + name + " condition type");
@@ -1061,8 +1080,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Registers new event classes by their names
      *
-     * @param name       name of the event type
-     * @param eventClass class object for the condition
+     * @param name
+     *            name of the event type
+     * @param eventClass
+     *            class object for the condition
      */
     public void registerEvents(String name, Class<? extends QuestEvent> eventClass) {
         Debug.info("Registering " + name + " event type");
@@ -1072,8 +1093,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Registers new objective classes by their names
      *
-     * @param name           name of the objective type
-     * @param objectiveClass class object for the objective
+     * @param name
+     *            name of the objective type
+     * @param objectiveClass
+     *            class object for the objective
      */
     public void registerObjectives(String name, Class<? extends Objective> objectiveClass) {
         Debug.info("Registering " + name + " objective type");
@@ -1083,8 +1106,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Registers new conversation input/output class.
      *
-     * @param name        name of the IO type
-     * @param convIOClass class object to register
+     * @param name
+     *            name of the IO type
+     * @param convIOClass
+     *            class object to register
      */
     public void registerConversationIO(String name, Class<? extends ConversationIO> convIOClass) {
         Debug.info("Registering " + name + " conversation IO type");
@@ -1105,8 +1130,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Registers new variable type.
      *
-     * @param name     name of the variable type
-     * @param variable class object of this type
+     * @param name
+     *            name of the variable type
+     * @param variable
+     *            class object of this type
      */
     public void registerVariable(String name, Class<? extends Variable> variable) {
         Debug.info("Registering " + name + " variable type");
@@ -1116,7 +1143,8 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Returns the list of objectives of this player
      *
-     * @param playerID ID of the player
+     * @param playerID
+     *            ID of the player
      * @return list of this player's active objectives
      */
     public ArrayList<Objective> getPlayerObjectives(String playerID) {
@@ -1130,7 +1158,8 @@ public class BetonQuest extends VersionPlugin {
     }
 
     /**
-     * @param name package name, dot and name of the conversation
+     * @param name
+     *            package name, dot and name of the conversation
      * @return ConversationData object for this conversation or null if it does
      * not exist
      */
@@ -1139,7 +1168,8 @@ public class BetonQuest extends VersionPlugin {
     }
 
     /**
-     * @param objectiveID package name, dot and ID of the objective
+     * @param objectiveID
+     *            package name, dot and ID of the objective
      * @return Objective object or null if it does not exist
      */
     public Objective getObjective(ObjectiveID objectiveID) {
@@ -1161,7 +1191,8 @@ public class BetonQuest extends VersionPlugin {
     }
 
     /**
-     * @param name name of the conversation IO type
+     * @param name
+     *            name of the conversation IO type
      * @return the class object for this conversation IO type
      */
     public Class<? extends ConversationIO> getConvIO(String name) {
@@ -1172,9 +1203,12 @@ public class BetonQuest extends VersionPlugin {
      * Resoles the variable for specified player. If the variable is not loaded
      * yet it will load it on the main thread.
      *
-     * @param packName name of the package
-     * @param name     name of the variable (instruction, with % characters)
-     * @param playerID ID of the player
+     * @param packName
+     *            name of the package
+     * @param name
+     *            name of the variable (instruction, with % characters)
+     * @param playerID
+     *            ID of the player
      * @return the value of this variable for given player
      */
     public String getVariableValue(String packName, String name, String playerID) {
@@ -1207,8 +1241,10 @@ public class BetonQuest extends VersionPlugin {
     /**
      * Renames the objective instance.
      *
-     * @param name   the current name
-     * @param rename the name it should have now
+     * @param name
+     *            the current name
+     * @param rename
+     *            the name it should have now
      */
     public void renameObjective(ObjectiveID name, ObjectiveID rename) {
         objectives.put(rename, objectives.remove(name));
