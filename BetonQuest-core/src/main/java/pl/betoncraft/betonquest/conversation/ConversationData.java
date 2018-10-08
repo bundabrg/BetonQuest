@@ -56,12 +56,9 @@ public class ConversationData {
     /**
      * Loads conversation from package.
      *
-     * @param pack
-     *            the package containing this conversation
-     * @param name
-     *            the name of the conversation
-     * @throws InstructionParseException
-     *             when there is a syntax error in the defined conversation
+     * @param pack the package containing this conversation
+     * @param name the name of the conversation
+     * @throws InstructionParseException when there is a syntax error in the defined conversation
      */
     public ConversationData(ConfigPackage pack, String name) throws InstructionParseException {
         this.pack = pack;
@@ -190,7 +187,7 @@ public class ConversationData {
      * Checks if external pointers point to valid options. It cannot be checked
      * when constructing ConversationData objects because conversations that are
      * being pointed to may not yet exist.
-     *
+     * <p>
      * This method should be called when all conversations are loaded. It will
      * not throw any exceptions, just display errors in the console.
      */
@@ -233,11 +230,9 @@ public class ConversationData {
      * Gets the prefix of the conversation. If provided NPC option does not
      * define one, the global one from the conversation is returned instead.
      *
-     * @param lang
-     *            language of the prefix
-     * @param option
-     *            the quest starting npc option that defines the prefix of the
-     *            conversation
+     * @param lang   language of the prefix
+     * @param option the quest starting npc option that defines the prefix of the
+     *               conversation
      * @return the conversation prefix, or null if not defined
      */
     public String getPrefix(String lang, String option) {
@@ -260,8 +255,7 @@ public class ConversationData {
     }
 
     /**
-     * @param lang
-     *            language of quester's name
+     * @param lang language of quester's name
      * @return the quester's name
      */
     public String getQuester(String lang) {
@@ -347,6 +341,33 @@ public class ConversationData {
             options = playerOptions;
         }
         return options.get(option).getPointers();
+    }
+
+    /**
+     * Check if conversation has at least one valid option for player
+     */
+    public boolean isReady(String playerID) {
+        options:
+        for (String option : getStartingOptions()) {
+            String convName, optionName;
+            if (option.contains(".")) {
+                String[] parts = option.split("\\.");
+                convName = parts[0];
+                optionName = parts[1];
+            } else {
+                convName = getName();
+                optionName = option;
+            }
+            ConfigPackage pack = Config.getPackages().get(getPackName());
+            ConversationData currentData = BetonQuest.getInstance().getConversation(pack.getName() + "." + convName);
+            for (ConditionID condition : currentData.getConditionIDs(optionName, ConversationData.OptionType.NPC)) {
+                if (!BetonQuest.condition(playerID, condition)) {
+                    continue options;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     public static enum OptionType {
