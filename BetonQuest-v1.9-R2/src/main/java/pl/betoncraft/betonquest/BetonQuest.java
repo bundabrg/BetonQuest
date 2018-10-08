@@ -49,6 +49,7 @@ import pl.betoncraft.betonquest.conditions.DayOfWeekCondition;
 import pl.betoncraft.betonquest.conditions.EffectCondition;
 import pl.betoncraft.betonquest.conditions.EmptySlotsCondition;
 import pl.betoncraft.betonquest.conditions.ExperienceCondition;
+import pl.betoncraft.betonquest.conditions.FacingCondition;
 import pl.betoncraft.betonquest.conditions.FlyingCondition;
 import pl.betoncraft.betonquest.conditions.GameModeCondition;
 import pl.betoncraft.betonquest.conditions.GlobalPointCondition;
@@ -59,6 +60,7 @@ import pl.betoncraft.betonquest.conditions.HeightCondition;
 import pl.betoncraft.betonquest.conditions.ItemCondition;
 import pl.betoncraft.betonquest.conditions.JournalCondition;
 import pl.betoncraft.betonquest.conditions.LocationCondition;
+import pl.betoncraft.betonquest.conditions.LookingAtCondition;
 import pl.betoncraft.betonquest.conditions.MonstersCondition;
 import pl.betoncraft.betonquest.conditions.ObjectiveCondition;
 import pl.betoncraft.betonquest.conditions.PartialDateCondition;
@@ -105,6 +107,7 @@ import pl.betoncraft.betonquest.events.CommandEvent;
 import pl.betoncraft.betonquest.events.CompassEvent;
 import pl.betoncraft.betonquest.events.ConversationEvent;
 import pl.betoncraft.betonquest.events.DamageEvent;
+import pl.betoncraft.betonquest.events.DelEffectEvent;
 import pl.betoncraft.betonquest.events.DoorEvent;
 import pl.betoncraft.betonquest.events.EXPEvent;
 import pl.betoncraft.betonquest.events.EffectEvent;
@@ -585,6 +588,8 @@ public class BetonQuest extends VersionPlugin {
         registerConditions("dayofweek", DayOfWeekCondition.class);
         registerConditions("partialdate", PartialDateCondition.class);
         registerConditions("realtime", RealTimeCondition.class);
+        registerConditions("looking", LookingAtCondition.class);
+        registerConditions("facing", FacingCondition.class);
         registerConditions("conversation", ConversationCondition.class);
 
         // register events
@@ -604,6 +609,7 @@ public class BetonQuest extends VersionPlugin {
         registerEvents("conversation", ConversationEvent.class);
         registerEvents("kill", KillEvent.class);
         registerEvents("effect", EffectEvent.class);
+        registerEvents("deleffect", DelEffectEvent.class);
         registerEvents("spawn", SpawnMobEvent.class);
         registerEvents("killmob", KillMobEvent.class);
         registerEvents("time", TimeEvent.class);
