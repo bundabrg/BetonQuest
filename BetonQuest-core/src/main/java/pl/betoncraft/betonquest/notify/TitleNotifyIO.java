@@ -1,30 +1,36 @@
+/*
+ * BetonQuest - advanced quests for Bukkit
+ * Copyright (C) 2016  Jakub "Co0sh" Sapalski
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package pl.betoncraft.betonquest.notify;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.advancement.Advancement;
-import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import pl.betoncraft.betonquest.BetonQuest;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Use Title Popup for Notification
- *
+ * <p>
  * Data Valuues:
- *   * fadeIn: seconds to fade in
- *   * stay: seconds to stay
- *   * fadeOut: seconds to fade out
- *   * subTitle: the subtitle to show, else blank
- *
- *
+ * * fadeIn: seconds to fade in
+ * * stay: seconds to stay
+ * * fadeOut: seconds to fade out
+ * * subTitle: the subtitle to show, else blank
  */
 public class TitleNotifyIO extends NotifyIO {
 

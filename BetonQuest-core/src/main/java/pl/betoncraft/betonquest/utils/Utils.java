@@ -49,6 +49,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Various utilities.
@@ -89,8 +91,7 @@ public class Utils {
     /**
      * Backs the database up to a specified .yml file (it should not exist)
      *
-     * @param databaseBackupFile
-     *            non-existent file where the database should be dumped
+     * @param databaseBackupFile non-existent file where the database should be dumped
      * @return true if the backup was successful, false if there was an error
      */
     public static boolean backupDatabase(File databaseBackupFile) {
@@ -340,8 +341,7 @@ public class Utils {
     /**
      * Checks if the ItemStack is a quest item
      *
-     * @param item
-     *            ItemStack to check
+     * @param item ItemStack to check
      * @return true if the supplied ItemStack is a quest item, false otherwise
      */
     public static boolean isQuestItem(ItemStack item) {
@@ -382,10 +382,8 @@ public class Utils {
      * Inserts a package before this string if there is no package, or does
      * nothing if the package is already there.
      *
-     * @param pack
-     *            the package
-     * @param string
-     *            ID of event/condition/objective/item etc.
+     * @param pack   the package
+     * @param string ID of event/condition/objective/item etc.
      * @return full ID with package prefix
      */
     public static String addPackage(ConfigPackage pack, String string) {
@@ -399,11 +397,9 @@ public class Utils {
     /**
      * Parses the string as RGB or as DyeColor and returns it as Color.
      *
-     * @param string
-     *            string to parse as a Color
+     * @param string string to parse as a Color
      * @return the Color (never null)
-     * @throws InstructionParseException
-     *             when something goes wrong
+     * @throws InstructionParseException when something goes wrong
      */
     public static Color getColor(String string) throws InstructionParseException {
         if (string == null || string.isEmpty()) {
@@ -434,7 +430,7 @@ public class Utils {
      * Copies all color codes before each word, so they are correctly displayed regardless of line breaks.
      *
      * @param string the string to process
-     * @param def default color code to use instead of resetting; use null for regular reset code
+     * @param def    default color code to use instead of resetting; use null for regular reset code
      * @return the colorful string ready to split into multiple lines
      */
     public static String multiLineColorCodes(String string, String def) {
@@ -485,7 +481,7 @@ public class Utils {
      * <p>
      * {@code format(string, false, false)} will return the string with no formatting done
      *
-     * @param string the input string
+     * @param string     the input string
      * @param colorCodes if alternate color codes should be resolved
      * @param lineBreaks if {@code \\n} should be replaced with {@code \n}
      * @return a formatted version of the input string
@@ -504,5 +500,21 @@ public class Utils {
      */
     public static String format(String string) {
         return format(string, true, true);
+    }
+
+    /**
+     * Split a string by white space, except if between quotes
+     */
+    public static String[] split(String string) {
+        List<String> list = new ArrayList<>();
+        Matcher m = Pattern.compile("(?:(?:(\\S*)(?:\")([^\"]*?)(?:\"))|(\\S+))\\s*").matcher(string);
+        while (m.find()) {
+            if (m.group(3) != null) {
+                list.add(m.group(3));
+            } else {
+                list.add(m.group(1) + m.group(2));
+            }
+        }
+        return list.toArray(new String[0]);
     }
 }

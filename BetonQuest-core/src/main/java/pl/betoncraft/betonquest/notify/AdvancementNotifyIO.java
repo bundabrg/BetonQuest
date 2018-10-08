@@ -1,10 +1,27 @@
+/*
+ * BetonQuest - advanced quests for Bukkit
+ * Copyright (C) 2016  Jakub "Co0sh" Sapalski
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package pl.betoncraft.betonquest.notify;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
@@ -19,32 +36,16 @@ import java.util.UUID;
 
 /**
  * Use Advancement Popup for Notification
- *
+ * <p>
  * Data Valuues:
- *   * frame: {challenge|goal|task|default} - What frame to use
- *   * icon:  {item_name} - What icon to use
- *
+ * * frame: {challenge|goal|task|default} - What frame to use
+ * * icon:  {item_name} - What icon to use
  */
 public class AdvancementNotifyIO extends NotifyIO {
 
-    public static enum FrameType{
-        CHALLENGE("challenge"),
-        GOAL("goal"),
-        TASK("task"),
-        DEFAULT("challenge");
-
-        private String str;
-
-        FrameType(String str){
-            this.str = str;
-        }
-
-        public String getName(){return this.str;}
-    }
+    private String icon;
 
     // Variables
-
-    private String icon;
     private String frame;
 
     public AdvancementNotifyIO(Map<String, String> data) {
@@ -68,7 +69,7 @@ public class AdvancementNotifyIO extends NotifyIO {
 
     @Override
     public void sendNotify(String message, Collection<? extends Player> players) {
-        NamespacedKey id = new NamespacedKey(BetonQuest.getInstance(), "notify/" + UUID.randomUUID().toString());
+        NamespacedKey id = new NamespacedKey(BetonQuest.getPlugin(), "notify/" + UUID.randomUUID().toString());
 
         // Add the advancement. Pre 1.13 we have to catch some errors here
         try {
@@ -93,7 +94,7 @@ public class AdvancementNotifyIO extends NotifyIO {
                 }
                 remove(id);
             }
-        }.runTaskLater(BetonQuest.getInstance(), 10);
+        }.runTaskLater(BetonQuest.getPlugin(), 10);
 
         super.sendNotify(message, players);
     }
@@ -126,7 +127,6 @@ public class AdvancementNotifyIO extends NotifyIO {
         }
     }
 
-
     private String generateJson(String message) {
         JsonObject json = new JsonObject();
 
@@ -136,7 +136,7 @@ public class AdvancementNotifyIO extends NotifyIO {
 
         JsonObject display = new JsonObject();
         display.add("icon", icon);
-        display.addProperty("title",message);
+        display.addProperty("title", message);
 
         display.addProperty("description", "");
         display.addProperty("background", "minecraft:textures/gui/advancements/backgrounds/adventure.png");
@@ -157,5 +157,23 @@ public class AdvancementNotifyIO extends NotifyIO {
         json.add("display", display);
 
         return new GsonBuilder().setPrettyPrinting().create().toJson(json);
+    }
+
+
+    public static enum FrameType {
+        CHALLENGE("challenge"),
+        GOAL("goal"),
+        TASK("task"),
+        DEFAULT("challenge");
+
+        private String str;
+
+        FrameType(String str) {
+            this.str = str;
+        }
+
+        public String getName() {
+            return this.str;
+        }
     }
 }

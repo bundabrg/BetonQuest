@@ -1,8 +1,23 @@
+/*
+ * BetonQuest - advanced quests for Bukkit
+ * Copyright (C) 2016  Jakub "Co0sh" Sapalski
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package pl.betoncraft.betonquest.notify;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -20,15 +35,13 @@ import java.util.Map;
 
 /**
  * Use a BossBar for Notification
- *
+ * <p>
  * Data Values:
- *   * barFlags:{create_fog,darken_sky,play_boss_music} - Comma seperated BAR values
- *   * barColor: {blue|green|pink|purple|red|white}
- *   * progress: Progress between 0.0 and 1.0
- *   * style: {segmented_10|segmented_12|segmented_20|segmented_6|solid} - Style of bar
- *   * stay: ticks to stay
- *
- *
+ * * barFlags:{create_fog,darken_sky,play_boss_music} - Comma seperated BAR values
+ * * barColor: {blue|green|pink|purple|red|white}
+ * * progress: Progress between 0.0 and 1.0
+ * * style: {segmented_10|segmented_12|segmented_20|segmented_6|solid} - Style of bar
+ * * stay: ticks to stay
  */
 public class BossBarNotifyIO extends NotifyIO {
 
@@ -39,7 +52,7 @@ public class BossBarNotifyIO extends NotifyIO {
     private double progress = 1;
     private BarStyle style = BarStyle.SOLID;
     private int stay = 70;
-    private int countdown=0;
+    private int countdown = 0;
 
     public BossBarNotifyIO(Map<String, String> data) {
         super(data);
@@ -121,7 +134,7 @@ public class BossBarNotifyIO extends NotifyIO {
             public void run() {
                 bossBar.removeAll();
             }
-        }.runTaskLater(BetonQuest.getInstance(), stay);
+        }.runTaskLater(BetonQuest.getPlugin(), stay);
 
         // If Countdown, then divide stay by countdown and reduce progress to 0 by those intevals
         if (countdown > 0) {
@@ -139,7 +152,7 @@ public class BossBarNotifyIO extends NotifyIO {
                     progress -= amount;
                     bossBar.setProgress(Math.max(0.0, progress));
                 }
-            }.runTaskTimer(BetonQuest.getInstance(), interval, interval);
+            }.runTaskTimer(BetonQuest.getPlugin(), interval, interval);
         }
 
         super.sendNotify(message, players);

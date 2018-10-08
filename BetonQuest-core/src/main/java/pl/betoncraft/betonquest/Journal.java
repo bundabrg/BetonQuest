@@ -57,12 +57,9 @@ public class Journal {
     /**
      * Creates new Journal instance from List of Pointers.
      *
-     * @param playerID
-     *            ID of the player whose journal is created
-     * @param list
-     *            list of pointers to journal entries
-     * @param lang
-     *            default language to use when generating the journal
+     * @param playerID ID of the player whose journal is created
+     * @param list     list of pointers to journal entries
+     * @param lang     default language to use when generating the journal
      */
     public Journal(String playerID, String lang, List<Pointer> list) {
         // generate texts from list of pointers
@@ -74,10 +71,8 @@ public class Journal {
     /**
      * Checks if the item is journal
      *
-     * @param playerID
-     *            ID of the player
-     * @param item
-     *            ItemStack to check against being the journal
+     * @param playerID ID of the player
+     * @param item     ItemStack to check against being the journal
      * @return true if the ItemStack is the journal, false otherwise
      */
     public static boolean isJournal(String playerID, ItemStack item) {
@@ -98,8 +93,7 @@ public class Journal {
      * Checks if the player has his journal in the inventory. Returns false if
      * the player is not online.
      *
-     * @param playerID
-     *            ID of the player
+     * @param playerID ID of the player
      * @return true if the player has his journal, false otherwise
      */
     public static boolean hasJournal(String playerID) {
@@ -126,8 +120,7 @@ public class Journal {
     /**
      * Adds pointer to the journal. It needs to be updated now.
      *
-     * @param pointer
-     *            the pointer to be added
+     * @param pointer the pointer to be added
      */
     public void addPointer(Pointer pointer) {
         pointers.add(pointer);
@@ -143,8 +136,7 @@ public class Journal {
     /**
      * Removes the pointer from journal. It needs to be updated now.
      *
-     * @param pointerName
-     *            the name of the pointer to remove
+     * @param pointerName the name of the pointer to remove
      */
     public void removePointer(String pointerName) {
         for (Iterator<Pointer> iterator = pointers.iterator(); iterator.hasNext(); ) {
@@ -326,8 +318,7 @@ public class Journal {
     /**
      * Adds journal to player inventory.
      *
-     * @param slot
-     *            slot number for adding the journal
+     * @param slot slot number for adding the journal
      */
     public void addToInv(int slot) {
         // remove the old journal if it exists
@@ -352,7 +343,7 @@ public class Journal {
             }
         } else {
             // if there is no place for the item then print a message about it
-            Config.sendMessage(playerID, "inventory_full", null, "full");
+            Config.sendNotify(playerID, "inventory_full", null, "inventory_full,error");
         }
     }
 
