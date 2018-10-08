@@ -105,13 +105,13 @@ public class InventoryConvIO implements Listener, ConversationIO {
     @Override
     public void setNpcResponse(String npcName, String response) {
         this.npcName = npcName;
-        this.response = Utils.multiLineColorCodes(response.replace('&', '§'), npcTextColor);
+        this.response = Utils.replaceReset(response.replace('&', '§'), npcTextColor);
     }
 
     @Override
     public void addPlayerOption(String option) {
         i++;
-        options.put(i, Utils.multiLineColorCodes(option.replace('&', '§'), optionColor));
+        options.put(i, Utils.replaceReset(option.replace('&', '§'), optionColor));
     }
 
     @SuppressWarnings("deprecation")
