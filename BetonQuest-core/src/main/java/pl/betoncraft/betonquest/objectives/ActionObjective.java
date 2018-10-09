@@ -127,7 +127,7 @@ public class ActionObjective extends Objective implements Listener {
             try {
                 if (((actionEnum == null && (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
                         || event.getAction().equals(Action.LEFT_CLICK_BLOCK))) || event.getAction().equals(actionEnum))
-                        && (event.getClickedBlock() != null && ((type == Material.FIRE
+                        && (event.getClickedBlock() != null && (( (type == Material.FIRE || type == Material.LAVA || type == Material.WATER)
                         && event.getClickedBlock().getRelative(event.getBlockFace()).getType() == type)
                         || event.getClickedBlock().getType().equals(type)))
                         && (data < 0 || event.getClickedBlock().getData() == data)) {
