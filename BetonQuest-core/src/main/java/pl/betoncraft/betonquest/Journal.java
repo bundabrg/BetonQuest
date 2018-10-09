@@ -57,12 +57,9 @@ public class Journal {
     /**
      * Creates new Journal instance from List of Pointers.
      *
-     * @param playerID
-     *            ID of the player whose journal is created
-     * @param list
-     *            list of pointers to journal entries
-     * @param lang
-     *            default language to use when generating the journal
+     * @param playerID ID of the player whose journal is created
+     * @param list     list of pointers to journal entries
+     * @param lang     default language to use when generating the journal
      */
     public Journal(String playerID, String lang, List<Pointer> list) {
         // generate texts from list of pointers
@@ -74,10 +71,8 @@ public class Journal {
     /**
      * Checks if the item is journal
      *
-     * @param playerID
-     *            ID of the player
-     * @param item
-     *            ItemStack to check against being the journal
+     * @param playerID ID of the player
+     * @param item     ItemStack to check against being the journal
      * @return true if the ItemStack is the journal, false otherwise
      */
     public static boolean isJournal(String playerID, ItemStack item) {
@@ -98,8 +93,7 @@ public class Journal {
      * Checks if the player has his journal in the inventory. Returns false if
      * the player is not online.
      *
-     * @param playerID
-     *            ID of the player
+     * @param playerID ID of the player
      * @return true if the player has his journal, false otherwise
      */
     public static boolean hasJournal(String playerID) {
@@ -126,8 +120,7 @@ public class Journal {
     /**
      * Adds pointer to the journal. It needs to be updated now.
      *
-     * @param pointer
-     *            the pointer to be added
+     * @param pointer the pointer to be added
      */
     public void addPointer(Pointer pointer) {
         pointers.add(pointer);
@@ -143,8 +136,7 @@ public class Journal {
     /**
      * Removes the pointer from journal. It needs to be updated now.
      *
-     * @param pointerName
-     *            the name of the pointer to remove
+     * @param pointerName the name of the pointer to remove
      */
     public void removePointer(String pointerName) {
         for (Iterator<Pointer> iterator = pointers.iterator(); iterator.hasNext(); ) {
@@ -199,7 +191,7 @@ public class Journal {
                 if (dateParts.length > 1) {
                     hour = "§" + Config.getString("config.journal_colors.date.hour") + dateParts[1];
                 }
-                datePrefix = day + " " + hour;
+                datePrefix = day + " " + hour + "\n";
             }
             // get package and name of the pointer
             String[] parts = pointer.getPointer().split("\\.");
@@ -225,8 +217,7 @@ public class Journal {
                 text = "error";
             }
             // add the entry to the list
-            texts.add(datePrefix + "§" + Config.getString("config.journal_colors.text") + "\n"
-                    + text);
+            texts.add(datePrefix + "§" + Config.getString("config.journal_colors.text") + text);
         }
     }
 
@@ -326,8 +317,7 @@ public class Journal {
     /**
      * Adds journal to player inventory.
      *
-     * @param slot
-     *            slot number for adding the journal
+     * @param slot slot number for adding the journal
      */
     public void addToInv(int slot) {
         // remove the old journal if it exists
@@ -374,15 +364,26 @@ public class Journal {
         List<String> finalList = new ArrayList<>();
         if (Config.getString("config.journal.one_entry_per_page").equalsIgnoreCase("false")) {
             String color = Config.getString("config.journal_colors.line");
+            String separator = Config.parseMessage(playerID, "journal_separator", null);
+            if (separator == null) {
+                separator = "---------------";
+            }
+            String line = "\n§" + color + separator + "\n";
+
+            if (Config.getString("config.journal.show_separator") != null &&
+                    Config.getString("config.journal.show_separator").equalsIgnoreCase("false")) {
+                line = "\n";
+            }
+
             StringBuilder stringBuilder = new StringBuilder();
             for (String entry : getText()) {
-                stringBuilder.append(entry + "\n§" + color + "---------------\n");
+                stringBuilder.append(entry + line);
             }
             if (mainPage != null && mainPage.length() > 0) {
                 if (Config.getString("config.journal.full_main_page").equalsIgnoreCase("true")) {
                     finalList.addAll(Utils.pagesFromString(mainPage));
                 } else {
-                    stringBuilder.insert(0, mainPage + "\n§" + color + "---------------\n");
+                    stringBuilder.insert(0, mainPage + line);
                 }
             }
             String wholeString = stringBuilder.toString().trim();
