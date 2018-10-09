@@ -215,7 +215,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
 
             // If both showNumber and showNPCText is false, we can put the response directly into the display name
             if (!showNumber && !showNPCText) {
-                meta.setDisplayName(Utils.multiLineColorCodes(string.toString() + "- " + optionColor + option, optionColor));
+                meta.setDisplayName(Utils.replaceReset(string.toString() + "- " + optionColor + option, optionColor));
             } else {
                 if (showNumber) {
                     meta.setDisplayName(numberFormat.replace("%number%", Integer.toString(next)));
