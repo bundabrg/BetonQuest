@@ -179,7 +179,6 @@ public abstract class ChatConvIO implements ConversationIO, Listener {
             end();
             return;
         }
-//        player.sendMessage(Utils.multiLineColorCodes(textFormat.replace("%npc%", npcName) + npcText, npcTextColor));
         player.sendMessage(Utils.replaceReset(textFormat.replace("%npc%", npcName) + npcText, npcTextColor));
     }
 

@@ -162,7 +162,6 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
                 }
 
                 Bukkit.getPluginManager().registerEvents(instance, BetonQuest.getPlugin());
-
             }
         }, 3);
 

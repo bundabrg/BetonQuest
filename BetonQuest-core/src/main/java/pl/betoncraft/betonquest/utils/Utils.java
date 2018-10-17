@@ -426,30 +426,8 @@ public class Utils {
         }
     }
 
-//    /**
-//     * Copies all color codes before each word, so they are correctly displayed regardless of line breaks.
-//     *
-//     * @param string the string to process
-//     * @param def    default color code to use instead of resetting; use null for regular reset code
-//     * @return the colorful string ready to split into multiple lines
-//     */
-//    public static String multiLineColorCodes(String string, String def) {
-//        StringBuilder builder = new StringBuilder();
-//        String[] words = string.split(" ");
-//        String lastCodes = "";
-//        for (String word : words) {
-//            word = lastCodes + word;
-//            lastCodes = ChatColor.getLastColors(word);
-//            builder.append(word);
-//            builder.append(' ');
-//        }
-//        String result = builder.toString();
-//        result = result.replace(ChatColor.RESET.toString(), ChatColor.RESET + def);
-//        return result.length() == 0 ? "" : result.substring(0, result.length() - 1);
-//    }
-
     /**
-     * Copies all color codes before each word, so they are correctly displayed regardless of line breaks and pages.
+     * Resets any color resets to def. Also ensures any new lines copy the colours and format from the previous line
      *
      * @param pages multiple pages to process
      * @param def   default color code to use instead of resetting; use null for regular reset code
@@ -460,11 +438,10 @@ public class Utils {
         String lastCodes = "";
         ListIterator<String> i = pages.listIterator();
         List<String> result = new ArrayList<>();
+
         while (i.hasNext()) {
             String line = i.next();
-
             result.add(lastCodes + replaceReset(line, def));
-
             lastCodes = LocalChatPaginator.getLastColors(line);
         }
 
