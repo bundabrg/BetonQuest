@@ -92,7 +92,7 @@ public class BlockSelector {
         typePattern = Pattern.compile("^" + type.replace("*", ".*?").replace("?", ".") + "$");
     }
 
-    public String asString() {
+    public String toString() {
         return string;
     }
 
