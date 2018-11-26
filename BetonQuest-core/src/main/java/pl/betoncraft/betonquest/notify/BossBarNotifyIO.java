@@ -134,7 +134,7 @@ public class BossBarNotifyIO extends NotifyIO {
             public void run() {
                 bossBar.removeAll();
             }
-        }.runTaskLater(BetonQuest.getPlugin(), stay);
+        }.runTaskLater(BetonQuest.getInstance().getJavaPlugin(), stay);
 
         // If Countdown, then divide stay by countdown and reduce progress to 0 by those intevals
         if (countdown > 0) {
@@ -152,7 +152,7 @@ public class BossBarNotifyIO extends NotifyIO {
                     progress -= amount;
                     bossBar.setProgress(Math.max(0.0, progress));
                 }
-            }.runTaskTimer(BetonQuest.getPlugin(), interval, interval);
+            }.runTaskTimer(BetonQuest.getInstance().getJavaPlugin(), interval, interval);
         }
 
         super.sendNotify(message, players);
