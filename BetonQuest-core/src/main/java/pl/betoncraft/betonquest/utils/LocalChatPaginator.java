@@ -21,8 +21,6 @@ package pl.betoncraft.betonquest.utils;
 import org.bukkit.ChatColor;
 import org.bukkit.util.ChatPaginator;
 
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -85,9 +83,6 @@ public class LocalChatPaginator extends ChatPaginator {
      * @return An array of word-wrapped lines.
      */
     public static String[] wordWrap(String rawString, int lineLength) {
-        FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, true);
-
-
         // A null string is a single line
         if (rawString == null) {
             return new String[]{""};
@@ -109,7 +104,7 @@ public class LocalChatPaginator extends ChatPaginator {
 
             // skip chat color modifiers
             if (c == ChatColor.COLOR_CHAR) {
-                word.append(ChatColor.getByChar(rawChars[i + 1]));
+                word.append(ChatColor.getByChar(String.valueOf(rawChars[i + 1]).toLowerCase()));
                 lineColorChars += 2;
                 i++; // Eat the next character as we have already processed it
                 continue;
@@ -176,6 +171,22 @@ public class LocalChatPaginator extends ChatPaginator {
         }
 
         return lines.toArray(new String[0]);
+    }
+
+    /**
+     * Return the length of the line minus hidden characters
+     */
+    public static int lineLength(String input) {
+        int ret = 0;
+        char[] rawChars = input.toCharArray();
+        for (int i = 0; i < rawChars.length; i++) {
+            if (rawChars[i] == ChatColor.COLOR_CHAR) {
+                i += 1;
+                continue;
+            }
+            ret++;
+        }
+        return ret;
     }
 
 }
