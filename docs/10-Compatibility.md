@@ -510,6 +510,7 @@ BountifulAPI enables you to use `title` event without spamming the console with 
 
 ## [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
 
+### Hiding NPC's
 Having ProtocolLib installed will let you hide Citizens NPCs if specified conditions are met. You can do that by adding `hide_npcs` section to _custom.yml_ file in your package. There you can assign conditions to specific NPC IDs:
 
 ```
@@ -517,3 +518,32 @@ hide_npcs:
   41: killedAlready,questStarted
   127: '!questStarted'
 ```
+
+
+### Conversation IO: `menu`
+
+A conversation IO that makes use of a chat menu system. A video of it in action can be seen [here](https://www.youtube.com/channel/UCyF806Xfzr4B18dsZ4TEI9w).
+
+Customize how it looks by adding the following lines to custom.yml:
+
+```YAML
+menu_conv_io:
+  npc_wrap: '&l &r'
+  npc_text: '&l &r&f{1}'
+  npc_text_reset: '&f'
+  option_wrap: '&l &l &l &l &r'
+  option_text: '&l &l &l &l &r&8[ &b{1}&8 ]'
+  option_text_reset: '&b'
+  option_selected: '&l &r &r&7»&r &8[ &f&n{1}&8 ]'
+  option_selected_reset: '&f'
+```
+
+Where:
+  * npc_wrap - What text to prefix each new line in the NPC text that wraps
+  * npc_text - How to write the NPC text. Replaces {1} with the npcs text
+  * npc_text_reset - When a color reset is found, what to replace it with
+  * option_wrap - What text to prefix each new line in an option that wraps
+  * option_text - How to write an option. Replaces {1} with the option text
+  * option_text_reset - When a color reset is found, what to replace it with
+  * option_selected - How to write a selected option. Replaces {1} with the option text
+  * option_selected_reset - When a color reset is found, what to replace it with

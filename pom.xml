@@ -89,10 +89,10 @@
         </repository>
 
         <!-- Elmakers Repo - MagicAPI, EffectLib -->
-        <repository>
-            <id>elmakers-repo</id>
-            <url>http://maven.elmakers.com/repository/</url>
-        </repository>
+        <!--<repository>-->
+        <!--<id>elmakers-repo</id>-->
+        <!--<url>http://maven.elmakers.com/repository/</url>-->
+        <!--</repository>-->
 
         <repository>
             <id>bstats-repo</id>
