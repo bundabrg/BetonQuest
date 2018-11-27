@@ -113,7 +113,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
             showNPCText = config.getBoolean("show_npc_text", true);
         }
 
-        Bukkit.getPluginManager().registerEvents(this, BetonQuest.getPlugin());
+        Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance().getJavaPlugin());
     }
 
     @Override
@@ -245,7 +245,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
                 switching = false;
                 processingLastClick = false;
             }
-        }.runTask(BetonQuest.getPlugin());
+        }.runTask(BetonQuest.getInstance().getJavaPlugin());
     }
 
     @EventHandler
@@ -299,7 +299,7 @@ public class InventoryConvIO implements Listener, ConversationIO {
                     player.teleport(loc);
                     player.openInventory(inv);
                 }
-            }.runTask(BetonQuest.getPlugin());
+            }.runTask(BetonQuest.getInstance().getJavaPlugin());
         } else {
             conv.endConversation();
             HandlerList.unregisterAll(this);
