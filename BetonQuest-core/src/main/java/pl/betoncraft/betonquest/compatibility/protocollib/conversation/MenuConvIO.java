@@ -1,19 +1,19 @@
 /*
- *  BetonQuest - advanced quests for Bukkit
- *  Copyright (C) 2016  Jakub "Co0sh" Sapalski
+ * BetonQuest - advanced quests for Bukkit
+ * Copyright (C) 2016  Jakub "Co0sh" Sapalski
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package pl.betoncraft.betonquest.compatibility.protocollib.conversation;
@@ -137,7 +137,7 @@ public class MenuConvIO implements Listener, ConversationIO {
         mount.sendPacket(player);
 
         // Display Actionbar to hide the dismount message
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.YELLOW + npcName));
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(" "));
 
         // Intercept Packets
 
@@ -230,12 +230,11 @@ public class MenuConvIO implements Listener, ConversationIO {
             }
         };
 
-        displayRunnable.runTaskTimerAsynchronously(BetonQuest.getInstance().getJavaPlugin(), 0, 40);
+        displayRunnable.runTaskTimerAsynchronously(BetonQuest.getInstance().getJavaPlugin(), 0, 200);
     }
 
     protected void showDisplay() {
         if (displayOutput != null) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.YELLOW + npcName));
             player.spigot().sendMessage(TextComponent.fromLegacyText(displayOutput));
         }
     }
@@ -319,6 +318,11 @@ public class MenuConvIO implements Listener, ConversationIO {
         StringBuilder displayBuilder = new StringBuilder();
 
         if (options.size() > 0) {
+
+            // Put clear lines in buffer, but this may cause flicker so consider removing
+            for (int i = 0; i < 10; i++) {
+                displayBuilder.append(" \n");
+            }
 
             // We aim to try have a blank line at the top. It looks better
             if (linesAvailable > 0) {
