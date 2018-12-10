@@ -38,7 +38,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.Map;
 
 import static com.comphenix.protocol.PacketType.Play.Server.ANIMATION;
 import static com.comphenix.protocol.PacketType.Play.Server.ATTACH_ENTITY;
@@ -184,8 +183,8 @@ public class EntityHider implements Listener {
     protected void removeEntity(Entity entity, boolean destroyed) {
         int entityID = entity.getEntityId();
 
-        for (Map<Integer, Boolean> maps : observerEntityMap.rowMap().values()) {
-            maps.remove(entityID);
+        for (int key : observerEntityMap.rowKeySet()) {
+            observerEntityMap.row(key).remove(entityID);
         }
     }
 
