@@ -1,19 +1,19 @@
 /*
- * BetonQuest - advanced quests for Bukkit
- * Copyright (C) 2016  Jakub "Co0sh" Sapalski
+ *  BetonQuest - advanced quests for Bukkit
+ *  Copyright (C) 2016  Jakub "Co0sh" Sapalski
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package pl.betoncraft.betonquest.utils;
@@ -112,7 +112,12 @@ public class BlockSelector {
      * Return true if material matches our selector. State is ignored
      */
     public boolean match(Material material) {
-        NamespacedKey materialKey = material.getKey();
+        NamespacedKey materialKey;
+        try {
+            materialKey = material.getKey();
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
 
         // Starts with our prefix?
         if (!materialKey.getNamespace().equalsIgnoreCase(prefix)) {
