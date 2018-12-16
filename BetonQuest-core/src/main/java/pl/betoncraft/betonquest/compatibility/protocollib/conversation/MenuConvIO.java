@@ -152,7 +152,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                 if (event.getPacketType().equals(PacketType.Play.Client.STEER_VEHICLE)) {
                     WrapperPlayClientSteerVehicle steerEvent = new WrapperPlayClientSteerVehicle(event.getPacket());
 
-                    // Check jump
+                    // Check jump and forward/back
                     if (steerEvent.isJump() && !debounce) {
                         conv.passPlayerAnswer(selectedOption + 1);
                         debounce = true;
@@ -168,6 +168,11 @@ public class MenuConvIO implements Listener, ConversationIO {
                         updateDisplay();
                     } else if (Math.abs(steerEvent.getForward()) < 0.01) {
                         debounce = false;
+                    }
+
+                    // Check if dismount to cancel the conversation
+                    if (steerEvent.isUnmount()) {
+                        conv.endConversation();
                     }
 
                     event.setCancelled(true);
