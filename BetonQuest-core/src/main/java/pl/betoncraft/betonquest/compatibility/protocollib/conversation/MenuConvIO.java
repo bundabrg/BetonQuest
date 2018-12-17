@@ -171,7 +171,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                     }
 
                     // Check if dismount to cancel the conversation
-                    if (steerEvent.isUnmount()) {
+                    if (steerEvent.isUnmount() && !conv.isMovementBlock()) {
                         conv.endConversation();
                     }
 
