@@ -23,7 +23,7 @@ Additions:
   * New 'conversation' condition that will return true if there is at least 1 conversation option available to an NPC
   * Chest ConversationIO can now be configured to show NPC text per option.
 Changes:
-  * Event 'effect' can have 'ambient', 'hidden' and 'icon' parameters
+  * Event 'effect' can have 'ambient', 'hidden' and 'noicon' parameters
   * Event 'effect' has '--ambient' parameter deprecated with a non fatal warning.
 Fixes:
   * Resolve variables in journal pages.
