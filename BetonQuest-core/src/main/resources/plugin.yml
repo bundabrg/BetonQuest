@@ -31,7 +31,7 @@ softdepend:
 - ProtocolLib
 - Brewery
 - Jobs
-version: 2.0-preview.16
+version: 2.0-preview.17
 commands:
   betonquest:
     description: General quest command
