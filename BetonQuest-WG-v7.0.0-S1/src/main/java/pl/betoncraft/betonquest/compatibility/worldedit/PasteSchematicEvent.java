@@ -88,7 +88,7 @@ public class PasteSchematicEvent extends QuestEvent {
             try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(BukkitAdapter.adapt(location.getWorld()), -1)) {
                 Operation operation = new ClipboardHolder(clipboard)
                         .createPaste(editSession)
-                        .to(BukkitAdapter.asBlockVector(location))
+                        .to(BukkitAdapter.adapt(location).toVector())
                         .ignoreAirBlocks(noAir)
                         .build();
 
