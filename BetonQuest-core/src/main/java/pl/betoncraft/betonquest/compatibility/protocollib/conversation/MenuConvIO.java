@@ -34,6 +34,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.betoncraft.betonquest.BetonQuest;
@@ -46,6 +49,7 @@ import pl.betoncraft.betonquest.config.ConfigPackage;
 import pl.betoncraft.betonquest.conversation.Conversation;
 import pl.betoncraft.betonquest.conversation.ConversationColors;
 import pl.betoncraft.betonquest.conversation.ConversationIO;
+import pl.betoncraft.betonquest.utils.Debug;
 import pl.betoncraft.betonquest.utils.LocalChatPaginator;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 import pl.betoncraft.betonquest.utils.Utils;
@@ -59,6 +63,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MenuConvIO implements Listener, ConversationIO {
+
+    public enum CONTROL {
+        SHIFT,
+        LEFT_CLICK,
+        SPACE,
+    }
 
     protected final Conversation conv;
     protected final String name;
@@ -74,6 +84,11 @@ public class MenuConvIO implements Listener, ConversationIO {
     protected BukkitRunnable displayRunnable;
     protected boolean debounce = false;
     protected String displayOutput;
+
+    // Control
+    protected List<CONTROL> controlCancel;
+    protected List<CONTROL> controlSelect;
+
     // Configuration
     protected String configNpcWrap = "&l &r".replace('&', '§');
     protected String configNpcText = "&l &r&f{1}".replace('&', '§');
@@ -83,6 +98,8 @@ public class MenuConvIO implements Listener, ConversationIO {
     protected String configOptionTextReset = "&b".replace('&', '§');
     protected String configOptionSelected = "&l &r &r&7»&r &8[ &f&n{1}&8 ]".replace('&', '§');
     protected String configOptionSelectedReset = "&f".replace('&', '§');
+    protected String configControlCancel = "shift";
+    protected String configControlSelect = "space,left_click";
     private WrapperPlayServerSpawnEntityLiving stand = null;
 
     public MenuConvIO(Conversation conv, String playerID) {
@@ -111,6 +128,26 @@ public class MenuConvIO implements Listener, ConversationIO {
             configOptionTextReset = section.getString("option_text_reset", configOptionTextReset).replace('&', '§');
             configOptionSelected = section.getString("option_selected", configOptionSelected).replace('&', '§');
             configOptionSelectedReset = section.getString("option_selected_reset", configOptionSelectedReset).replace('&', '§');
+            configControlCancel = section.getString("control_cancel", configControlCancel);
+            configControlSelect = section.getString("control_select", configControlSelect);
+        }
+
+        // Sort out Controls
+        try {
+            controlCancel = Arrays.stream(configControlCancel.split(","))
+                    .map(String::toLowerCase)
+                    .map(CONTROL::valueOf)
+                    .collect(Collectors.toList());
+        } catch (IllegalArgumentException e) {
+            Debug.error(conv.getPackage().getName() + ": Invalid data for 'control_cancel': " + configControlCancel);
+        }
+        try {
+            controlSelect = Arrays.stream(configControlSelect.split(","))
+                    .map(String::toLowerCase)
+                    .map(CONTROL::valueOf)
+                    .collect(Collectors.toList());
+        } catch (IllegalArgumentException e) {
+            Debug.error(conv.getPackage().getName() + ": Invalid data for 'control_select': " + configControlSelect);
         }
 
         // Create something painful looking for the player to sit on and make it invisible.
@@ -140,7 +177,6 @@ public class MenuConvIO implements Listener, ConversationIO {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(" "));
 
         // Intercept Packets
-
         packetAdapter = new PacketAdapter(BetonQuest.getInstance().getJavaPlugin(), ListenerPriority.HIGHEST, PacketType.Play.Client.STEER_VEHICLE) {
 
             @Override
@@ -152,27 +188,41 @@ public class MenuConvIO implements Listener, ConversationIO {
                 if (event.getPacketType().equals(PacketType.Play.Client.STEER_VEHICLE)) {
                     WrapperPlayClientSteerVehicle steerEvent = new WrapperPlayClientSteerVehicle(event.getPacket());
 
-                    // Check jump and forward/back
                     if (steerEvent.isJump() && !debounce) {
-                        conv.passPlayerAnswer(selectedOption + 1);
+                        // Player Jumped
                         debounce = true;
+
+                        if (controlCancel.contains(CONTROL.SPACE) && !conv.isMovementBlock()) {
+                            conv.endConversation();
+                        } else if (controlSelect.contains(CONTROL.SPACE)) {
+                            conv.passPlayerAnswer(selectedOption + 1);
+                        }
+
                     } else if (steerEvent.getForward() < 0 && selectedOption < options.size() - 1 && !debounce) {
+                        // Player moved Backwards
                         oldSelectedOption = selectedOption;
                         selectedOption++;
                         debounce = true;
                         updateDisplay();
                     } else if (steerEvent.getForward() > 0 && selectedOption > 0 && !debounce) {
+                        // Player moved Forwards
+
                         oldSelectedOption = selectedOption;
                         selectedOption--;
                         debounce = true;
                         updateDisplay();
+
+                    } else if (steerEvent.isUnmount() && !debounce) {
+                        // Player Dismounted
+
+                        debounce = true;
+                        if (controlCancel.contains(CONTROL.SHIFT) && !conv.isMovementBlock()) {
+                            conv.endConversation();
+                        } else if (controlSelect.contains(CONTROL.SHIFT)) {
+                            conv.passPlayerAnswer(selectedOption + 1);
+                        }
                     } else if (Math.abs(steerEvent.getForward()) < 0.01) {
                         debounce = false;
-                    }
-
-                    // Check if dismount to cancel the conversation
-                    if (steerEvent.isUnmount() && !conv.isMovementBlock()) {
-                        conv.endConversation();
                     }
 
                     event.setCancelled(true);
@@ -468,4 +518,39 @@ public class MenuConvIO implements Listener, ConversationIO {
             conv.endConversation();
         }
     }
+
+    @EventHandler
+    public void PlayerInteractEvent(PlayerInteractEvent event) {
+        if (event.getPlayer() != player) {
+            return;
+        }
+
+        switch (event.getAction()) {
+            case LEFT_CLICK_AIR:
+            case LEFT_CLICK_BLOCK:
+                if (controlCancel.contains(CONTROL.LEFT_CLICK) && !conv.isMovementBlock()) {
+                    conv.endConversation();
+                } else if (controlSelect.contains(CONTROL.LEFT_CLICK)) {
+                    conv.passPlayerAnswer(selectedOption + 1);
+                }
+                event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void EntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        if (event.getDamager() != player) {
+            return;
+        }
+
+
+        if (controlCancel.contains(CONTROL.LEFT_CLICK) && !conv.isMovementBlock()) {
+            conv.endConversation();
+        } else if (controlSelect.contains(CONTROL.LEFT_CLICK)) {
+            conv.passPlayerAnswer(selectedOption + 1);
+        }
+        event.setCancelled(true);
+    }
+
+
 }
