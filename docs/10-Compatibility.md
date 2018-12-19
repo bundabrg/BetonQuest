@@ -536,6 +536,9 @@ menu_conv_io:
   option_text_reset: '&b'
   option_selected: '&l &r &r&7»&r &8[ &f&n{1}&8 ]'
   option_selected_reset: '&f'
+
+  control_select: space,left_click
+  control_cancel: shift
 ```
 
 Where:
@@ -547,6 +550,8 @@ Where:
   * option_text_reset - When a color reset is found, what to replace it with
   * option_selected - How to write a selected option. Replaces {1} with the option text
   * option_selected_reset - When a color reset is found, what to replace it with
+  * control_select - Space separated actions to select. Can be any of 'space', 'left_click', 'shift'
+  * control_cancel - Space separated actions to select. Can be any of 'space', 'left_click', 'shift'
 
 ## [JobsReborn](https://www.spigotmc.org/resources/jobs-reborn.4216/)
 
