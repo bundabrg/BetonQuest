@@ -35,8 +35,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.betoncraft.betonquest.BetonQuest;
@@ -58,17 +58,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MenuConvIO implements Listener, ConversationIO {
 
-    public enum CONTROL {
-        SHIFT,
-        LEFT_CLICK,
-        SPACE,
-    }
+    // Actions
+    protected Map<CONTROL, ACTION> controls = new HashMap<>();
+    protected String configControlCancel = "sneak";
 
     protected final Conversation conv;
     protected final String name;
@@ -84,10 +83,7 @@ public class MenuConvIO implements Listener, ConversationIO {
     protected BukkitRunnable displayRunnable;
     protected boolean debounce = false;
     protected String displayOutput;
-
-    // Control
-    protected List<CONTROL> controlCancel;
-    protected List<CONTROL> controlSelect;
+    protected String configControlSelect = "jump,left_click";
 
     // Configuration
     protected String configNpcWrap = "&l &r".replace('&', '§');
@@ -98,10 +94,7 @@ public class MenuConvIO implements Listener, ConversationIO {
     protected String configOptionTextReset = "&b".replace('&', '§');
     protected String configOptionSelected = "&l &r &r&7»&r &8[ &f&n{1}&8 ]".replace('&', '§');
     protected String configOptionSelectedReset = "&f".replace('&', '§');
-    protected String configControlCancel = "shift";
-    protected String configControlSelect = "space,left_click";
-    private WrapperPlayServerSpawnEntityLiving stand = null;
-
+    protected String configControlMove = "scroll,move";
     public MenuConvIO(Conversation conv, String playerID) {
         this.options = new ArrayList<>();
         this.conv = conv;
@@ -130,24 +123,46 @@ public class MenuConvIO implements Listener, ConversationIO {
             configOptionSelectedReset = section.getString("option_selected_reset", configOptionSelectedReset).replace('&', '§');
             configControlCancel = section.getString("control_cancel", configControlCancel);
             configControlSelect = section.getString("control_select", configControlSelect);
+            configControlMove = section.getString("control_move", configControlMove);
         }
 
         // Sort out Controls
         try {
-            controlCancel = Arrays.stream(configControlCancel.split(","))
-                    .map(String::toLowerCase)
+            for (CONTROL control : Arrays.stream(configControlCancel.split(","))
+                    .map(String::toUpperCase)
                     .map(CONTROL::valueOf)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList())) {
+                if (!controls.containsKey(control)) {
+                    controls.put(control, ACTION.CANCEL);
+                }
+            }
         } catch (IllegalArgumentException e) {
             Debug.error(conv.getPackage().getName() + ": Invalid data for 'control_cancel': " + configControlCancel);
         }
         try {
-            controlSelect = Arrays.stream(configControlSelect.split(","))
-                    .map(String::toLowerCase)
+            for (CONTROL control : Arrays.stream(configControlSelect.split(","))
+                    .map(String::toUpperCase)
                     .map(CONTROL::valueOf)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList())) {
+
+                if (!controls.containsKey(control)) {
+                    controls.put(control, ACTION.SELECT);
+                }
+            }
         } catch (IllegalArgumentException e) {
             Debug.error(conv.getPackage().getName() + ": Invalid data for 'control_select': " + configControlSelect);
+        }
+        try {
+            for (CONTROL control : Arrays.stream(configControlMove.split(","))
+                    .map(String::toUpperCase)
+                    .map(CONTROL::valueOf)
+                    .collect(Collectors.toList())) {
+                if (!controls.containsKey(control)) {
+                    controls.put(control, ACTION.MOVE);
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            Debug.error(conv.getPackage().getName() + ": Invalid data for 'control_move': " + configControlMove);
         }
 
         // Create something painful looking for the player to sit on and make it invisible.
@@ -188,23 +203,27 @@ public class MenuConvIO implements Listener, ConversationIO {
                 if (event.getPacketType().equals(PacketType.Play.Client.STEER_VEHICLE)) {
                     WrapperPlayClientSteerVehicle steerEvent = new WrapperPlayClientSteerVehicle(event.getPacket());
 
-                    if (steerEvent.isJump() && !debounce) {
+                    if (steerEvent.isJump() && controls.containsKey(CONTROL.JUMP) && !debounce) {
                         // Player Jumped
                         debounce = true;
 
-                        if (controlCancel.contains(CONTROL.SPACE) && !conv.isMovementBlock()) {
-                            conv.endConversation();
-                        } else if (controlSelect.contains(CONTROL.SPACE)) {
-                            conv.passPlayerAnswer(selectedOption + 1);
+                        switch (controls.get(CONTROL.JUMP)) {
+                            case CANCEL:
+                                if (!conv.isMovementBlock()) {
+                                    conv.endConversation();
+                                }
+                                break;
+                            case SELECT:
+                                conv.passPlayerAnswer(selectedOption + 1);
+                                break;
                         }
-
-                    } else if (steerEvent.getForward() < 0 && selectedOption < options.size() - 1 && !debounce) {
+                    } else if (steerEvent.getForward() < 0 && selectedOption < options.size() - 1 && controls.containsKey(CONTROL.MOVE) && !debounce) {
                         // Player moved Backwards
                         oldSelectedOption = selectedOption;
                         selectedOption++;
                         debounce = true;
                         updateDisplay();
-                    } else if (steerEvent.getForward() > 0 && selectedOption > 0 && !debounce) {
+                    } else if (steerEvent.getForward() > 0 && selectedOption > 0 && controls.containsKey(CONTROL.MOVE) && !debounce) {
                         // Player moved Forwards
 
                         oldSelectedOption = selectedOption;
@@ -212,14 +231,19 @@ public class MenuConvIO implements Listener, ConversationIO {
                         debounce = true;
                         updateDisplay();
 
-                    } else if (steerEvent.isUnmount() && !debounce) {
+                    } else if (steerEvent.isUnmount() && controls.containsKey(CONTROL.SNEAK) && !debounce) {
                         // Player Dismounted
-
                         debounce = true;
-                        if (controlCancel.contains(CONTROL.SHIFT) && !conv.isMovementBlock()) {
-                            conv.endConversation();
-                        } else if (controlSelect.contains(CONTROL.SHIFT)) {
-                            conv.passPlayerAnswer(selectedOption + 1);
+
+                        switch (controls.get(CONTROL.SNEAK)) {
+                            case CANCEL:
+                                if (!conv.isMovementBlock()) {
+                                    conv.endConversation();
+                                }
+                                break;
+                            case SELECT:
+                                conv.passPlayerAnswer(selectedOption + 1);
+                                break;
                         }
                     } else if (Math.abs(steerEvent.getForward()) < 0.01) {
                         debounce = false;
@@ -233,30 +257,6 @@ public class MenuConvIO implements Listener, ConversationIO {
         ProtocolLibrary.getProtocolManager().addPacketListener(packetAdapter);
 
         Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance().getJavaPlugin());
-    }
-
-    /**
-     * Set the text of response chosen by the NPC. Should be called once per
-     * conversation cycle.
-     *
-     * @param npcName  the name of the NPC
-     * @param response the text the NPC chose
-     */
-    @Override
-    public void setNpcResponse(String npcName, String response) {
-        this.npcName = npcName;
-        this.npcText = response;
-    }
-
-    /**
-     * Adds the text of the player option. Should be called for each option in a
-     * conversation cycle.
-     *
-     * @param option the text of an option
-     */
-    @Override
-    public void addPlayerOption(String option) {
-        options.add(option);
     }
 
     /**
@@ -285,7 +285,73 @@ public class MenuConvIO implements Listener, ConversationIO {
             }
         };
 
-        displayRunnable.runTaskTimerAsynchronously(BetonQuest.getInstance().getJavaPlugin(), 0, 200);
+        displayRunnable.runTaskTimerAsynchronously(BetonQuest.getInstance().getJavaPlugin(), 0, 180);
+    }
+
+    private WrapperPlayServerSpawnEntityLiving stand = null;
+
+    @EventHandler
+    public void playerMoveEvent(PlayerMoveEvent event) {
+        if (event.getPlayer() != player) {
+            return;
+        }
+
+        // If the player has moved away somehow we cancel everything
+        if (Math.abs(event.getFrom().getX() - event.getTo().getX()) + Math.abs(event.getFrom().getY() - event.getTo().getY()) + Math.abs(event.getFrom().getZ() - event.getTo().getZ()) > 3) {
+            conv.endConversation();
+        }
+    }
+
+    /**
+     * Set the text of response chosen by the NPC. Should be called once per
+     * conversation cycle.
+     *
+     * @param npcName  the name of the NPC
+     * @param response the text the NPC chose
+     */
+    @Override
+    public void setNpcResponse(String npcName, String response) {
+        this.npcName = npcName;
+        this.npcText = response;
+    }
+
+    /**
+     * Adds the text of the player option. Should be called for each option in a
+     * conversation cycle.
+     *
+     * @param option the text of an option
+     */
+    @Override
+    public void addPlayerOption(String option) {
+        options.add(option);
+    }
+
+    @EventHandler
+    public void playerInteractEvent(PlayerInteractEvent event) {
+        if (event.getPlayer() != player) {
+            return;
+        }
+
+        switch (event.getAction()) {
+            case LEFT_CLICK_AIR:
+            case LEFT_CLICK_BLOCK:
+
+                if (controls.containsKey(CONTROL.LEFT_CLICK)) {
+
+                    switch (controls.get(CONTROL.LEFT_CLICK)) {
+                        case CANCEL:
+                            if (!conv.isMovementBlock()) {
+                                conv.endConversation();
+                            }
+                            break;
+                        case SELECT:
+                            conv.passPlayerAnswer(selectedOption + 1);
+                            break;
+                    }
+                }
+
+                event.setCancelled(true);
+        }
     }
 
     protected void showDisplay() {
@@ -508,49 +574,56 @@ public class MenuConvIO implements Listener, ConversationIO {
     }
 
     @EventHandler
-    public void PlayerMoveEvent(PlayerMoveEvent event) {
-        if (event.getPlayer() != player) {
-            return;
-        }
-
-        // If the player has moved away somehow we cancel everything
-        if (Math.abs(event.getFrom().getX() - event.getTo().getX()) + Math.abs(event.getFrom().getY() - event.getTo().getY()) + Math.abs(event.getFrom().getZ() - event.getTo().getZ()) > 3) {
-            conv.endConversation();
-        }
-    }
-
-    @EventHandler
-    public void PlayerInteractEvent(PlayerInteractEvent event) {
-        if (event.getPlayer() != player) {
-            return;
-        }
-
-        switch (event.getAction()) {
-            case LEFT_CLICK_AIR:
-            case LEFT_CLICK_BLOCK:
-                if (controlCancel.contains(CONTROL.LEFT_CLICK) && !conv.isMovementBlock()) {
-                    conv.endConversation();
-                } else if (controlSelect.contains(CONTROL.LEFT_CLICK)) {
-                    conv.passPlayerAnswer(selectedOption + 1);
-                }
-                event.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void EntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+    public void entityDamageByEntityEvent(EntityDamageByEntityEvent event) {
         if (event.getDamager() != player) {
             return;
         }
 
-
-        if (controlCancel.contains(CONTROL.LEFT_CLICK) && !conv.isMovementBlock()) {
-            conv.endConversation();
-        } else if (controlSelect.contains(CONTROL.LEFT_CLICK)) {
-            conv.passPlayerAnswer(selectedOption + 1);
-        }
         event.setCancelled(true);
     }
 
+    @EventHandler
+    public void playerItemHeldEvent(PlayerItemHeldEvent event) {
+        if (event.getPlayer() != player) {
+            return;
+        }
+
+        if (!controls.containsKey(CONTROL.SCROLL)) {
+            return;
+        }
+
+        // Cheat and assume the closest distance between previous and new slots is the direction scrolled
+        int slotDistance = event.getPreviousSlot() - event.getNewSlot();
+
+        if (slotDistance > 5 || (slotDistance < 0 && slotDistance >= -5)) {
+            // Scrolled down
+            if (selectedOption < options.size() - 1) {
+                oldSelectedOption = selectedOption;
+                selectedOption++;
+                updateDisplay();
+            }
+        } else if (slotDistance != 0) {
+            // Scrolled up
+            if (selectedOption > 0) {
+                oldSelectedOption = selectedOption;
+                selectedOption--;
+                updateDisplay();
+            }
+        }
+    }
+
+    public enum ACTION {
+        SELECT,
+        CANCEL,
+        MOVE
+    }
+
+    public enum CONTROL {
+        JUMP,
+        SNEAK,
+        SCROLL,
+        MOVE,
+        LEFT_CLICK
+    }
 
 }
