@@ -537,8 +537,9 @@ menu_conv_io:
   option_selected: '&l &r &r&7»&r &8[ &f&n{1}&8 ]'
   option_selected_reset: '&f'
 
-  control_select: space,left_click
-  control_cancel: shift
+  control_select: jump,left_click
+  control_cancel: sneak
+  control_move: scroll,move
 ```
 
 Where:
@@ -550,5 +551,6 @@ Where:
   * option_text_reset - When a color reset is found, what to replace it with
   * option_selected - How to write a selected option. Replaces {1} with the option text
   * option_selected_reset - When a color reset is found, what to replace it with
-  * control_select - Space separated actions to select. Can be any of 'space', 'left_click', 'shift'
-  * control_cancel - Space separated actions to select. Can be any of 'space', 'left_click', 'shift'
+  * control_select - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
+  * control_cancel - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
+  * control_move - Space separated actions to move selection. Can be any of 'move', 'scroll'
