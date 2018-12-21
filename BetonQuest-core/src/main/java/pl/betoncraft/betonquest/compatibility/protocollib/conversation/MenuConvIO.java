@@ -35,12 +35,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.compatibility.protocollib.wrappers.WrapperPlayClientSteerVehicle;
+import pl.betoncraft.betonquest.compatibility.protocollib.wrappers.WrapperPlayServerAnimation;
 import pl.betoncraft.betonquest.compatibility.protocollib.wrappers.WrapperPlayServerEntityDestroy;
 import pl.betoncraft.betonquest.compatibility.protocollib.wrappers.WrapperPlayServerMount;
 import pl.betoncraft.betonquest.compatibility.protocollib.wrappers.WrapperPlayServerSpawnEntityLiving;
@@ -192,13 +194,28 @@ public class MenuConvIO implements Listener, ConversationIO {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(" "));
 
         // Intercept Packets
-        packetAdapter = new PacketAdapter(BetonQuest.getInstance().getJavaPlugin(), ListenerPriority.HIGHEST, PacketType.Play.Client.STEER_VEHICLE) {
+        packetAdapter = new PacketAdapter(BetonQuest.getInstance().getJavaPlugin(), ListenerPriority.HIGHEST,
+                PacketType.Play.Client.STEER_VEHICLE,
+                PacketType.Play.Server.ANIMATION
+        ) {
+
+            @Override
+            public void onPacketSending(PacketEvent event) {
+                if (event.getPacketType().equals(PacketType.Play.Server.ANIMATION)) {
+                    WrapperPlayServerAnimation animation = new WrapperPlayServerAnimation(event.getPacket());
+
+                    if (animation.getEntityID() == player.getEntityId()) {
+                        event.setCancelled(true);
+                    }
+                }
+            }
 
             @Override
             public void onPacketReceiving(PacketEvent event) {
                 if (event.getPlayer() != player || options.size() == 0) {
                     return;
                 }
+
 
                 if (event.getPacketType().equals(PacketType.Play.Client.STEER_VEHICLE)) {
                     WrapperPlayClientSteerVehicle steerEvent = new WrapperPlayClientSteerVehicle(event.getPacket());
@@ -250,7 +267,9 @@ public class MenuConvIO implements Listener, ConversationIO {
                     }
 
                     event.setCancelled(true);
+                    return;
                 }
+
             }
         };
 
@@ -332,6 +351,10 @@ public class MenuConvIO implements Listener, ConversationIO {
             return;
         }
 
+        if (debounce) {
+            return;
+        }
+
         switch (event.getAction()) {
             case LEFT_CLICK_AIR:
             case LEFT_CLICK_BLOCK:
@@ -343,15 +366,18 @@ public class MenuConvIO implements Listener, ConversationIO {
                             if (!conv.isMovementBlock()) {
                                 conv.endConversation();
                             }
+                            debounce = true;
                             break;
                         case SELECT:
                             conv.passPlayerAnswer(selectedOption + 1);
+                            debounce = true;
                             break;
                     }
                 }
 
                 event.setCancelled(true);
         }
+
     }
 
     protected void showDisplay() {
@@ -577,6 +603,31 @@ public class MenuConvIO implements Listener, ConversationIO {
     public void entityDamageByEntityEvent(EntityDamageByEntityEvent event) {
         if (event.getDamager() != player) {
             return;
+        }
+
+        if (debounce) {
+            return;
+        }
+
+        if (event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
+
+            if (controls.containsKey(CONTROL.LEFT_CLICK)) {
+
+                switch (controls.get(CONTROL.LEFT_CLICK)) {
+                    case CANCEL:
+                        if (!conv.isMovementBlock()) {
+                            conv.endConversation();
+                        }
+                        debounce = true;
+                        break;
+                    case SELECT:
+                        conv.passPlayerAnswer(selectedOption + 1);
+                        debounce = true;
+                        break;
+                }
+            }
+
+            event.setCancelled(true);
         }
 
         event.setCancelled(true);
