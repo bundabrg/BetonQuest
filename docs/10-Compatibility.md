@@ -540,6 +540,10 @@ menu_conv_io:
   control_select: jump,left_click
   control_cancel: sneak
   control_move: scroll,move
+
+  npc_name_type: chat
+  npc_name_align: center
+  npc_name_format: &e{1}&r
 ```
 
 Where:
@@ -554,3 +558,6 @@ Where:
   * control_select - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
   * control_cancel - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
   * control_move - Space separated actions to move selection. Can be any of 'move', 'scroll'
+  * npc_name_type - Type of NPC name display. Can be one of: 'none', 'chat'
+  * npc_name_align - For npc name type of 'chat', how to align name. One of: 'left', 'right', 'center'
+  * npc_name_format - How to format the npc name
