@@ -85,6 +85,7 @@ public class MenuConvIO implements Listener, ConversationIO {
     protected BukkitRunnable displayRunnable;
     protected boolean debounce = false;
     protected String displayOutput;
+    protected String formattedNpcName;
     protected String configControlSelect = "jump,left_click";
 
     // Configuration
@@ -97,6 +98,9 @@ public class MenuConvIO implements Listener, ConversationIO {
     protected String configOptionSelected = "&l &r &r&7»&r &8[ &f&n{1}&8 ]".replace('&', '§');
     protected String configOptionSelectedReset = "&f".replace('&', '§');
     protected String configControlMove = "scroll,move";
+    protected String configNpcNameType = "chat";
+    protected String configNpcNameAlign = "center";
+    protected String configNpcNameFormat = "&e{1}&r".replace('&', '§');
     public MenuConvIO(Conversation conv, String playerID) {
         this.options = new ArrayList<>();
         this.conv = conv;
@@ -126,6 +130,9 @@ public class MenuConvIO implements Listener, ConversationIO {
             configControlCancel = section.getString("control_cancel", configControlCancel);
             configControlSelect = section.getString("control_select", configControlSelect);
             configControlMove = section.getString("control_move", configControlMove);
+            configNpcNameType = section.getString("npc_name_type", configNpcNameType);
+            configNpcNameAlign = section.getString("npc_name_align", configNpcNameAlign);
+            configNpcNameFormat = section.getString("npc_name_format", configNpcNameFormat).replace('&', '§');
         }
 
         // Sort out Controls
@@ -332,6 +339,7 @@ public class MenuConvIO implements Listener, ConversationIO {
     public void setNpcResponse(String npcName, String response) {
         this.npcName = npcName;
         this.npcText = response;
+        formattedNpcName = configNpcNameFormat.replace("{1}", npcName);
     }
 
     /**
@@ -402,6 +410,10 @@ public class MenuConvIO implements Listener, ConversationIO {
         // Provide for as many options as we can fit but if there is lots of npcLines we will reduce this as necessary down to a minimum of 1.
         int linesAvailable = Math.max(1, 10 - npcLines.size());
 
+        if (configNpcNameType.equals("chat")) {
+            linesAvailable = Math.max(1, linesAvailable - 1);
+        }
+
         // Add space for the up/down arrows
         if (options.size() > 0) {
             linesAvailable = Math.max(1, linesAvailable - 2);
@@ -469,6 +481,24 @@ public class MenuConvIO implements Listener, ConversationIO {
             // Put clear lines in buffer, but this may cause flicker so consider removing
             for (int i = 0; i < 10; i++) {
                 displayBuilder.append(" \n");
+            }
+
+            // If NPC name type is chat, show it
+            if (configNpcNameType.equals("chat")) {
+                switch (configNpcNameAlign) {
+                    case "right":
+                        for (int i = 0; i < Math.max(0, 60 - npcName.length()); i++) {
+                            displayBuilder.append(" ");
+                        }
+                        break;
+                    case "center":
+                    case "middle":
+                        for (int i = 0; i < Math.max(0, 30 - npcName.length() / 2); i++) {
+                            displayBuilder.append(" ");
+                        }
+                        break;
+                }
+                displayBuilder.append(formattedNpcName).append("\n");
             }
 
             // We aim to try have a blank line at the top. It looks better
@@ -675,6 +705,11 @@ public class MenuConvIO implements Listener, ConversationIO {
         SCROLL,
         MOVE,
         LEFT_CLICK
+    }
+
+    public enum NAME_TYPE {
+        NONE,
+        CHAT
     }
 
 }
