@@ -90,17 +90,17 @@ public class MenuConvIO implements Listener, ConversationIO {
 
     // Configuration
     protected String configNpcWrap = "&l &r".replace('&', '§');
-    protected String configNpcText = "&l &r&f{1}".replace('&', '§');
+    protected String configNpcText = "&l &r&f{npc_text}".replace('&', '§');
     protected String configNpcTextReset = "&f".replace('&', '§');
     protected String configOptionWrap = "&l &l &l &l &r".replace('&', '§');
-    protected String configOptionText = "&l &l &l &l &r&8[ &b{1}&8 ]".replace('&', '§');
+    protected String configOptionText = "&l &l &l &l &r&8[ &b{option_text}&8 ]".replace('&', '§');
     protected String configOptionTextReset = "&b".replace('&', '§');
-    protected String configOptionSelected = "&l &r &r&7»&r &8[ &f&n{1}&8 ]".replace('&', '§');
+    protected String configOptionSelected = "&l &r &r&7»&r &8[ &f&n{option_text}&8 ]".replace('&', '§');
     protected String configOptionSelectedReset = "&f".replace('&', '§');
     protected String configControlMove = "scroll,move";
     protected String configNpcNameType = "chat";
     protected String configNpcNameAlign = "center";
-    protected String configNpcNameFormat = "&e{1}&r".replace('&', '§');
+    protected String configNpcNameFormat = "&e{npc_name}&r".replace('&', '§');
     public MenuConvIO(Conversation conv, String playerID) {
         this.options = new ArrayList<>();
         this.conv = conv;
@@ -339,7 +339,8 @@ public class MenuConvIO implements Listener, ConversationIO {
     public void setNpcResponse(String npcName, String response) {
         this.npcName = npcName;
         this.npcText = response;
-        formattedNpcName = configNpcNameFormat.replace("{1}", npcName);
+        formattedNpcName = configNpcNameFormat
+                .replace("{npc_name}", npcName);
     }
 
     /**
@@ -401,7 +402,9 @@ public class MenuConvIO implements Listener, ConversationIO {
         }
 
         // NPC Text
-        String msgNpcText = configNpcText.replace("{1}", npcText);
+        String msgNpcText = configNpcText
+                .replace("{npc_text}", npcText)
+                .replace("{npc_name", npcName);
 
         List<String> npcLines = Arrays.stream(LocalChatPaginator.wordWrap(
                 Utils.replaceReset(msgNpcText, configNpcTextReset), 60))
@@ -447,9 +450,15 @@ public class MenuConvIO implements Listener, ConversationIO {
             String optionText;
 
             if (i == 0) {
-                optionText = configOptionSelected.replace("{1}", options.get(optionIndex));
+                optionText = configOptionSelected
+                        .replace("{option_text}", options.get(optionIndex))
+                        .replace("{npc_name}", npcName);
+                ;
             } else {
-                optionText = configOptionText.replace("{1}", options.get(optionIndex));
+                optionText = configOptionText
+                        .replace("{option_text}", options.get(optionIndex))
+                        .replace("{npc_name}", npcName);
+
             }
 
             List<String> optionLines = Arrays.stream(LocalChatPaginator.wordWrap(
@@ -483,7 +492,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                 displayBuilder.append(" \n");
             }
 
-            // If NPC name type is chat, show it
+            // If NPC name type is chat_top, show it
             if (configNpcNameType.equals("chat")) {
                 switch (configNpcNameAlign) {
                     case "right":
