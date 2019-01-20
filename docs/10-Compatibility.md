@@ -529,17 +529,21 @@ Customize how it looks by adding the following lines to custom.yml:
 ```YAML
 menu_conv_io:
   npc_wrap: '&l &r'
-  npc_text: '&l &r&f{1}'
+  npc_text: '&l &r&f{npc_text}'
   npc_text_reset: '&f'
   option_wrap: '&l &l &l &l &r'
-  option_text: '&l &l &l &l &r&8[ &b{1}&8 ]'
+  option_text: '&l &l &l &l &r&8[ &b{option_text}&8 ]'
   option_text_reset: '&b'
-  option_selected: '&l &r &r&7»&r &8[ &f&n{1}&8 ]'
+  option_selected: '&l &r &r&7»&r &8[ &f&n{option_text}&8 ]'
   option_selected_reset: '&f'
 
   control_select: jump,left_click
   control_cancel: sneak
   control_move: scroll,move
+
+  npc_name_type: chat_prefix
+  npc_name_align: center
+  npc_name_format: &e{npc_name}&r
 ```
 
 Where:
@@ -554,7 +558,15 @@ Where:
   * control_select - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
   * control_cancel - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
   * control_move - Space separated actions to move selection. Can be any of 'move', 'scroll'
+  * npc_name_type - Type of NPC name display. Can be one of: 'none', 'chat'
+  * npc_name_align - For npc name type of 'chat', how to align name. One of: 'left', 'right', 'center'
+  * npc_name_format - How to format the npc name
 
+Variables:
+  * {npc_text} - The text the NPC says
+  * {option_text} - The option text
+  * {npc_name} - The name of the NPC
+  
 ## [JobsReborn](https://www.spigotmc.org/resources/jobs-reborn.4216/)
 
 Requires adding the following to _config.yml_:
