@@ -89,14 +89,16 @@ public class MenuConvIO implements Listener, ConversationIO {
     protected String configControlSelect = "jump,left_click";
 
     // Configuration
+    protected Integer configLineLength = 60;
     protected String configNpcWrap = "&l &r".replace('&', '§');
     protected String configNpcText = "&l &r&f{npc_text}".replace('&', '§');
     protected String configNpcTextReset = "&f".replace('&', '§');
-    protected String configOptionWrap = "&l &l &l &l &r".replace('&', '§');
+    protected String configOptionWrap = "&r&l &l &l &l &r".replace('&', '§');
     protected String configOptionText = "&l &l &l &l &r&8[ &b{option_text}&8 ]".replace('&', '§');
     protected String configOptionTextReset = "&b".replace('&', '§');
     protected String configOptionSelected = "&l &r &r&7»&r &8[ &f&n{option_text}&8 ]".replace('&', '§');
     protected String configOptionSelectedReset = "&f".replace('&', '§');
+    protected String configOptionSelectedWrap = "&r&l &l &l &l &r&f&n".replace('&', '§');
     protected String configControlMove = "scroll,move";
     protected String configNpcNameType = "chat";
     protected String configNpcNameAlign = "center";
@@ -119,6 +121,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                 continue;
             }
 
+            configLineLength = section.getInt("line_length", configLineLength);
             configNpcWrap = section.getString("npc_wrap", configNpcWrap).replace('&', '§');
             configNpcText = section.getString("npc_text", configNpcText).replace('&', '§');
             configNpcTextReset = section.getString("npc_text_reset", configNpcTextReset).replace('&', '§');
@@ -127,6 +130,7 @@ public class MenuConvIO implements Listener, ConversationIO {
             configOptionTextReset = section.getString("option_text_reset", configOptionTextReset).replace('&', '§');
             configOptionSelected = section.getString("option_selected", configOptionSelected).replace('&', '§');
             configOptionSelectedReset = section.getString("option_selected_reset", configOptionSelectedReset).replace('&', '§');
+            configOptionSelectedWrap = section.getString("option_selected_wrap", configOptionWrap).replace('&', '§');
             configControlCancel = section.getString("control_cancel", configControlCancel);
             configControlSelect = section.getString("control_select", configControlSelect);
             configControlMove = section.getString("control_move", configControlMove);
@@ -407,7 +411,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                 .replace("{npc_name", npcName);
 
         List<String> npcLines = Arrays.stream(LocalChatPaginator.wordWrap(
-                Utils.replaceReset(msgNpcText, configNpcTextReset), 60, configNpcWrap))
+                Utils.replaceReset(msgNpcText, configNpcTextReset), configLineLength, configNpcWrap))
                 .collect(Collectors.toList());
 
         // Provide for as many options as we can fit but if there is lots of npcLines we will reduce this as necessary down to a minimum of 1.
@@ -447,24 +451,30 @@ public class MenuConvIO implements Listener, ConversationIO {
                 topOption = optionIndex;
             }
 
-            String optionText;
+            List<String> optionLines;
 
             if (i == 0) {
-                optionText = configOptionSelected
+                String optionText = configOptionSelected
                         .replace("{option_text}", options.get(optionIndex))
                         .replace("{npc_name}", npcName);
-                ;
+
+                optionLines = Arrays.stream(LocalChatPaginator.wordWrap(
+                        Utils.replaceReset(optionText, i == 0 ? configOptionSelectedReset : configOptionTextReset),
+                        configLineLength, configOptionSelectedWrap))
+                        .collect(Collectors.toList());
+
+
             } else {
-                optionText = configOptionText
+                String optionText = configOptionText
                         .replace("{option_text}", options.get(optionIndex))
                         .replace("{npc_name}", npcName);
+
+                optionLines = Arrays.stream(LocalChatPaginator.wordWrap(
+                        Utils.replaceReset(optionText, i == 0 ? configOptionSelectedReset : configOptionTextReset),
+                        configLineLength, configOptionWrap))
+                        .collect(Collectors.toList());
 
             }
-
-            List<String> optionLines = Arrays.stream(LocalChatPaginator.wordWrap(
-                    Utils.replaceReset(optionText, i == 0 ? configOptionSelectedReset : configOptionTextReset),
-                    60, configOptionWrap))
-                    .collect(Collectors.toList());
 
             if (linesAvailable < optionLines.size()) {
                 break;
@@ -473,9 +483,9 @@ public class MenuConvIO implements Listener, ConversationIO {
             linesAvailable -= optionLines.size();
 
             if (currentDirection > 0) {
-                optionsSelected.add(ChatColor.RESET + String.join("\n", optionLines));
+                optionsSelected.add(String.join("\n", optionLines));
             } else {
-                optionsSelected.add(0, ChatColor.RESET + String.join("\n", optionLines));
+                optionsSelected.add(0, String.join("\n", optionLines));
             }
 
             currentOption = optionIndex;
@@ -496,13 +506,13 @@ public class MenuConvIO implements Listener, ConversationIO {
             if (configNpcNameType.equals("chat")) {
                 switch (configNpcNameAlign) {
                     case "right":
-                        for (int i = 0; i < Math.max(0, 60 - npcName.length()); i++) {
+                        for (int i = 0; i < Math.max(0, configLineLength - npcName.length()); i++) {
                             displayBuilder.append(" ");
                         }
                         break;
                     case "center":
                     case "middle":
-                        for (int i = 0; i < Math.max(0, 30 - npcName.length() / 2); i++) {
+                        for (int i = 0; i < Math.max(0, (configLineLength / 2) - npcName.length() / 2); i++) {
                             displayBuilder.append(" ");
                         }
                         break;

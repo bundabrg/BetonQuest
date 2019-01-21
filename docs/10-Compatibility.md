@@ -528,14 +528,17 @@ Customize how it looks by adding the following lines to custom.yml:
 
 ```YAML
 menu_conv_io:
+  line_length: 60
+
   npc_wrap: '&l &r'
   npc_text: '&l &r&f{npc_text}'
   npc_text_reset: '&f'
-  option_wrap: '&l &l &l &l &r'
+  option_wrap: '&r&l &l &l &l &r'
   option_text: '&l &l &l &l &r&8[ &b{option_text}&8 ]'
   option_text_reset: '&b'
   option_selected: '&l &r &r&7»&r &8[ &f&n{option_text}&8 ]'
   option_selected_reset: '&f'
+  option_selected_wrap: '&r&l &l &l &l &r&f&n'
 
   control_select: jump,left_click
   control_cancel: sneak
@@ -547,6 +550,7 @@ menu_conv_io:
 ```
 
 Where:
+  * line_length - Maximum size of a line till its wrapped
   * npc_wrap - What text to prefix each new line in the NPC text that wraps
   * npc_text - How to write the NPC text. Replaces {1} with the npcs text
   * npc_text_reset - When a color reset is found, what to replace it with
@@ -555,6 +559,7 @@ Where:
   * option_text_reset - When a color reset is found, what to replace it with
   * option_selected - How to write a selected option. Replaces {1} with the option text
   * option_selected_reset - When a color reset is found, what to replace it with
+  * option_selected_wrap - What text to prefix each new line in a selected option that wraps
   * control_select - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
   * control_cancel - Space separated actions to select. Can be any of 'jump', 'left_click', 'sneak'
   * control_move - Space separated actions to move selection. Can be any of 'move', 'scroll'
