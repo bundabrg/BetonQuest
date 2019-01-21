@@ -407,7 +407,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                 .replace("{npc_name", npcName);
 
         List<String> npcLines = Arrays.stream(LocalChatPaginator.wordWrap(
-                Utils.replaceReset(msgNpcText, configNpcTextReset), 60))
+                Utils.replaceReset(msgNpcText, configNpcTextReset), 60, configNpcWrap))
                 .collect(Collectors.toList());
 
         // Provide for as many options as we can fit but if there is lots of npcLines we will reduce this as necessary down to a minimum of 1.
@@ -463,7 +463,7 @@ public class MenuConvIO implements Listener, ConversationIO {
 
             List<String> optionLines = Arrays.stream(LocalChatPaginator.wordWrap(
                     Utils.replaceReset(optionText, i == 0 ? configOptionSelectedReset : configOptionTextReset),
-                    60))
+                    60, configOptionWrap))
                     .collect(Collectors.toList());
 
             if (linesAvailable < optionLines.size()) {
@@ -473,9 +473,9 @@ public class MenuConvIO implements Listener, ConversationIO {
             linesAvailable -= optionLines.size();
 
             if (currentDirection > 0) {
-                optionsSelected.add(ChatColor.RESET + String.join("\n" + configOptionWrap, optionLines));
+                optionsSelected.add(ChatColor.RESET + String.join("\n", optionLines));
             } else {
-                optionsSelected.add(0, ChatColor.RESET + String.join("\n" + configOptionWrap, optionLines));
+                optionsSelected.add(0, ChatColor.RESET + String.join("\n", optionLines));
             }
 
             currentOption = optionIndex;
@@ -516,7 +516,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                 linesAvailable--;
             }
 
-            displayBuilder.append(String.join("\n" + configNpcWrap, npcLines)).append("\n");
+            displayBuilder.append(String.join("\n", npcLines)).append("\n");
 
             // Put clear lines between NPC text and Options
             for (int i = 0; i < linesAvailable; i++) {
@@ -558,7 +558,7 @@ public class MenuConvIO implements Listener, ConversationIO {
                 displayBuilder.append(" \n");
             }
 
-            displayBuilder.append(String.join("\n" + configNpcWrap, npcLines)).append("\n");
+            displayBuilder.append(String.join("\n", npcLines)).append("\n");
 
             if (linesAvailable > 0) {
                 displayBuilder.append(" \n");
