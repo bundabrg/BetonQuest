@@ -74,15 +74,20 @@ public class LocalChatPaginator extends ChatPaginator {
         return result;
     }
 
+    public static String[] wordWrap(String rawString, int lineLength) {
+        return wordWrap(rawString, lineLength, "");
+    }
+
     /**
      * Breaks a raw string up into a series of lines. Words are wrapped using
      * spaces as decimeters and the newline character is respected.
      *
      * @param rawString  The raw string to break.
      * @param lineLength The length of a line of text.
+     * @param wrapPrefix The string to prefix the wrapped line with
      * @return An array of word-wrapped lines.
      */
-    public static String[] wordWrap(String rawString, int lineLength) {
+    public static String[] wordWrap(String rawString, int lineLength, String wrapPrefix) {
         // A null string is a single line
         if (rawString == null) {
             return new String[]{""};
@@ -92,6 +97,10 @@ public class LocalChatPaginator extends ChatPaginator {
         if (rawString.length() <= lineLength && !rawString.contains("\n")) {
             return new String[]{rawString};
         }
+
+        // Work out wrapPrefix color chars
+        int wrapPrefixColorChars = hiddenCount(wrapPrefix);
+        int wraplineLength = lineLength - (wrapPrefix.length() - wrapPrefixColorChars);
 
         char[] rawChars = (rawString + ' ').toCharArray(); // add a trailing space to trigger pagination
         StringBuilder word = new StringBuilder();
@@ -111,10 +120,10 @@ public class LocalChatPaginator extends ChatPaginator {
             }
 
             if (c == ' ' || c == '\n') {
-                if (line.length() == 0 && word.length() > lineLength) { // special case: extremely long word begins a line
-                    lines.addAll(Arrays.asList(word.toString().split("(?<=\\G.{" + lineLength + "})")));
+                if (line.length() == 0 && word.length() > (lines.size() == 0 ? lineLength : wraplineLength)) { // special case: extremely long word begins a line
+                    lines.addAll(Arrays.asList(word.toString().split("(?<=\\G.{" + (lines.size() == 0 ? lineLength : wraplineLength) + "})")));
 
-                } else if (line.length() + 1 + word.length() - lineColorChars == lineLength) { // Line exactly the correct length...newline
+                } else if (line.length() + 1 + word.length() - lineColorChars == (lines.size() == 0 ? lineLength : wraplineLength)) { // Line exactly the correct length...newline
                     if (line.length() > 0) {
                         line.append(' ');
                     }
@@ -122,11 +131,11 @@ public class LocalChatPaginator extends ChatPaginator {
                     lines.add(line.toString());
                     line = new StringBuilder();
                     lineColorChars = 0;
-                } else if (line.length() + 1 + word.length() - lineColorChars > lineLength) { // Line too long...break the line at last space
+                } else if (line.length() + 1 + word.length() - lineColorChars > (lines.size() == 0 ? lineLength : wraplineLength)) { // Line too long...break the line at last space
                     lines.add(line.toString());
                     line = new StringBuilder();
 
-                    for (String partialWord : word.toString().split("(?<=\\G.{" + lineLength + "})")) {
+                    for (String partialWord : word.toString().split("(?<=\\G.{" + (lines.size() == 0 ? lineLength : wraplineLength) + "})")) {
                         if (line.length() > 0) {
                             lines.add(line.toString());
                         }
@@ -165,9 +174,7 @@ public class LocalChatPaginator extends ChatPaginator {
             final String subLine = lines.get(i);
 
             //char color = pLine.charAt(pLine.lastIndexOf(ChatColor.COLOR_CHAR) + 1);
-            if (subLine.length() == 0 || subLine.charAt(0) != ChatColor.COLOR_CHAR) {
-                lines.set(i, getLastColors(pLine) + subLine);
-            }
+            lines.set(i, getLastColors(pLine) + wrapPrefix + subLine);
         }
 
         return lines.toArray(new String[0]);
@@ -187,6 +194,24 @@ public class LocalChatPaginator extends ChatPaginator {
             ret++;
         }
         return ret;
+    }
+
+    /**
+     * Return the number of hidden characters in input
+     */
+    public static int hiddenCount(String input) {
+        char[] rawChars = input.toCharArray();
+        int count = 0;
+        for (int i = 0; i < rawChars.length; i++) {
+            char c = rawChars[i];
+
+            if (c == ChatColor.COLOR_CHAR) {
+                count += 2;
+                i++;
+            }
+
+        }
+        return count;
     }
 
 }
