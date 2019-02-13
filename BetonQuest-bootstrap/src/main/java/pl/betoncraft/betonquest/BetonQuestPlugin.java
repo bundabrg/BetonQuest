@@ -28,6 +28,7 @@ import java.util.List;
 public class BetonQuestPlugin extends MultiVersionPlugin {
 
     static {
+
         List<String> versions = new ArrayList<>();
 
         // Add Server Versions
@@ -50,6 +51,13 @@ public class BetonQuestPlugin extends MultiVersionPlugin {
         // Add WorldGuard Versions
         if (!isClass("com.sk89q.worldguard.bukkit.WGBukkit") && isClass("com.sk89q.worldedit.BlockVector")) {
             versions.add("WG_7_0_0_S1");
+        }
+
+        // Add FAWE Versions
+        if(serverVersion.substring(0, StringUtils.ordinalIndexOf(serverVersion, ".", 2)).equals("1.13")) {
+            if (isClass("com.boydti.fawe.Fawe")) {
+                versions.add("FAWE");
+            }
         }
 
         initPlugin("pl.betoncraft.betonquest", "BetonQuest", versions);

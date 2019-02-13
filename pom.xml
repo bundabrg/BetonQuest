@@ -38,6 +38,7 @@
         <module>BetonQuest-bootstrap</module>
         <module>BetonQuest-build</module>
         <module>BetonQuest-WG-v7.0.0-S1</module>
+        <module>BetonQuest-FAWE</module>
     </modules>
 
     <!-- Shared Repositories -->
@@ -73,6 +74,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <!-- Bukkit<=1.7 for dependencies repo override, since nexus.hc.to is long gone -->
+        <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.ess3.net/content/repositories/bukkitsnapshot/</url>
+        </repository>
 
         <!-- WorldGuard,WorldEdit -->
         <repository>
@@ -84,6 +90,12 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+
+        <!-- FAWE -->
+        <repository>
+            <id>fawe-repo</id>
+            <url>https://ci.athion.net/job/FAWE-1.13/ws/mvn/</url>
         </repository>
 
         <!-- BetonQuest Repo -->
