@@ -408,7 +408,7 @@ public class MenuConvIO implements Listener, ConversationIO {
         // NPC Text
         String msgNpcText = configNpcText
                 .replace("{npc_text}", npcText)
-                .replace("{npc_name", npcName);
+                .replace("{npc_name}", npcName);
 
         List<String> npcLines = Arrays.stream(LocalChatPaginator.wordWrap(
                 Utils.replaceReset(msgNpcText, configNpcTextReset), configLineLength, configNpcWrap))
