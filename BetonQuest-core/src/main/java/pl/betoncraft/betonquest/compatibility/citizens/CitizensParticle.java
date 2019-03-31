@@ -188,7 +188,6 @@ public class CitizensParticle extends BukkitRunnable {
             // handle all effects
             effects:
             for (Effect effect : effects) {
-
                 // skip the effect if conditions are not met
                 for (ConditionID condition : effect.conditions) {
                     if (!BetonQuest.condition(PlayerConverter.getID(player), condition)) {
@@ -240,7 +239,7 @@ public class CitizensParticle extends BukkitRunnable {
                 NPC npc = CitizensAPI.getNPCRegistry().getById(id);
 
                 // skip if there are no such NPC or it's not spawned or not visible
-                if (npc == null || !npc.isSpawned() ||
+                if (npc == null || !npc.isSpawned() || npc.getEntity().getWorld() != player.getWorld() ||
                         (NPCHider.getInstance() != null && NPCHider.getInstance().isInvisible(player, npc))) {
                     continue;
                 }
