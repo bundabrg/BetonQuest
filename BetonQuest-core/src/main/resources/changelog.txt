@@ -8,6 +8,7 @@ Additions:
   * New 'conversation' condition that will return true if there is at least 1 conversation option available to an NPC
   * New Notification System
   * New 'notify' event - Create custom notifications on the ActionBar, BossBar, Title, Subtitle and Achievement
+  * New 'menu' conversation IO - Requires ProtocolLib. See: https://www.youtube.com/watch?v=Qtn7Dpdf4jw&lc
 Changes:
   * Event 'effect' can have 'ambient', 'hidden' and 'noicon' parameters
   * Event 'effect' has '--ambient' parameter deprecated with a non fatal warning.
