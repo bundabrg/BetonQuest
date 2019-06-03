@@ -299,7 +299,14 @@ public class Conversation implements Listener {
         list.remove(playerID);
         HandlerList.unregisterAll(this);
         displayStoredMessages();
-        Bukkit.getServer().getPluginManager().callEvent(new PlayerConversationEndEvent(player, this));
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                Bukkit.getServer().getPluginManager().callEvent(new PlayerConversationEndEvent(player, Conversation.this));
+            }
+        }.runTask(BetonQuest.getInstance().getJavaPlugin());
     }
 
     /**
@@ -405,7 +412,15 @@ public class Conversation implements Listener {
         // delete conversation
         list.remove(playerID);
         HandlerList.unregisterAll(this);
-        Bukkit.getServer().getPluginManager().callEvent(new PlayerConversationEndEvent(player, this));
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                Bukkit.getServer().getPluginManager().callEvent(new PlayerConversationEndEvent(player, Conversation.this));
+            }
+        }.runTask(BetonQuest.getInstance().getJavaPlugin());
+
     }
 
     /**
@@ -459,7 +474,13 @@ public class Conversation implements Listener {
         public void run() {
             // the conversation start event must be run on next tick
             PlayerConversationStartEvent event = new PlayerConversationStartEvent(player, conv);
-            Bukkit.getServer().getPluginManager().callEvent(event);
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    Bukkit.getServer().getPluginManager().callEvent(event);
+                }
+            }.runTask(BetonQuest.getInstance().getJavaPlugin());
 
             // stop the conversation if it's canceled
             if (event.isCancelled())
@@ -516,7 +537,15 @@ public class Conversation implements Listener {
             // print NPC's text
             printNPCText();
             ConversationOptionEvent e = new ConversationOptionEvent(player, conv, option, conv.option);
-            Bukkit.getPluginManager().callEvent(e);
+
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    Bukkit.getPluginManager().callEvent(e);
+                }
+            }.runTask(BetonQuest.getInstance().getJavaPlugin());
+
         }
     }
 
@@ -583,7 +612,14 @@ public class Conversation implements Listener {
             // print to player npc's answer
             printNPCText();
             ConversationOptionEvent event = new ConversationOptionEvent(player, conv, option, conv.option);
-            Bukkit.getPluginManager().callEvent(event);
+
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    Bukkit.getServer().getPluginManager().callEvent(event);
+                }
+            }.runTask(BetonQuest.getInstance().getJavaPlugin());
         }
     }
 
