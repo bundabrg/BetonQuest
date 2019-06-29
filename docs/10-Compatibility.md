@@ -529,6 +529,7 @@ Customize how it looks by adding the following lines to custom.yml:
 ```YAML
 menu_conv_io:
   line_length: 60
+  refresh_delay: 180
 
   npc_wrap: '&l &r'
   npc_text: '&l &r&f{npc_text}'
@@ -544,13 +545,14 @@ menu_conv_io:
   control_cancel: sneak
   control_move: scroll,move
 
-  npc_name_type: chat_prefix
+  npc_name_type: chat
   npc_name_align: center
-  npc_name_format: &e{npc_name}&r
+  npc_name_format: '&e{npc_name}&r'
 ```
 
 Where:
   * line_length - Maximum size of a line till its wrapped
+  * refresh_delay - Specify how many ticks to auto update display. Default 180
   * npc_wrap - What text to prefix each new line in the NPC text that wraps
   * npc_text - How to write the NPC text. Replaces {1} with the npcs text
   * npc_text_reset - When a color reset is found, what to replace it with
