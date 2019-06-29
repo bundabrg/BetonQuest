@@ -185,7 +185,7 @@ public class Instruction {
                 ItemID item;
                 VariableNumber number;
                 if (array[i].contains(":")) {
-                    String[] parts = array[i].split(":");
+                    String[] parts = array[i].split(":", 2);
                     item = getItem(parts[0]);
                     number = getVarNum(parts[1]);
                 } else {
