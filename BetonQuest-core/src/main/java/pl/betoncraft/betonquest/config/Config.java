@@ -50,6 +50,7 @@ public class Config {
     private static Config instance;
     private static ConfigAccessor messages;
     private static ConfigAccessor internal;
+    private static ConfigAccessor custom;
     private static HashMap<String, ConfigPackage> packages = new HashMap<>();
     private static HashMap<String, QuestCanceler> cancelers = new HashMap<>();
     private static String lang;
@@ -93,6 +94,9 @@ public class Config {
                 languages.add(key);
             }
         }
+        // load custom
+        custom = new ConfigAccessor(new File(root, "custom.yml"), "custom.yml", AccessorType.CUSTOM);
+        custom.saveDefaultConfig();
 
         // save example package
         createPackage("default");
@@ -277,6 +281,8 @@ public class Config {
             return plugin.getConfig().getString(address.substring(7));
         } else if (main.equals("messages")) {
             return messages.getConfig().getString(address.substring(9));
+        } else if (main.equals("custom")) {
+            return custom.getConfig().getString(address.substring(7));
         } else {
             ConfigPackage pack = packages.get(main);
             if (pack == null)
