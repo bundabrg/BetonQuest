@@ -53,44 +53,41 @@ import java.util.UUID;
 public class CitizensParticle extends BukkitRunnable {
 
     private static CitizensParticle instance;
-    private Set<Integer> npcs = new HashSet<>();
     private Map<UUID, Map<Integer, Effect>> players = new HashMap<>();
     private List<Effect> effects = new ArrayList<>();
     private int interval;
     private int tick = 0;
-    private boolean enabled = false;
+    private boolean enabled;
 
     public CitizensParticle() {
         instance = this;
+
+        // Get default interval
+        interval = Math.max(1, Config.getCustom().getConfig().getInt("npc_effects.check_interval", 100));
+
         // loop across all packages
         for (ConfigPackage pack : Config.getPackages().values()) {
-
-            // load all NPC ids
-            for (String npcID : pack.getMain().getConfig().getConfigurationSection("npcs").getKeys(false)) {
-                try {
-                    npcs.add(Integer.parseInt(npcID));
-                } catch (NumberFormatException e) {
-                }
-            }
-
             // npc_effects contains all effects for NPCs
             ConfigurationSection section = pack.getCustom().getConfig().getConfigurationSection("npc_effects");
+            if (section == null) {
+                section = Config.getCustom().getConfig().getConfigurationSection("npc_effects");
+            }
 
-            // if it's not defined then we're not displaying effects
             if (section == null) {
                 continue;
             }
+
             // there's a setting to disable npc effects altogether
             if ("true".equalsIgnoreCase(section.getString("disabled"))) {
-                return;
+                continue;
             }
 
             // load the condition check interval
-            interval = section.getInt("check_interval", 100);
-            if (interval <= 0) {
-                Debug.error("Could not load npc effects of package " + pack.getName() + ": " +
-                        "Check interval must be bigger than 0.");
-                return;
+            if (section.contains("check_interval")) {
+                int packageInterval = section.getInt("check_interval");
+                if (packageInterval < interval && packageInterval > 0) {
+                    interval = packageInterval;
+                }
             }
 
             // loading all effects
@@ -120,13 +117,16 @@ public class CitizensParticle extends BukkitRunnable {
 
                 // load all NPCs for which this effect can be displayed
                 effect.npcs = new HashSet<>();
-                for (int id : settings.getIntegerList("npcs")) {
-                    effect.npcs.add(id);
-                }
-
-                // if the effect does not specify any NPCs then it's global
-                if (effect.npcs.isEmpty()) {
-                    effect.def = true;
+                if (settings.contains("npcs")) {
+                    effect.npcs.addAll(settings.getIntegerList("npcs"));
+                } else {
+                    // No npcs listed so add all npcs in package
+                    for (String npcId : pack.getMain().getConfig().getConfigurationSection("npcs").getKeys(false)) {
+                        try {
+                            effect.npcs.add(Integer.valueOf(npcId));
+                        } catch (NumberFormatException ignored) {
+                        }
+                    }
                 }
 
                 // load all conditions
@@ -134,7 +134,7 @@ public class CitizensParticle extends BukkitRunnable {
                 for (String cond : settings.getStringList("conditions")) {
                     try {
                         effect.conditions.add(new ConditionID(pack, cond));
-                    } catch (ObjectNotFoundException e) {
+                    } catch (ObjectNotFoundException ignored) {
                     }
                 }
 
@@ -197,7 +197,7 @@ public class CitizensParticle extends BukkitRunnable {
                 }
 
                 // determine which NPCs should receive this effect
-                Collection<Integer> applicableNPCs = effect.def ? new HashSet<>(npcs) : effect.npcs;
+                Collection<Integer> applicableNPCs = effect.npcs;
 
                 // assign this effect to all NPCs which don't have already assigned effects
                 for (Integer npc : applicableNPCs) {
@@ -266,7 +266,6 @@ public class CitizensParticle extends BukkitRunnable {
 
         private String name;
         private int interval;
-        private boolean def;
         private Set<Integer> npcs;
         private List<ConditionID> conditions;
         private ConfigurationSection settings;

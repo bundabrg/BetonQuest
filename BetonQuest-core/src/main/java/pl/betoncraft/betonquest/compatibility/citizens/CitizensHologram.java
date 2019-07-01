@@ -54,9 +54,6 @@ public class CitizensHologram extends BukkitRunnable implements Listener {
 
     private static CitizensHologram instance;
 
-    // NPC Config
-    //private Map<Integer, List<NPCHologram>> npcHolograms = new HashMap<>();
-
     private int interval;
     // Hologram Config
     private List<HologramConfig> hologramConfigs = new ArrayList<>();
