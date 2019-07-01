@@ -26,6 +26,7 @@ import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.InstructionParseException;
 import pl.betoncraft.betonquest.QuestRuntimeException;
 import pl.betoncraft.betonquest.api.QuestEvent;
+import pl.betoncraft.betonquest.config.Config;
 import pl.betoncraft.betonquest.utils.LocationData;
 import pl.betoncraft.betonquest.utils.PlayerConverter;
 
@@ -47,6 +48,9 @@ public class ParticleEvent extends QuestEvent {
         super(instruction);
         String string = instruction.next();
         parameters = instruction.getPackage().getCustom().getConfig().getConfigurationSection("effects." + string);
+        if (parameters == null) {
+            parameters = Config.getCustom().getConfig().getConfigurationSection("effects." + string);
+        }
         if (parameters == null) {
             throw new InstructionParseException("Effect '" + string + "' does not exist!");
         }

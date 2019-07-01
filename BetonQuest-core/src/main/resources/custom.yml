@@ -1,7 +1,20 @@
+# Global Custom Configuration
+
+
+#
+# NPC Effects: Causes an effect around an NPC
+#
+
 npc_effects:
   check_interval: 100
   disabled: false
   default:
+    # NPC's to apply settings to. If blank then apply to all
+    # npcs: 1,5,10
+
+    # Conditions under which effect appears. If blank then always true
+    # conditions: condition1, condition2
+
     class: VortexEffect
     iterations: 20
     particle: crit_magic
@@ -11,3 +24,67 @@ npc_effects:
     radius: 0.5
     interval: 100
 
+
+#
+# Define an effect for event: particle
+#
+
+effects:
+  beton:
+    class: HelixEffect
+    iterations: 100
+    particle: smoke
+    helixes: 5
+    circles: 20
+    grow: 3
+    radius: 30
+
+
+#
+# Define a hologram at a specific location
+#
+
+#holograms:
+#  beton:
+#    lines:
+#      - '&bThis is Beton.'
+#      - 'item:MAP'
+#      - '&eBeton is strong.'
+#    location: 100;200;300;world
+#    conditions: has_some_quest, !finished_some_quest
+
+
+#
+# Define a hologram to float above an npc
+#
+
+#npc_holograms:
+#  # How often to check conditions
+#  check_interval: 500
+#
+#  # Disable npc_holograms
+#  disabled: false
+#
+#  # Hologram Settings
+#  default:
+#    # Lines in hologram
+#    lines:
+#      - item:MAP
+#
+#    # Vector offset to NPC position to place hologram
+#    vector: 0;3;0
+#
+#    # Conditions to display hologram
+#    conditions: has_some_quest, !finished_some_quest
+#
+#    # NPC's to apply these settings to. If blank, applies to all defined npcs
+#    npcs: 0, 22
+
+
+#
+# Hide npc's from a player under specific conditions
+#
+
+#hide_npcs:
+#  41: killedAlready,questStarted
+#  127: '!questStarted'

@@ -133,16 +133,16 @@ public class Config {
         if (!def.exists()) {
             Debug.broadcast("Deploying " + packName + " package!");
             def.mkdirs();
-            saveResource(def, "main.yml");
-            saveResource(def, "events.yml");
-            saveResource(def, "conditions.yml");
-            saveResource(def, "journal.yml");
-            saveResource(def, "items.yml");
-            saveResource(def, "objectives.yml");
-            saveResource(def, "custom.yml");
+            saveResource(def, "default/main.yml", "main.yml");
+            saveResource(def, "default/events.yml", "events.yml");
+            saveResource(def, "default/conditions.yml", "conditions.yml");
+            saveResource(def, "default/journal.yml", "journal.yml");
+            saveResource(def, "default/items.yml", "items.yml");
+            saveResource(def, "default/objectives.yml", "objectives.yml");
+            saveResource(def, "default/custom.yml", "custom.yml");
             File conversations = new File(def, "conversations");
             conversations.mkdir();
-            saveResource(conversations, "defaultConversation.yml", "innkeeper.yml");
+            saveResource(conversations, "default/conversations/innkeeper.yml", "innkeeper.yml");
             List<String> list = plugin.getConfig().getStringList("packages");
             if (list == null)
                 list = new ArrayList<>();
@@ -326,6 +326,13 @@ public class Config {
      */
     public static ConfigAccessor getMessages() {
         return messages;
+    }
+
+    /**
+     * @return custom configuration
+     */
+    public static ConfigAccessor getCustom() {
+        return custom;
     }
 
     /**
