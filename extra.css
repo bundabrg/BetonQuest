@@ -1,5 +1,0 @@
-/* Allow images with transparent backgrounds and no borders */
-.col-md-9 img[src*="#bare"] {
-    background-color: transparent;
-    border: 0px;
-}
