@@ -563,6 +563,13 @@
 <h2 id="interact-with-entity-interact">Interact with entity: <code class="codehilite"><span class="err">interact</span></code></h2>
 <p>The player must click on an entity to complete this objective. The first argument is the type of a click. Available values are <code class="codehilite"><span class="err">right</span></code>, <code class="codehilite"><span class="err">left</span></code> and <code class="codehilite"><span class="err">any</span></code>. Second required argument is the <a href="https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html">mob type</a>. Next is an amount of mobs required to click on. These must be unique, so the player can't simply click twenty times on the same zombie to complete it. There is also an optional <code class="codehilite"><span class="c">name:</span></code> parameter which specifies what name the entity must have and <code class="codehilite"><span class="c">marked:</span></code> if the clicked entity needs to be marked by the <code class="codehilite"><span class="err">spawn</span></code> event (see its description for marking explanation). You can also add <code class="codehilite"><span class="err">notify</span></code> argument to make the objective notify players whenever they click a correct entity, optionally with the notification interval after colon and <code class="codehilite"><span class="err">cancel</span></code> if the click shouldn't do what it usually does (i.e. left click won't hurt the entity). This can be limited with an optional <code class="codehilite"><span class="err">loc</span></code> and <code class="codehilite"><span class="err">range</span></code> attribute to limit within a range of a location.</p>
 <p><strong>Example</strong>: <code class="codehilite"><span class="err">interact right creeper 1 marked:sick condition:syringeInHand cancel</span></code></p>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1569027201000" locale="en"></span>
+</small>
+</div>
 </article>
 </div>
 </div>
@@ -621,5 +628,12 @@
 </div>
 <script src="../assets/javascripts/application.808e90bb.js"></script>
 <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
 </body>
 </html>

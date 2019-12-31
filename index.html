@@ -256,7 +256,7 @@
 <div class="md-content">
 <article class="md-content__inner md-typeset"><a class="md-content__icon pdf-download-btn" download href="pdf/documentation.pdf" title="Download"><i class="fa fas fa-download"></i><small> PDF</small></a>
 <h1>Introduction</h1>
-<p><img alt="BetonQuest" src="img/logo.png#bare"/></p>
+<p><img alt="BetonQuest" src="img/logo.png"/></p>
 <p>BetonQuest is an advanced and powerful quests plugin. It offers RPG-style conversations with NPCs and a very flexible quest system. Instead of being limited to creating "quest" objects with taking requirements and rewards upon completion, BetonQuest allows you to freely define what should happen (events), if it should happen (conditions) and what needs to be done for it to happen (objectives). The quests do not have to be like "kill, bring, get reward". Multi-threaded stories can be created, narrated with NPC conversations, and with multiple endings that affect a player's gameplay differently. 
 If you want to go completly crazy you can use BetonQuest for much more then quests. For some it is a backbone of their server. This is possible because BetonQuest has support for many plugins.</p>
 <h2 id="features">Features</h2>
@@ -276,7 +276,31 @@ If you want to go completly crazy you can use BetonQuest for much more then ques
 <li>Variables in conversations - let the NPC tell the player how much more wood he needs!</li>
 <li>Quests can be organized into distributable packages</li>
 <li><strong>Citizens2</strong> NPC support</li>
-<li>Integrated with <a href="https://www.spigotmc.org/resources/bountifulapi-1-8-1-13.1394/">BountifulAPI</a>, <a href="https://github.com/Co0sh/BetonLangAPI">BetonLangAPI</a>, <a href="https://dev.bukkit.org/bukkit-plugins/citizens/">Citizens</a>, <a href="https://dev.bukkit.org/bukkit-plugins/denizen/">Denizen</a>, <a href="https://dev.bukkit.org/bukkit-plugins/effectlib/">EffectLib</a>, <a href="https://dev.bukkit.org/bukkit-plugins/heroes/">Heroes</a>, <a href="https://dev.bukkit.org/bukkit-plugins/holographic-displays/">HolographicDisplays</a>, <a href="https://dev.bukkit.org/bukkit-plugins/legendquest/">LegendQuest</a>, <a href="https://dev.bukkit.org/bukkit-plugins/magic/">Magic</a>, <a href="https://dev.bukkit.org/bukkit-plugins/mcmmo/">McMMO</a>, <a href="https://dev.bukkit.org/bukkit-plugins/mythicmobs/">MythicMobs</a>, <a href="https://www.spigotmc.org/resources/placeholderapi.6245/">PlaceholderAPI</a>, <a href="https://dev.bukkit.org/bukkit-plugins/playerpoints/">PlayerPoints</a>, <a href="https://www.spigotmc.org/resources/protocollib.1997/">ProtocolLib</a>, <a href="https://dev.bukkit.org/bukkit-plugins/quests/">Quests</a>, <a href="https://dev.bukkit.org/bukkit-plugins/racesandclasses/">RacesAndClasses</a>, <a href="https://dev.bukkit.org/bukkit-plugins/shopkeepers/">Shopkeepers</a>, <a href="https://dev.bukkit.org/bukkit-plugins/skillapi/">SkillAPI</a>, <a href="https://dev.bukkit.org/bukkit-plugins/skript/">Skript</a>, <a href="https://dev.bukkit.org/bukkit-plugins/vault/">Vault</a>, <a href="https://dev.bukkit.org/bukkit-plugins/worldedit/">WorldEdit</a> and <a href="https://dev.bukkit.org/bukkit-plugins/worldguard/">WorldGuard</a></li>
+<li>Integrated with:<ul>
+<li><a href="https://www.spigotmc.org/resources/bountifulapi-1-8-1-13.1394/">BountifulAPI</a></li>
+<li><a href="https://github.com/Co0sh/BetonLangAPI">BetonLangAPI</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/citizens/">Citizens</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/denizen/">Denizen</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/effectlib/">EffectLib</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/heroes/">Heroes</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/holographic-displays/">HolographicDisplays</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/legendquest/">LegendQuest</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/magic/">Magic</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/mcmmo/">McMMO</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/mythicmobs/">MythicMobs</a></li>
+<li><a href="https://www.spigotmc.org/resources/placeholderapi.6245/">PlaceholderAPI</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/playerpoints/">PlayerPoints</a></li>
+<li><a href="https://www.spigotmc.org/resources/protocollib.1997/">ProtocolLib</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/quests/">Quests</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/racesandclasses/">RacesAndClasses</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/shopkeepers/">Shopkeepers</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/skillapi/">SkillAPI</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/skript/">Skript</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/vault/">Vault</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/worldedit/">WorldEdit</a></li>
+<li><a href="https://dev.bukkit.org/bukkit-plugins/worldguard/">WorldGuard</a></li>
+</ul>
+</li>
 <li>Multiple languages with easy translating</li>
 <li>An API for creating personal events, conditions and objectives</li>
 <li>SQLite and <strong>MySQL</strong> support</li>
@@ -288,6 +312,13 @@ If you want to go completly crazy you can use BetonQuest for much more then ques
 <p>There is no single "quest" object. This is only a conversation which consists of firing events and checking conditions. The objective also was not a "quest" - it only added a tag when you collected the wood. It could not exist on its own. The same conversation, on the other hand, could start some other quests afterwards (such as mining ores), so it is also not a "quest".</p>
 <p>Do not be disappointed by the examples of getting wood and mining ore. These were only simplifications, so it is easier to explain the system. BetonQuest is capable of much more. You can add entries to a player's journal based on the quests he is doing. For example, in Morrowind, the conversations can be as multi-threaded as in Baldur's Gate, and quests can be started by entering specific location similar to within Skyrim. You can create reputation systems, unique quest items, books that react to being read, and so on. Your quests can have multiple paths to reach different endings depending on the players' decisions, and they can also require multiple players to complete an objective.</p>
 <p>As mentioned before, you do not have to use BetonQuest for quests only. Conversations with NPCs can also help your players, teleports them around the map, describe server features, buy or sell stuff, give ranks etc. The only limit is your imagination!</p>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1577778418000" locale="en"></span>
+</small>
+</div>
 </article>
 </div>
 </div>
@@ -333,5 +364,12 @@ If you want to go completly crazy you can use BetonQuest for much more then ques
 </div>
 <script src="assets/javascripts/application.808e90bb.js"></script>
 <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
 </body>
 </html>

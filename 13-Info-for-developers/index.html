@@ -442,6 +442,13 @@
 - <code class="codehilite"><span class="err">FINER</span></code> - Do not use this, this is reserved, for exception logging, like you call LogUtils.logThrowable or LogUtils.logThrowableIgnore
 - <code class="codehilite"><span class="err">FINEST</span></code> - Not in use at the moment</p>
 <p>If you have a <code class="codehilite"><span class="err">catch</span></code> block, please log this with a message, that calls <code class="codehilite"><span class="err">exception.getMessage()</span></code> and log the complete exception by using the <code class="codehilite"><span class="err">Logutils.logThrowable(e)</span></code>. The methods <code class="codehilite"><span class="err">logThrowableReport()</span></code> and <code class="codehilite"><span class="err">logThrowableIgnore()</span></code> may only be executed by BetonQuest.</p>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1572894781000" locale="en"></span>
+</small>
+</div>
 </article>
 </div>
 </div>
@@ -500,5 +507,12 @@
 </div>
 <script src="../assets/javascripts/application.808e90bb.js"></script>
 <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
 </body>
 </html>

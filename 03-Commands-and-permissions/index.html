@@ -354,6 +354,13 @@
 <p>Using '<code class="codehilite"><span class="err">/q create beton</span></code>' command you will create new package named '<code class="codehilite"><span class="err">beton</span></code>'. It will contain the default quest.</p>
 <p>The <code class="codehilite"><span class="err">/q vector</span></code> command allows you to create vector variables from the specified in first argument location variable to your position. The result will be saved to the "vectors.{second argument}" variable.</p>
 <p>The debug command ('<code class="codehilite"><span class="err">/q debug</span></code>') allow you to enable or disable the debug mode. If the debug mode is enabled, the last 1000 log entries are written down to the latest.log file as history and write everything down until the debug mode os disabled. The file <code class="codehilite"><span class="err">/plugins/BetonQuest/logs/latest.log</span></code> is renamed to the current date and time on server start, if the debug mode is not longer active. The debug mode is useful, if you want to report an issue but it is not clear why the issue occurs.</p>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1577767719000" locale="en"></span>
+</small>
+</div>
 </article>
 </div>
 </div>
@@ -412,5 +419,12 @@
 </div>
 <script src="../assets/javascripts/application.808e90bb.js"></script>
 <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
 </body>
 </html>

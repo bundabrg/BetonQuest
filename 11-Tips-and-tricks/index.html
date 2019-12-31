@@ -320,6 +320,13 @@
 <p>Imagine you want to lie to NPC and he has 15% chance of believing you completely, 35% of being suspicious and 50% of not believing at all. The common denominator for those percentages is 20, so we can write it as 3/20, 7/20 and 10/20. The NPC will check options one after another until it finds one which meets all conditions. We will use <code class="codehilite"><span class="err">random</span></code> condition with our options. The first one will have <code class="codehilite"><span class="err">3-20</span></code> chance (that's the format used by <code class="codehilite"><span class="err">random</span></code> condition). If this condition fails, the NPC will check next option. But it won't be <code class="codehilite"><span class="err">7-20</span></code>, because we already "used" 3 of 20. If you wrote it like that, the chance would be too low. That's why it will be <code class="codehilite"><span class="err">7-17</span></code>. The third option should have <code class="codehilite"><span class="err">10-10</span></code> (because <code class="codehilite"><span class="err">17 - 7 = 10</span></code> and 50% is 10/20), but as you can see it will always be true. It's because we want the last option to be shown if both previous fail. You don't have to add the last condition at all.</p>
 <h2 id="quest-gui">Quest GUI</h2>
 <p>If you want your players to be able to choose a quest everywhere, every time, then you can create a conversation which can be started with an item. This one is a little hacky but it shows flexibility of BetonQuest. First you need a conversation which behaves as a quest choosing GUI. Name the NPC "Quester", add one option for each quest etc. Now you need an objective which will start this conversation using <code class="codehilite"><span class="err">conversation</span></code> event. It should be <code class="codehilite"><span class="err">action</span></code> objective, set to right click on any block. Add <code class="codehilite"><span class="err">hand</span></code> condition to make it accept only clicks with a specific item and make the objective <code class="codehilite"><span class="err">persistent</span></code> (so players can use it multiple times). The item used here should be marked as Quest Item so players can't drop it. Now define new global location covering your whole map and using it start the objective and give players the item. This way all players (existing and new) will get the quest item, which opens a GUI with quests when right clicked.</p>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1559068391000" locale="en"></span>
+</small>
+</div>
 </article>
 </div>
 </div>
@@ -378,5 +385,12 @@
 </div>
 <script src="../assets/javascripts/application.808e90bb.js"></script>
 <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
 </body>
 </html>
