@@ -190,8 +190,23 @@
 <label class="md-nav__title" for="__toc">Table of contents</label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#player-player">
-    Player: player
+<a class="md-nav__link" href="#global-point-globalpoint">
+    Global point: globalpoint
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#item-item">
+    Item: item
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#location-location">
+    Location: location
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#calculate-mathematical-expression-mathcalc">
+    Calculate mathematical expression: math.calc
   </a>
 </li>
 <li class="md-nav__item">
@@ -205,33 +220,18 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#player-player">
+    Player: player
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#point-point">
     Point: point
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#global-point-globalpoint">
-    Global point: globalpoint
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#item-item">
-    Item: item
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#version-version">
     Version: version
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#location-location">
-    Location: location
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#calculate-mathematical-expression-mathcalc">
-    Calculate mathematical expression: math.calc
   </a>
 </li>
 </ul>
@@ -274,8 +274,23 @@
 <label class="md-nav__title" for="__toc">Table of contents</label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#player-player">
-    Player: player
+<a class="md-nav__link" href="#global-point-globalpoint">
+    Global point: globalpoint
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#item-item">
+    Item: item
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#location-location">
+    Location: location
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#calculate-mathematical-expression-mathcalc">
+    Calculate mathematical expression: math.calc
   </a>
 </li>
 <li class="md-nav__item">
@@ -289,33 +304,18 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#player-player">
+    Player: player
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#point-point">
     Point: point
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#global-point-globalpoint">
-    Global point: globalpoint
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#item-item">
-    Item: item
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#version-version">
     Version: version
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#location-location">
-    Location: location
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#calculate-mathematical-expression-mathcalc">
-    Calculate mathematical expression: math.calc
   </a>
 </li>
 </ul>
@@ -326,38 +326,65 @@
 <div class="md-content">
 <article class="md-content__inner md-typeset"><a class="md-content__icon pdf-download-btn" download href="../pdf/documentation.pdf" title="Download"><i class="fa fas fa-download"></i><small> PDF</small></a>
 <h1 id="variables-list">Variables List</h1>
-<h2 id="player-player">Player: <code class="codehilite"><span class="err">player</span></code></h2>
-<p>This variable will be replaced with the name of the player. If you add <code class="codehilite"><span class="err">display</span></code> argument, it will use display name instead of real name.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%player</span><span class="p">.</span><span class="n">display</span><span class="o">%</span></code></p>
-<h2 id="npc-npc">NPC: <code class="codehilite"><span class="err">npc</span></code></h2>
-<p>It's a very simple variable. It's replaced by the name of the NPC in player's language.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%npc</span><span class="o">%</span></code></p>
-<h2 id="objective-objective">Objective: <code class="codehilite"><span class="err">objective</span></code></h2>
-<p>Using this variable you can display a property of an objective. The first argument is an ID of the objective as defined in <em>objectives.yml</em> (not the type). Make sure that the player has this objective active or it will be replaced with nothing (""). Second argument is the name of a property you want to display. All properties are described in "Objectives List" chapter.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%objective</span><span class="p">.</span><span class="n">kill_zombies</span><span class="p">.</span><span class="n">left</span><span class="o">%</span></code></p>
-<h2 id="point-point">Point: <code class="codehilite"><span class="err">point</span></code></h2>
-<p>This variable displays the amount of points you have in some category or amount of points you need to have to reach a number. The first argument is the name of a category and the second argument is either <code class="codehilite"><span class="err">amount</span></code> or <code class="codehilite"><span class="n">left</span><span class="o">:</span><span class="n">x</span></code>, where <code class="codehilite"><span class="err">x</span></code> is a number.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%point</span><span class="p">.</span><span class="n">reputation</span><span class="p">.</span><span class="nl">left</span><span class="p">:</span><span class="mi">15</span><span class="o">%</span></code></p>
 <h2 id="global-point-globalpoint">Global point: <code class="codehilite"><span class="err">globalpoint</span></code></h2>
 <p>Works the same as normal point variable but instead of displaying points from a players category it displays points in a global, player independent category.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%globalpoint</span><span class="p">.</span><span class="n">global_knownusers</span><span class="p">.</span><span class="nl">left</span><span class="p">:</span><span class="mi">100</span><span class="o">%</span></code></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%globalpoint</span><span class="p">.</span><span class="n">global_knownusers</span><span class="p">.</span><span class="nl">left</span><span class="p">:</span><span class="mi">100</span><span class="o">%</span></code></p>
+</div>
 <h2 id="item-item">Item: <code class="codehilite"><span class="err">item</span></code></h2>
 <p>With this variable you can display amount of specific items in player's inventory or a number needed to reach specific amount. The first argument is the name of an item (as defined in <em>items.yml</em>) and the second one is either <code class="codehilite"><span class="err">amount</span></code> or <code class="codehilite"><span class="n">left</span><span class="o">:</span><span class="n">x</span></code>, where <code class="codehilite"><span class="err">x</span></code> is a number.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%item</span><span class="p">.</span><span class="n">stick</span><span class="p">.</span><span class="n">amount</span><span class="o">%</span></code></p>
-<h2 id="version-version">Version: <code class="codehilite"><span class="err">version</span></code></h2>
-<p>This variable displays the version of the plugin. You can optionally add the name of the plugin as an argument to display version of another plugin.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%version</span><span class="p">.</span><span class="n">Citizens</span><span class="o">%</span></code></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%item</span><span class="p">.</span><span class="n">stick</span><span class="p">.</span><span class="n">amount</span><span class="o">%</span></code></p>
+</div>
 <h2 id="location-location">Location: <code class="codehilite"><span class="err">location</span></code></h2>
 <p>This variable resolves to player's current location, formatted as an absolute location format (more about it in the <em>Reference</em> chapter). The location will contain yaw and pitch. You can use it instead of coordinates as location arguments in events, conditions and objectives.</p>
-<p><strong>Example</strong>: <code class="codehilite"><span class="nf">%location</span><span class="o">%</span></code></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%location</span><span class="o">%</span></code></p>
+</div>
 <h2 id="calculate-mathematical-expression-mathcalc">Calculate mathematical expression: <code class="codehilite"><span class="err">math.calc</span></code></h2>
 <p>This variable allows you to perform a calculation based on other variables (for example point or objective variables) and resolves to the result of the specified calculation. The variable always starts with <code class="codehilite"><span class="err">math.calc:</span></code>, followed by the calculation which should be calculated. Supported operations are <code class="codehilite"><span class="err">+</span></code>, <code class="codehilite"><span class="err">-</span></code>, <code class="codehilite"><span class="err">*</span></code>, <code class="codehilite"><span class="err">/</span></code> and  <code class="codehilite"><span class="err">^</span></code>. You can use <code class="codehilite"><span class="err">( )</span></code> and <code class="codehilite"><span class="err">[ ]</span></code> braces and also calculate absolute values with <code class="codehilite"><span class="err">| |</span></code> (but don't use this in the command event as it splits the commands at every <code class="codehilite"><span class="err">|</span></code>). If you want to use variables in the calculation, don't put <code class="codehilite"><span class="c">%</span></code> around them.</p>
-<p><strong>Example:</strong> <code class="codehilite"><span class="nf">%math</span><span class="p">.</span><span class="nl">calc</span><span class="p">:</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">15</span><span class="o">-</span><span class="n">point</span><span class="p">.</span><span class="n">reputation</span><span class="p">.</span><span class="n">amount</span><span class="p">)</span><span class="o">%</span></code></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%math</span><span class="p">.</span><span class="nl">calc</span><span class="p">:</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">15</span><span class="o">-</span><span class="n">point</span><span class="p">.</span><span class="n">reputation</span><span class="p">.</span><span class="n">amount</span><span class="p">)</span><span class="o">%</span></code></p>
+</div>
+<h2 id="npc-npc">NPC: <code class="codehilite"><span class="err">npc</span></code></h2>
+<p>It's a very simple variable. It's replaced by the name of the NPC in player's language.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%npc</span><span class="o">%</span></code></p>
+</div>
+<h2 id="objective-objective">Objective: <code class="codehilite"><span class="err">objective</span></code></h2>
+<p>Using this variable you can display a property of an objective. The first argument is an ID of the objective as defined in <em>objectives.yml</em> (not the type). Make sure that the player has this objective active or it will be replaced with nothing (""). Second argument is the name of a property you want to display. All properties are described in "Objectives List" chapter.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%objective</span><span class="p">.</span><span class="n">kill_zombies</span><span class="p">.</span><span class="n">left</span><span class="o">%</span></code></p>
+</div>
+<h2 id="player-player">Player: <code class="codehilite"><span class="err">player</span></code></h2>
+<p>This variable will be replaced with the name of the player. If you add <code class="codehilite"><span class="err">display</span></code> argument, it will use display name instead of real name.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%player</span><span class="p">.</span><span class="n">display</span><span class="o">%</span></code></p>
+</div>
+<h2 id="point-point">Point: <code class="codehilite"><span class="err">point</span></code></h2>
+<p>This variable displays the amount of points you have in some category or amount of points you need to have to reach a number. The first argument is the name of a category and the second argument is either <code class="codehilite"><span class="err">amount</span></code> or <code class="codehilite"><span class="n">left</span><span class="o">:</span><span class="n">x</span></code>, where <code class="codehilite"><span class="err">x</span></code> is a number.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%point</span><span class="p">.</span><span class="n">reputation</span><span class="p">.</span><span class="nl">left</span><span class="p">:</span><span class="mi">15</span><span class="o">%</span></code></p>
+</div>
+<h2 id="version-version">Version: <code class="codehilite"><span class="err">version</span></code></h2>
+<p>This variable displays the version of the plugin. You can optionally add the name of the plugin as an argument to display version of another plugin.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><code class="codehilite"><span class="nf">%version</span><span class="p">.</span><span class="n">Citizens</span><span class="o">%</span></code></p>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
                       
-                        Last update: <span class="timeago" datetime="1559068391000" locale="en"></span>
+                        Last update: <span class="timeago" datetime="1577783047000" locale="en"></span>
 </small>
 </div>
 </article>
