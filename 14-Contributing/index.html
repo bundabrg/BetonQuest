@@ -250,6 +250,11 @@
     Dev Environment
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#change-pdf-theme">
+    Change PDF Theme
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -313,6 +318,11 @@
     Dev Environment
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#change-pdf-theme">
+    Change PDF Theme
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -357,6 +367,7 @@
 <ul>
 <li>python3</li>
 <li>pip3</li>
+<li>npm (only if changing themes)</li>
 </ul>
 <p>Install dependencies by running:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="err">pip3 install -r requirements.txt</span>
@@ -367,6 +378,16 @@
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="err">mkdocs serve</span>
 </pre></div>
 </td></tr></table>
+<h3 id="change-pdf-theme">Change PDF Theme</h3>
+<p>Edit the PDF theme under <code class="codehilite"><span class="err">design/pdf</span></code>. Rebuild by doing the following:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="err">cd design/pdf</span>
+<span class="err">npm install</span>
+<span class="err">npm run build-compressed</span>
+</pre></div>
+</td></tr></table>
+<p>This will update <code class="codehilite"><span class="err">pdf.css</span></code> under <code class="codehilite"><span class="err">docs/css/pdf.css</span></code>. Rebuilding the docs will now use the new theme.</p>
 <h2 id="positive-feedback">Positive feedback</h2>
 <p>I really like to hear that people are using my plugin. If you've got a server and have made a few quests just let me know so I can check it out ^^</p>
 <h2 id="donations">Donations</h2>
