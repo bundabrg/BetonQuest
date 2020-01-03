@@ -28,8 +28,23 @@ if [ -n "${TRAVIS_TAG}" ]; then
   mkdocs build --clean --strict --site-dir="gh-pages/en/${TRAVIS_TAG}" || exit 1
 
   echo "$0: Linking gh-pages/stable to gh-pages/en/${TRAVIS_TAG}"
-  (cd "gh-pages/en" && ln -sf "${TRAVIS_TAG}" stable)
+  (cd "gh-pages/en" && ln -sfn "${TRAVIS_TAG}" stable)
 fi
+
+# Build versions.json from english
+cat <<EOF > gh-pages/versions.json
+[
+  {"version": "latest", "title": "latest", "aliases": []}
+EOF
+for i in $(ls -1 gh-pages/en/ | grep -v latest | grep -v stable | sort -n); do
+  echo -n "  ,{\"version\": \"${i}\", \"title\": \"${i}\", \"aliases\": [" >> gh-pages/versions.json
+  if [ "${i}" == "${TRAVIS_TAG}" ];then
+    echo -n "\"stable\"" >> gh-pages/versions.json
+  fi
+
+  echo "]}" >> gh-pages/versions.json
+done
+echo "]" >> gh-pages/versions.json
 
 # Commit
 (
