@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", function() {
     container.id = "version-selector";
     container.appendChild(select);
 
-    var title = document.querySelector("div.navbar-header");
+    var title = document.querySelector("nav.md-header-nav");
     var height = window.getComputedStyle(title).getPropertyValue("height");
     container.style.height = height;
 
