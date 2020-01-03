@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="ie=edge" http-equiv="x-ua-compatible"/>
+<link href="https://betonquest.pl/13-Info-for-developers/" rel="canonical"/>
+<meta content="Co0sh" name="author"/>
+<meta content="Copy to clipboard" name="lang:clipboard.copy"/>
+<meta content="Copied to clipboard" name="lang:clipboard.copied"/>
+<meta content="en" name="lang:search.language"/>
+<meta content="True" name="lang:search.pipeline.stopwords"/>
+<meta content="True" name="lang:search.pipeline.trimmer"/>
+<meta content="No matching documents" name="lang:search.result.none"/>
+<meta content="1 matching document" name="lang:search.result.one"/>
+<meta content="# matching documents" name="lang:search.result.other"/>
+<meta content="[\s\-]+" name="lang:search.tokenizer"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<meta content="mkdocs-1.0.4, mkdocs-material-4.6.0" name="generator"/>
+<title>Developers - BetonQuest</title>
+<link href="../assets/stylesheets/application.1b62728e.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/application-palette.a8b3c06d.css" rel="stylesheet"/>
+<meta content="#3f51b5" name="theme-color"/>
+<script src="../assets/javascripts/modernizr.268332fc.js"></script>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+<link href="../assets/fonts/material-icons.css" rel="stylesheet"/>
+<link href="../css/mkpdf.css" rel="stylesheet"/>
+<link href="../css/version_select.css" rel="stylesheet"/>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" dir="ltr">
+<svg class="md-svg">
+<defs>
+<svg height="448" id="__github" viewbox="0 0 416 448" width="416" xmlns="http://www.w3.org/2000/svg"><path d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z" fill="currentColor"></path></svg>
+</defs>
+</svg>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+<a class="md-skip" href="#info-for-developers" tabindex="1">
+        Skip to content
+      </a>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a class="md-header-nav__button md-logo" href="https://betonquest.pl" title="BetonQuest">
+<img height="24" src="../img/header_logo.png" width="24"/>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+              BetonQuest
+            </span>
+<span class="md-header-nav__topic">
+              
+                Developers
+              
+            </span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-icon md-search__icon" for="__search"></label>
+<button class="md-icon md-search__icon" data-md-component="reset" tabindex="-1" type="reset">
+        
+      </button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+            Type to start searching
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/Co0sh/BetonQuest" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
+    Co0sh/BetonQuest
+  </div>
+</a>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container">
+<main class="md-main" role="main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title md-nav__title--site" for="__drawer">
+<a class="md-nav__button md-logo" href="https://betonquest.pl" title="BetonQuest">
+<img height="48" src="../img/header_logo.png" width="48"/>
+</a>
+    BetonQuest
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/Co0sh/BetonQuest" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
+    Co0sh/BetonQuest
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href=".." title="Introduction">
+      Introduction
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Installation-and-Configuration/" title="Installation and Configuration">
+      Installation and Configuration
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-Commands-and-permissions/" title="Commands and Permissions">
+      Commands and Permissions
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Quick-start-tutorial/" title="Quick Start Tutorial">
+      Quick Start Tutorial
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Reference/" title="Reference">
+      Reference
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Notifications/" title="Notifications">
+      Notifications
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-Conditions-List/" title="Conditions">
+      Conditions
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-Events-List/" title="Events">
+      Events
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Objectives-List/" title="Objectives">
+      Objectives
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Variables-List/" title="Variables">
+      Variables
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../10-Compatibility/" title="Compatibility">
+      Compatibility
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../11-Tips-and-tricks/" title="Tips and Tricks">
+      Tips and Tricks
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12-Frequently-Asked-Questions/" title="FAQ">
+      FAQ
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-toggle md-nav__toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Developers
+      </label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Developers">
+      Developers
+    </a>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-the-plugin">
+    Accessing the plugin
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-events">
+    Writing events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-conditions">
+    Writing conditions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-objectives">
+    Writing objectives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reading-instruction-object">
+    Reading Instruction object
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-variables">
+    Writing variables
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#firing-events">
+    Firing events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#checking-conditions">
+    Checking conditions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#starting-objectives">
+    Starting objectives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-additional-conversation-inputoutput-methods">
+    Creating additional conversation input/output methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#listening-to-betonquest-bukkit-events">
+    Listening to BetonQuest (Bukkit) events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging">
+    Debugging
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Contributing/" title="Contributing">
+      Contributing
+    </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-the-plugin">
+    Accessing the plugin
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-events">
+    Writing events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-conditions">
+    Writing conditions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-objectives">
+    Writing objectives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reading-instruction-object">
+    Reading Instruction object
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-variables">
+    Writing variables
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#firing-events">
+    Firing events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#checking-conditions">
+    Checking conditions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#starting-objectives">
+    Starting objectives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-additional-conversation-inputoutput-methods">
+    Creating additional conversation input/output methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#listening-to-betonquest-bukkit-events">
+    Listening to BetonQuest (Bukkit) events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging">
+    Debugging
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset"><a class="md-content__icon pdf-download-btn" download href="../pdf/documentation.pdf" title="Download"><i class="fa fas fa-download"></i><small> PDF</small></a>
+<h1 id="info-for-developers">Info for developers</h1>
+<h2 id="accessing-the-plugin">Accessing the plugin</h2>
+<p>You can either add BetonQuest.jar directly to your build path or use Maven. First option if you're using Eclipse:</p>
+<ol>
+<li>Create a folder called lib in your project folder.</li>
+<li>Put BetonQuest.jar in this folder.</li>
+<li>Refresh your project in Eclipse.</li>
+<li>In Eclipse Project Explorer right click on BetonQuest.jar and select <code class="codehilite"><span class="err">Build Path -&gt; Add to Build Path</span></code>.</li>
+</ol>
+<p>And if you're using Maven simply add this to your <em>pom.xml</em>:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">&lt;repositories&gt;</span>
+    <span class="nt">&lt;repository&gt;</span>
+        <span class="nt">&lt;id&gt;</span>betonquest-repo<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;url&gt;</span>https://betonquest.pl/mvn<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/repository&gt;</span>
+<span class="nt">&lt;/repositories&gt;</span>
+
+<span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>pl.betoncraft.betonquest<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>BetonQuest<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.8.5<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</td></tr></table>
+<h2 id="writing-events">Writing events</h2>
+<p>Writing events is the easiest. You need to create a class extending <code class="codehilite"><span class="err">QuestEvent</span></code> for each new event. The constructor must take one argument, an <code class="codehilite"><span class="err">Instruction</span></code> object. In the constructor you must extract all information from the instruction, for example skill names, locations etc. The description of the <code class="codehilite"><span class="err">Instruction</span></code> class is down below. Don't worry about checking event conditions, these are handled by the rest of BetonQuest's logic.</p>
+<p>Events are not bound to any player so firing it is done through <code class="codehilite"><span class="err">fire(String playerID)</span></code> method. You have to override it with your code responsible for doing stuff your event should do. Here you should use data previously parsed by the constructor. Don't access <code class="codehilite"><span class="err">Instruction</span></code> object here, it will lower the performance. You can convert <code class="codehilite"><span class="err">playerID</span></code> to <code class="codehilite"><span class="err">Player</span></code> object using the <code class="codehilite"><span class="err">PlayerConverter</span></code> class (it's a relict of times when both UUIDs and names could be used in Bukkit to identify players).</p>
+<p>If you want your event to be <em>persistent</em>, you need to set <code class="codehilite"><span class="err">super.persistent</span></code> variable to <code class="codehilite"><span class="err">true</span></code> in the constructor. This will make BetonQuest run this event even if the <code class="codehilite"><span class="err">playerID</span></code> points to an offline player, so prepare your code for that.</p>
+<p>If you want your event to be <em>static</em>, you need to set <code class="codehilite"><span class="err">super.staticness</span></code> variable to <code class="codehilite"><span class="err">true</span></code> in the constructor. This will allow BetonQuest to run this event with <code class="codehilite"><span class="err">playerID</span></code> set to <code class="codehilite"><span class="err">null</span></code>, so prepare your code for that.</p>
+<p>When you'll finish your class you need to invoke <code class="codehilite"><span class="nx">registerEvents</span><span class="p">(</span><span class="nb">String</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">Class</span><span class="cp">&lt;?</span> <span class="k">extends</span> <span class="nx">QuestEvent</span><span class="o">&gt;</span> <span class="nx">class</span><span class="p">)</span></code> from BetonQuest instance (which you can get using <code class="codehilite"><span class="err">BetonQuest.getInstance()</span></code> static method). The name for your event will be used in instruction strings (such as "journal" for journal event). The class argument is the <code class="codehilite"><span class="err">Class</span></code> object of your event. You can get it using <code class="codehilite"><span class="err">YourEvent.class</span></code>. That's it, you created an event. Don't forget to check it for bugs!</p>
+<h2 id="writing-conditions">Writing conditions</h2>
+<p>Writing conditions is easy too. They must extend <code class="codehilite"><span class="err">Condition</span></code> and override <code class="codehilite"><span class="err">check(String playerID)</span></code> method, which should return <code class="codehilite"><span class="err">true</span></code> or <code class="codehilite"><span class="err">false</span></code>, depending on if the condition was met. You register them using <code class="codehilite"><span class="nx">registerConditions</span><span class="p">(</span><span class="nb">String</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">Class</span><span class="cp">&lt;?</span> <span class="k">extends</span> <span class="nx">Condition</span><span class="p">)</span></code> method from BetonQuest instance as well. The rest is almost the same, you're defining the constructor which will parse the <code class="codehilite"><span class="err">Instruction</span></code> object and overriding <code class="codehilite"><span class="err">check(String playerID)</span></code> method to check if the player meets the condition. Don't worry about inverting it, as it's automatically done by BetonQuest.</p>
+<p>Conditions are always getting an online player in the <code class="codehilite"><span class="err">check(String playerID)</span></code> method, so you don't need to check that manually.</p>
+<h2 id="writing-objectives">Writing objectives</h2>
+<p>Objectives are more complicated because they use event handlers and they must store players' data. They extend <code class="codehilite"><span class="err">Objective</span></code> class. As always, you need to extract all data from supplied <code class="codehilite"><span class="err">Instruction</span></code> object in the constructor. Don't register listeners in the constructor!</p>
+<p>If your objective handles changing data (like amount of mobs left to kill) you should create a class extending <code class="codehilite"><span class="err">ObjectiveData</span></code>. For example <code class="codehilite"><span class="err">block</span></code> objective does need to store amount of blocks left to place/break, and it does that using "BlockData" class. In the constructor it receives three strings: data string, ID of the player and ID of the objective. The latter two are used by BetonQuest to correctly save and load the former one from the database.</p>
+<p>The data string should contains all the information you need in your objective. You must write a parser which will extract the information, methods used in the objective to alter the information, and override the <code class="codehilite"><span class="err">toString()</span></code> method in so it returns data string in the format parsable by your parser. Everytime the data in your object changes (like when killing a mob), you need to call <code class="codehilite"><span class="err">update()</span></code> method. It will save the data to the database.</p>
+<p>Now you should override <code class="codehilite"><span class="err">getDefaultDataInstruction()</span></code> method. It must return the default data instruction understandable by your parser. For example in <code class="codehilite"><span class="err">tame</span></code> objective it will return the amount of mobs to tame. If you don't use data objects, just return an empty string (not <code class="codehilite"><span class="err">null</span></code>, just <code class="codehilite"><span class="err">""</span></code>).</p>
+<p>In order for your objective to use the data object you have created you need to set the <code class="codehilite"><span class="err">template</span></code> variable to this object's class. If you're not defining the data object (because you don't need to handle the changing data), you should set the <code class="codehilite"><span class="err">template</span></code> simply to <code class="codehilite"><span class="err">ObjectiveData.class</span></code>.</p>
+<p>Every time your objective accepts the player's action (for example killing the right mob in MobKill objective) it must be also verified with <code class="codehilite"><span class="err">checkConditions()</span></code> method. You don't want your objective ignoring all conditions, right? When you decide that the objective is completed you should call <code class="codehilite"><span class="err">completeObjective()</span></code> method. It will fire all events for you, so you don't have to do this manually.</p>
+<p><code class="codehilite"><span class="err">start()</span></code> and <code class="codehilite"><span class="err">stop()</span></code> methods must start objective's listeners and stop them accordingly. It's because the plugin turns the objective's listeners off if there are no players having it active. Here usually you will register/unregister listeners, but some objectives may be different. For example <code class="codehilite"><span class="err">delay</span></code> objective starts and cancels a runnable, instead of using listeners.</p>
+<p>If your objective has some properties (used in variables) you should override the <code class="codehilite"><span class="err">String getProperty(String property, String playerID)</span></code> method. At runtime, if anyone uses <code class="codehilite"><span class="nf">%objective</span><span class="p">.</span><span class="n">yourObjective</span><span class="p">.</span><span class="n">theProperty</span><span class="o">%</span></code> variable, BetonQuest will call that method with <code class="codehilite"><span class="err">theProperty</span></code> keyword as the first argument. Using it you should parse the data of the objective and return it as a String. If the supplied property name is incorrect or there was an error during getting the value, return an empty String and optionally log an error (<code class="codehilite"><span class="err">Debug.error(String message)</span></code>).</p>
+<p>Objectives are registered the same way as conditions and events, using <code class="codehilite"><span class="nx">registerObjective</span><span class="p">(</span><span class="nb">String</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">Class</span><span class="cp">&lt;?</span> <span class="k">extends</span> <span class="nx">Objective</span><span class="o">&gt;</span><span class="p">)</span></code> method.</p>
+<h2 id="reading-instruction-object">Reading <code class="codehilite"><span class="err">Instruction</span></code> object</h2>
+<p>The <code class="codehilite"><span class="err">Instruction</span></code> object parses the instruction string defined by the user and splits it into arguments. You can ask it for required arguments one by one with <code class="codehilite"><span class="err">next()</span></code> method or a parser method like <code class="codehilite"><span class="err">getQuestItem()</span></code>. Required arguments are the ones specified at the very beginning of an instruction string, for example <code class="codehilite"><span class="err">add someTag</span></code> in <code class="codehilite"><span class="err">tag</span></code> event. It will automaticly throw <code class="codehilite"><span class="err">InstructionParseException</span></code> for you if it encounters an error, for example when there were no more arguments in user's instruction or it can't parse the argument to the type you asked for.</p>
+<p>You can also ask for optional arguments: if the instruction string contains argument <code class="codehilite"><span class="n">arg</span><span class="o">:</span><span class="n">something</span></code> and you ask for optional <code class="codehilite"><span class="err">arg</span></code>, it will give you <code class="codehilite"><span class="err">something</span></code>. If there is no optional argument, it will return <code class="codehilite"><span class="err">null</span></code>. Don't worry about passing that <code class="codehilite"><span class="err">null</span></code> to parser methods like <code class="codehilite"><span class="err">getLocation(String)</span></code>, they won't throw an error, they'll simply return that <code class="codehilite"><span class="err">null</span></code>.</p>
+<p>Parser methods are there for your convenience. You could write a location parser for yourself, but there's no need for that, you can just use <code class="codehilite"><span class="err">getLocation()</span></code> or <code class="codehilite"><span class="err">getLocation(String)</span></code> method and receive <code class="codehilite"><span class="err">LocationData</span></code> object. The former method is simply <code class="codehilite"><span class="err">getLocation(next())</span></code>.</p>
+<p>If your instruction is more complicated and <code class="codehilite"><span class="err">Instruction</span></code> class doesn't provide necessary methods, you can still parse the instruction string manually. You can get it with <code class="codehilite"><span class="err">getInstruction()</span></code> method. Just remember to throw <code class="codehilite"><span class="err">InstructionParseException</span></code> when the instruction supplied by the user is incorrect. BetonQuest will catch them and display a message in the console.</p>
+<h2 id="writing-variables">Writing variables</h2>
+<p>All variables need to extend <code class="codehilite"><span class="err">Variable</span></code> class. In the constructor you must parse the instruction and extract all information about your variable's behavior. Then you have to override the <code class="codehilite"><span class="err">String getValue(String playerID)</span></code> method. It should return the value of the variable for the supplied player. If it's impossible, it should return an empty String. Registering variables is done via <code class="codehilite"><span class="nx">BetonQuest</span><span class="p">.</span><span class="nx">registerVariable</span><span class="p">(</span><span class="nb">String</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">Class</span><span class="cp">&lt;?</span> <span class="k">extends</span> <span class="nx">Variable</span><span class="o">&gt;</span> <span class="nx">variable</span><span class="p">)</span></code> method.</p>
+<h2 id="firing-events">Firing events</h2>
+<p>The plugin has a static method for firing events - <code class="codehilite"><span class="err">event(String playerID, EventID eventID)</span></code>. First parameter is ID of the player. Second one represents ID of the event. To get it, simply create an instance of the <code class="codehilite"><span class="err">EventID</span></code> class. You can't fire an event directly using an instruction string.</p>
+<h2 id="checking-conditions">Checking conditions</h2>
+<p>BetonQuest has static boolean method <code class="codehilite"><span class="err">condition(String playerID, String conditionID)</span></code>. It works similarly as event method described above.</p>
+<h2 id="starting-objectives">Starting objectives</h2>
+<p>The <code class="codehilite"><span class="err">newObjective(String playerID, String objectiveID)</span></code> method will launch the objective from start. You can however use <code class="codehilite"><span class="err">resumeObjective(String playerID, String objectiveID, String instruction)</span></code> to pass your own <code class="codehilite"><span class="err">ObjectiveData</span></code> instruction to the objective. It will not be saved to the database, because it is assumed that the objective has just been loaded from it and it exists there without any change. You should save it manually.</p>
+<h2 id="creating-additional-conversation-inputoutput-methods">Creating additional conversation input/output methods</h2>
+<p>In order to register an object as the conversation input/output it needs to implement <code class="codehilite"><span class="err">ConversationIO</span></code> interface. The constructor will receive three arguments: Conversation object, playerID String and NPC name String. It needs to parse the required data here and register all needed listeners. The <code class="codehilite"><span class="err">setResponse(String response)</span></code> method will receive NPC's text from the conversation. The <code class="codehilite"><span class="err">addOption(String option)</span></code> method will be called by the conversation for each reply option for this NPC text. The object must store all this data and when <code class="codehilite"><span class="err">display()</span></code> is called, it must use it to display the player the output. When it detects that the player chose an answer, it should pass it to the conversation using <code class="codehilite"><span class="err">Conversation.passPlayerAnswer(int number)</span></code> method. The integer is the number of the answer, starting at 1. <code class="codehilite"><span class="err">clear()</span></code> method will be called at the beginning of the new conversation cycle. It should clear all the previous options, so they do not overlap. <code class="codehilite"><span class="err">end()</span></code> method will be called when the conversation ends and it should unregister all listeners. You can also call that message when you detect that the player forced conversation ending (for example by moving away from the NPC). Remember to notify the conversation about that using <code class="codehilite"><span class="err">Conversation.end()</span></code>.</p>
+<p>Registering the conversation inputs/outputs is done in the same way as objectives, events and conditions, through <code class="codehilite"><span class="nx">BetonQuest</span><span class="p">.</span><span class="nx">registerConversationIO</span><span class="p">(</span><span class="nb">String</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">Class</span><span class="cp">&lt;?</span> <span class="k">extends</span> <span class="nx">ConversationIO</span><span class="o">&gt;</span><span class="p">)</span></code> method.</p>
+<h2 id="listening-to-betonquest-bukkit-events">Listening to BetonQuest (Bukkit) events</h2>
+<p>BetonQuest calls Bukkit events on a few occasions: when a conversation is started, finished and when an option is selected. You can find these events in <code class="codehilite"><span class="err">pl.betoncraft.betonquest.api</span></code> package and use them in your plugins. If you need any additional events just open and issue on GitHub or send me a pull request.</p>
+<h2 id="debugging">Debugging</h2>
+<p>You can debug your code using <code class="codehilite"><span class="err">LogUtils</span></code> class by simply call <code class="codehilite"><span class="err">LogUtils.getlogger().log(..)</span></code> to log something.</p>
+<p>We use the following levels for this aspects:
+- <code class="codehilite"><span class="err">SEVER</span></code> - Anything happen, that breaks the plugin, or a main function of the plugin
+- <code class="codehilite"><span class="err">WARNING</span></code> - The most things, where something not normal or unexpected happens, but the plugin still work correctly for the rest(all catch blocks, when not SEVER)
+- <code class="codehilite"><span class="err">INFO</span></code> - Anything you want to log, that also should appear in the normal console
+- <code class="codehilite"><span class="err">CONFIG</span></code> - Not in use at the moment
+- <code class="codehilite"><span class="err">FINE</span></code> - All messages, that you want to only appear in the debug log file, not in the console
+- <code class="codehilite"><span class="err">FINER</span></code> - Do not use this, this is reserved, for exception logging, like you call LogUtils.logThrowable or LogUtils.logThrowableIgnore
+- <code class="codehilite"><span class="err">FINEST</span></code> - Not in use at the moment</p>
+<p>If you have a <code class="codehilite"><span class="err">catch</span></code> block, please log this with a message, that calls <code class="codehilite"><span class="err">exception.getMessage()</span></code> and log the complete exception by using the <code class="codehilite"><span class="err">Logutils.logThrowable(e)</span></code>. The methods <code class="codehilite"><span class="err">logThrowableReport()</span></code> and <code class="codehilite"><span class="err">logThrowableIgnore()</span></code> may only be executed by BetonQuest.</p>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1577506355000" locale="en"></span>
+</small>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a class="md-flex md-footer-nav__link md-footer-nav__link--prev" href="../12-Frequently-Asked-Questions/" rel="prev" title="FAQ">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                FAQ
+              </span>
+</div>
+</a>
+<a class="md-flex md-footer-nav__link md-footer-nav__link--next" href="../14-Contributing/" rel="next" title="Contributing">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Contributing
+              </span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+            © 2019  Jakub "Co0sh" Sapalski. GPLv3
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+</div>
+<div class="md-footer-social">
+<link href="../assets/fonts/font-awesome.css" rel="stylesheet"/>
+<a class="md-footer-social__link fa fa-discord" href="https://discord.gg/MvmkHEu"></a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/application.808e90bb.js"></script>
+<script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+<script src="../js/version_select.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
+</body>
+</html>

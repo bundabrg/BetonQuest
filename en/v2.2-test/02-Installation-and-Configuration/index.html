@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="ie=edge" http-equiv="x-ua-compatible"/>
+<link href="https://betonquest.pl/02-Installation-and-Configuration/" rel="canonical"/>
+<meta content="Co0sh" name="author"/>
+<meta content="Copy to clipboard" name="lang:clipboard.copy"/>
+<meta content="Copied to clipboard" name="lang:clipboard.copied"/>
+<meta content="en" name="lang:search.language"/>
+<meta content="True" name="lang:search.pipeline.stopwords"/>
+<meta content="True" name="lang:search.pipeline.trimmer"/>
+<meta content="No matching documents" name="lang:search.result.none"/>
+<meta content="1 matching document" name="lang:search.result.one"/>
+<meta content="# matching documents" name="lang:search.result.other"/>
+<meta content="[\s\-]+" name="lang:search.tokenizer"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<meta content="mkdocs-1.0.4, mkdocs-material-4.6.0" name="generator"/>
+<title>Installation and Configuration - BetonQuest</title>
+<link href="../assets/stylesheets/application.1b62728e.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/application-palette.a8b3c06d.css" rel="stylesheet"/>
+<meta content="#3f51b5" name="theme-color"/>
+<script src="../assets/javascripts/modernizr.268332fc.js"></script>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+<link href="../assets/fonts/material-icons.css" rel="stylesheet"/>
+<link href="../css/mkpdf.css" rel="stylesheet"/>
+<link href="../css/version_select.css" rel="stylesheet"/>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" dir="ltr">
+<svg class="md-svg">
+<defs>
+<svg height="448" id="__github" viewbox="0 0 416 448" width="416" xmlns="http://www.w3.org/2000/svg"><path d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z" fill="currentColor"></path></svg>
+</defs>
+</svg>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+<a class="md-skip" href="#installation-and-configuration" tabindex="1">
+        Skip to content
+      </a>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a class="md-header-nav__button md-logo" href="https://betonquest.pl" title="BetonQuest">
+<img height="24" src="../img/header_logo.png" width="24"/>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+              BetonQuest
+            </span>
+<span class="md-header-nav__topic">
+              
+                Installation and Configuration
+              
+            </span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-icon md-search__icon" for="__search"></label>
+<button class="md-icon md-search__icon" data-md-component="reset" tabindex="-1" type="reset">
+        
+      </button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+            Type to start searching
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/Co0sh/BetonQuest" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
+    Co0sh/BetonQuest
+  </div>
+</a>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container">
+<main class="md-main" role="main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title md-nav__title--site" for="__drawer">
+<a class="md-nav__button md-logo" href="https://betonquest.pl" title="BetonQuest">
+<img height="48" src="../img/header_logo.png" width="48"/>
+</a>
+    BetonQuest
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/Co0sh/BetonQuest" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
+    Co0sh/BetonQuest
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href=".." title="Introduction">
+      Introduction
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-toggle md-nav__toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Installation and Configuration
+      </label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Installation and Configuration">
+      Installation and Configuration
+    </a>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+    Installation
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+    Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#updating">
+    Updating
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backups">
+    Backups
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#migrating-database-from-sqlite-to-mysql-and-back">
+    Migrating database from SQLite to MySQL and back
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-Commands-and-permissions/" title="Commands and Permissions">
+      Commands and Permissions
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Quick-start-tutorial/" title="Quick Start Tutorial">
+      Quick Start Tutorial
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Reference/" title="Reference">
+      Reference
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Notifications/" title="Notifications">
+      Notifications
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-Conditions-List/" title="Conditions">
+      Conditions
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-Events-List/" title="Events">
+      Events
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Objectives-List/" title="Objectives">
+      Objectives
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Variables-List/" title="Variables">
+      Variables
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../10-Compatibility/" title="Compatibility">
+      Compatibility
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../11-Tips-and-tricks/" title="Tips and Tricks">
+      Tips and Tricks
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12-Frequently-Asked-Questions/" title="FAQ">
+      FAQ
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../13-Info-for-developers/" title="Developers">
+      Developers
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Contributing/" title="Contributing">
+      Contributing
+    </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+    Installation
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+    Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#updating">
+    Updating
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backups">
+    Backups
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#migrating-database-from-sqlite-to-mysql-and-back">
+    Migrating database from SQLite to MySQL and back
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset"><a class="md-content__icon pdf-download-btn" download href="../pdf/documentation.pdf" title="Download"><i class="fa fas fa-download"></i><small> PDF</small></a>
+<h1 id="installation-and-configuration">Installation and Configuration</h1>
+<h2 id="installation">Installation</h2>
+<p>First, install the Citizens plugin. You can find it on it´s Spigot <a href="https://www.spigotmc.org/resources/citizens.13811/">page</a>. The free download is hidden in the first paragraph. Just put it in your <em>plugins</em> folder. If you like it consider a donation! It is not required though. You can use NPCs made from clay blocks instead, but that would be less immersive. It is strongly recommended.</p>
+<p>Now download the BetonQuest plugin, place the <code class="codehilite"><span class="na">.jar</span></code> file in your <em>plugins</em> folder, and start the server. BetonQuest has now generated it´s configuration files. If you want to use MySQL for data storage, then open <em>config.yml</em> and fill in your database information. If not, leave these fields blank, and the plugin will use SQLite instead. If you don't want to use autoupdater, disable it in configuration before restarting the server or reloading the plugin. When it is finished, reload the plugin (<strong>/q reload</strong>). Tweak the configuration to your liking and move on to the <em>Quick start tutorial</em> chapter. Understanding how the plugin works first is essential to knowing the commands and the permissions.</p>
+<h2 id="configuration">Configuration</h2>
+<p>The configuration of BetonQuest is done mainly in <em>config.yml</em> file. All options are described here. If you don't know about some aspects of BetonQuest, you can skip the explanation here. It will be repeated in the description of a specific feature.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not touch "version" option! It may corrupt your files!</p>
+</div>
+<ul>
+<li>Configure MySQL or SQLite database. Fill it to use MySQL or leave it blank (or incorrect) to use SQLite.</li>
+<li>Language is just the currently used translation of the plugin. Currently there are 7 languages available: English (en), Polish (pl), German (de), French (fr), Spanish (es), Chinese (cn), Dutch (nl) and Italian (it).</li>
+<li><code class="codehilite"><span class="err">update</span></code> section controls the updater. It has the following settings:<ul>
+<li><code class="codehilite"><span class="err">enable</span></code> option is set to true by default, and it controls whether the plugin should do anything update-related.</li>
+<li><code class="codehilite"><span class="err">download_bugfixes</span></code> controls whether BetonQuest should automatically update bugfix versions (like <em>1.7.3 -&gt; 1.7.4</em> or <em>1.8.1 -&gt; 1.8.3</em>).
+    These versions <strong>do not</strong> change how the plugin works, they only fix bugs, so it is helpful to set it to <code class="codehilite"><span class="err">true</span></code>.</li>
+<li><code class="codehilite"><span class="err">notify_new_release</span></code> option is responsible for displaying a notification at startup about new releases (like <em>1.7.6 -&gt; 1.8</em>).
+    This will inform the user on newly introduced features and changes to existing ones, but these changes are not downloaded automatically. Use <code class="codehilite"><span class="err">/q update</span></code> when you're ready to update.</li>
+<li>If a development version is being used, there will be a third setting here, <code class="codehilite"><span class="err">notify_dev_build</span></code>.
+    This is the same as <code class="codehilite"><span class="err">notify_new_release</span></code>, but it checks the development builds instead. There are no specific version checking here, so if the found dev number is higher, it will appear. You are responsible for downloading new development builds.</li>
+</ul>
+</li>
+<li><code class="codehilite"><span class="err">default_journal_slot</span></code> is a number of slots where the journal will appear after using <code class="codehilite"><span class="err">/journal</span></code> command.</li>
+<li><code class="codehilite"><span class="err">citizens_npcs_by_name</span></code> sets whether NPCs from citizens2 should be identified in main.yml by their name instead of their id.</li>
+<li><code class="codehilite"><span class="err">max_npc_distance</span></code> is the distance you need to walk away from the NPC for the conversation to end (in the case of using chat-based conversation interface).</li>
+<li><code class="codehilite"><span class="err">default_conversation_IO</span></code> is a comma-separated list of conversation interfaces with the first valid one used. <code class="codehilite"><span class="err">simple</span></code> is a conversation in chat. <code class="codehilite"><span class="err">tellraw</span></code> is an extension to provide clickable options, and <code class="codehilite"><span class="err">chest</span></code> is a conversation in inventory window. If you want to use chest and also write the conversation to the players chat, use <code class="codehilite"><span class="err">combined</span></code>. Others, like <code class="codehilite"><span class="err">menu</span></code> are available if you have the required plugins and other plugins can add additional IO types.</li>
+<li><code class="codehilite"><span class="err">default_interceptor</span></code> is a comma-separated list of chat interceptors with the first valid one used. <code class="codehilite"><span class="err">simple</span></code> attempts to catch chat events. <code class="codehilite"><span class="err">packet</span></code> uses protocollib to intercept packets before they reach the player. </li>
+<li><code class="codehilite"><span class="err">display_chat_after_conversation</span></code> this will prevent all chat messages from displaying during a conversation and it will show them once it's finished.</li>
+<li><code class="codehilite"><span class="err">combat_delay</span></code> is a delay (in seconds) the player must wait before starting a conversation after combat.</li>
+<li><code class="codehilite"><span class="err">notify_pullback</span></code> will display a message every time the player is pulled back by the <code class="codehilite"><span class="err">stop</span></code> option in conversations (in the case of chat-based conversations). It notifies players that they are in a conversation, and the pullback is not a bug.</li>
+<li><code class="codehilite"><span class="err">default_package</span></code> is a name of the package that should be used when a package is not specified in /q command. This is for your convenience.</li>
+<li><code class="codehilite"><span class="err">remove_items_after_respawn</span></code> option should be turned on if "keepInventory" gamerule is not being used. It prevents other plugins from duplicating quest items after death.
+    When a player dies, their quest items are removed from drops and stored in the backpack, but some plugins may try to restore all items to the player (for example WorldGuard custom flag keep-inventory). That is why BetonQuest removes the quest items that are in a player's inventory after they respawn again, to be sure they were not readded. The "keepInventory" gamerule, however, works differently - the items are never dropped, so they cannot be added to backpack. Removing them from the inventory would destroy them forever. Sadly, Bukkit does not allow for gamerule checking, so it is up to you to decide. Once again, if you have "keepInventory" gamerule true, this setting has to be false and vice versa.</li>
+<li><code class="codehilite"><span class="err">quest_items_unbreakable</span></code> controls whether quest items can be broken by usage. This was used in the past, when <code class="codehilite"><span class="err">unbreakable</span></code> tag couldn't be added to items. Turn it off and make your quest items unbreakable by vanilla means.</li>
+<li>Sounds define what sounds will be played on these occasions:<ul>
+<li><code class="codehilite"><span class="err">start</span></code> and <code class="codehilite"><span class="err">end</span></code> refer to starting and ending conversations</li>
+<li><code class="codehilite"><span class="err">journal</span></code> is updating journal</li>
+<li><code class="codehilite"><span class="err">update</span></code> is played when there is a changelog file, used to draw your attention</li>
+<li><code class="codehilite"><span class="err">full</span></code> is played when the player uses /j command but his inventory is full.
+List of all possible sounds can be found <a href="https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html">here</a>.</li>
+</ul>
+</li>
+<li><code class="codehilite"><span class="err">cmd_blacklist</span></code> is a list of commands that can not be used while in conversation. Remember that you can only type single words (command names) here!</li>
+<li><code class="codehilite"><span class="err">hook</span></code> controls compatibility with other plugins. You can turn off each hook here.</li>
+<li><code class="codehilite"><span class="err">journal</span></code> controls various settings of the journal:<ul>
+<li><code class="codehilite"><span class="err">chars_per_page</span></code> is the number of characters before a page break. If it is set too high, the text on a journal page can overflow and become invisible. <strong>This was replaced by <code class="codehilite"><span class="err">chars_per_line</span></code> and <code class="codehilite"><span class="err">lines_per_page</span></code> and is only required if you don't like the new behaviour.</strong></li>
+<li><code class="codehilite"><span class="err">chars_per_line</span></code> is the number of characters before a line break. If it is set too high, the text on a journal page can overflow and become invisible. If this is not set, BQ will fall back on the old page wrapping behaviour configured through <code class="codehilite"><span class="err">chars_per_page</span></code>.</li>
+<li><code class="codehilite"><span class="err">lines_per_page</span></code> is the number of lines before a new page. If it is set too high, the text on a journal page can overflow and become invisible. This is only required if <code class="codehilite"><span class="err">chars_per_line</span></code> is set.</li>
+<li><code class="codehilite"><span class="err">one_entry_per_page</span></code> makes each entry take a single page. Note that it will not expand to other pages even if it overflows, so keep your entries short.</li>
+<li><code class="codehilite"><span class="err">reversed_order</span></code> controls the chronological order of entries in the journal. By default, the entries are ordered from newest to oldest. It is reversible, but this will force players to click through many pages to get to the most recent entry.</li>
+<li><code class="codehilite"><span class="err">hide_date</span></code> hides the date of each entry. Set it to true if you don't want this functionality.</li>
+<li><code class="codehilite"><span class="err">full_main_page</span></code> makes the main page always take a full page. If a lot of information is being displayed, it is advised to make this true. If you use the main page only for small notifications, set it to false, so the entries can follow immediately.</li>
+<li><code class="codehilite"><span class="err">show_separator</span></code> shows a separator between journal entries (default: true). Customize the separator in <code class="codehilite"><span class="err">messages.yml</span></code> with the key <code class="codehilite"><span class="err">journal_separator</span></code>.</li>
+</ul>
+</li>
+<li><code class="codehilite"><span class="err">journal_colors</span></code> controls the colors used in the journal. It takes color codes without the <code class="codehilite"><span class="err">&amp;</span></code> character.<ul>
+<li><code class="codehilite"><span class="err">date.day</span></code> is the day number</li>
+<li><code class="codehilite"><span class="err">date.hour</span></code> is the hour number</li>
+<li><code class="codehilite"><span class="err">line</span></code> is the delimiter between entries</li>
+<li><code class="codehilite"><span class="err">text</span></code> is the text of the entry</li>
+</ul>
+</li>
+<li><code class="codehilite"><span class="err">conversation_colors</span></code> controls the colors of the conversation. It takes <a href="https://hub.spigotmc.org/javadocs/spigot/org/bukkit/ChatColor.html">color names</a>. If you want to add a font style (bold, italic etc.) you can add it after a comma.<ul>
+<li><code class="codehilite"><span class="err">npc</span></code> is the name of the NPC</li>
+<li><code class="codehilite"><span class="err">player</span></code> is the name of the player</li>
+<li><code class="codehilite"><span class="err">text</span></code> is the NPC's text</li>
+<li><code class="codehilite"><span class="err">answer</span></code> is the text of player's answer (after choosing it)</li>
+<li><code class="codehilite"><span class="err">number</span></code> is the option number</li>
+<li><code class="codehilite"><span class="err">option</span></code> is the text of an option</li>
+</ul>
+</li>
+<li><code class="codehilite"><span class="err">date_format</span></code> is the Java <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html">date format</a> used in journal dates. It needs to have a space between the day and hour.</li>
+<li><code class="codehilite"><span class="err">debug</span></code> is responsible for logging the plugin's activity to <em>debug.log</em> file in <em>logs</em> directory. Turning this on can slow your server down. However, if you experience any errors, turn this on and let the plugin gather the data and send logs to the developer. Note that the first run of the plugin will be logged anyway, just as a precaution.</li>
+<li><code class="codehilite"><span class="err">conversation_IO_config</span></code> manages settings for individual conoversation IO's:<ul>
+<li><code class="codehilite"><span class="err">chest</span></code> manages settings for the chest conversation IO<ul>
+<li><code class="codehilite"><span class="err">show_number</span></code> will show the player number option if true (default: true)</li>
+<li><code class="codehilite"><span class="err">show_npc_text</span></code> will show the npc text in every player option if true (default: true)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="updating">Updating</h2>
+<p>The update process is safe and easy. After updating to a new version (manually or automatically), configuration files and database will be automatically backed up to a zip file to prevent losing your work due to errors. Then, configuration will be converted to a new version. At the end, the localization will be updated with new languages and the <em>changelog.txt</em> file will be created.</p>
+<p>When you enter the server, BetonQuest will alert you about changes and ask you to read changelog.txt file located in plugin's main directory. This helps players be aware of every change made by new versions.</p>
+<p>All future versions of BetonQuest should have full compatibility with the current version of the plugin and server. This means that the plugin should work <em>exactly</em> the same way as it did before without bugs after updating. The changes will be visible only in configuration format or new features. (For example in 1.5 inverting conditions was done by adding <code class="codehilite"><span class="err">--inverted</span></code> argument to the instruction. It was changed to the current format (with exclamation marks before the condition name) in 1.6 version. The plugin had updated the configuration files automatically when switching to the new version. The only problem the user had was getting used to the new (better) way of negating conditions).</p>
+<p>If there were any unexpected errors during an update process, download the previous version, restore your configs from backup, and disable autoupdating feature. Don't forget to post your error so I can fix it!</p>
+<h2 id="backups">Backups</h2>
+<p>Every time the plugin updates the configuration, a backup will be created. This is especially important if a development version is being used because they may be unstable. A backup can also be created manually by running <strong>/q backup</strong> command. It needs to be run from the console on an empty server because it heavily uses the database.</p>
+<p>You can find your backups in <em>backup</em> directory in the plugin's folder. They are .zip files containing all your configuration and <em>database-backup.yml</em> file, which - as the name says - is your database backup. To replace your configuration with an older backup, delete all the files (except backups and logs) and replace them with the files from .zip file.</p>
+<p>If you want your database loaded, place <em>database-backup.yml</em> file in plugin's directory. When the plugin sees this file while enabling, it will backup the current database and load all data from that file to the database. A backup of the old database can be found in <em>backups</em> folder, so if you ever need to load it back, just rename it to <em>database-backup.yml</em> and place it back in main plugin's directory. Note that <em>database-backup.yml</em> file will be deleted after loading, so it does not replace your database on next plugin start.</p>
+<h2 id="migrating-database-from-sqlite-to-mysql-and-back">Migrating database from SQLite to MySQL and back</h2>
+<p>Follow these few simple steps to migrate your database easily:</p>
+<ol>
+<li>Create a backup with <strong>/q backup</strong> command.</li>
+<li>Extract database backup from it.</li>
+<li>Turn the server off.</li>
+<li>Place the <em>database-backup.yml</em> file inside the plugin's directory.</li>
+<li>Edit which database type you want to use (correct credentials for MySQL, incorrect or empty for SQLite) in the configurations.</li>
+<li>Start the server.</li>
+<li>Check for errors.</li>
+<li>If there are no errors, enjoy your migrated database.</li>
+<li>If there are any errors, post them to the developer or try to fix them if you know how.</li>
+</ol>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1577506355000" locale="en"></span>
+</small>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a class="md-flex md-footer-nav__link md-footer-nav__link--prev" href=".." rel="prev" title="Introduction">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Introduction
+              </span>
+</div>
+</a>
+<a class="md-flex md-footer-nav__link md-footer-nav__link--next" href="../03-Commands-and-permissions/" rel="next" title="Commands and Permissions">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Commands and Permissions
+              </span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+            © 2019  Jakub "Co0sh" Sapalski. GPLv3
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+</div>
+<div class="md-footer-social">
+<link href="../assets/fonts/font-awesome.css" rel="stylesheet"/>
+<a class="md-footer-social__link fa fa-discord" href="https://discord.gg/MvmkHEu"></a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/application.808e90bb.js"></script>
+<script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+<script src="../js/version_select.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
+</body>
+</html>

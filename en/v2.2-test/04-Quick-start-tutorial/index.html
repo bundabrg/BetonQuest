@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="ie=edge" http-equiv="x-ua-compatible"/>
+<link href="https://betonquest.pl/04-Quick-start-tutorial/" rel="canonical"/>
+<meta content="Co0sh" name="author"/>
+<meta content="Copy to clipboard" name="lang:clipboard.copy"/>
+<meta content="Copied to clipboard" name="lang:clipboard.copied"/>
+<meta content="en" name="lang:search.language"/>
+<meta content="True" name="lang:search.pipeline.stopwords"/>
+<meta content="True" name="lang:search.pipeline.trimmer"/>
+<meta content="No matching documents" name="lang:search.result.none"/>
+<meta content="1 matching document" name="lang:search.result.one"/>
+<meta content="# matching documents" name="lang:search.result.other"/>
+<meta content="[\s\-]+" name="lang:search.tokenizer"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<meta content="mkdocs-1.0.4, mkdocs-material-4.6.0" name="generator"/>
+<title>Quick Start Tutorial - BetonQuest</title>
+<link href="../assets/stylesheets/application.1b62728e.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/application-palette.a8b3c06d.css" rel="stylesheet"/>
+<meta content="#3f51b5" name="theme-color"/>
+<script src="../assets/javascripts/modernizr.268332fc.js"></script>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+<link href="../assets/fonts/material-icons.css" rel="stylesheet"/>
+<link href="../css/mkpdf.css" rel="stylesheet"/>
+<link href="../css/version_select.css" rel="stylesheet"/>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" dir="ltr">
+<svg class="md-svg">
+<defs>
+<svg height="448" id="__github" viewbox="0 0 416 448" width="416" xmlns="http://www.w3.org/2000/svg"><path d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z" fill="currentColor"></path></svg>
+</defs>
+</svg>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+<a class="md-skip" href="#quick-start-tutorial" tabindex="1">
+        Skip to content
+      </a>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a class="md-header-nav__button md-logo" href="https://betonquest.pl" title="BetonQuest">
+<img height="24" src="../img/header_logo.png" width="24"/>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+              BetonQuest
+            </span>
+<span class="md-header-nav__topic">
+              
+                Quick Start Tutorial
+              
+            </span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-icon md-search__icon" for="__search"></label>
+<button class="md-icon md-search__icon" data-md-component="reset" tabindex="-1" type="reset">
+        
+      </button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+            Type to start searching
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/Co0sh/BetonQuest" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
+    Co0sh/BetonQuest
+  </div>
+</a>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container">
+<main class="md-main" role="main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title md-nav__title--site" for="__drawer">
+<a class="md-nav__button md-logo" href="https://betonquest.pl" title="BetonQuest">
+<img height="48" src="../img/header_logo.png" width="48"/>
+</a>
+    BetonQuest
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/Co0sh/BetonQuest" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
+    Co0sh/BetonQuest
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href=".." title="Introduction">
+      Introduction
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Installation-and-Configuration/" title="Installation and Configuration">
+      Installation and Configuration
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-Commands-and-permissions/" title="Commands and Permissions">
+      Commands and Permissions
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-toggle md-nav__toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Quick Start Tutorial
+      </label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Quick Start Tutorial">
+      Quick Start Tutorial
+    </a>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-events-and-conditions">
+    Using events and conditions
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events">
+    Events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conditions">
+    Conditions
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#basic-tags">
+    Basic tags
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-objectives">
+    Creating objectives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-your-first-conversation">
+    Writing your first conversation
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Reference/" title="Reference">
+      Reference
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Notifications/" title="Notifications">
+      Notifications
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-Conditions-List/" title="Conditions">
+      Conditions
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-Events-List/" title="Events">
+      Events
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Objectives-List/" title="Objectives">
+      Objectives
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Variables-List/" title="Variables">
+      Variables
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../10-Compatibility/" title="Compatibility">
+      Compatibility
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../11-Tips-and-tricks/" title="Tips and Tricks">
+      Tips and Tricks
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12-Frequently-Asked-Questions/" title="FAQ">
+      FAQ
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../13-Info-for-developers/" title="Developers">
+      Developers
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Contributing/" title="Contributing">
+      Contributing
+    </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-events-and-conditions">
+    Using events and conditions
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events">
+    Events
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conditions">
+    Conditions
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#basic-tags">
+    Basic tags
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-objectives">
+    Creating objectives
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writing-your-first-conversation">
+    Writing your first conversation
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset"><a class="md-content__icon pdf-download-btn" download href="../pdf/documentation.pdf" title="Download"><i class="fa fas fa-download"></i><small> PDF</small></a>
+<h1 id="quick-start-tutorial">Quick start tutorial</h1>
+<p>The first thing you probably want to after installing the plugin is to check out how it's working. If you want to use inventory GUI open <em>config.yml</em> and change <code class="codehilite"><span class="err">default_conversation_IO</span></code> to <code class="codehilite"><span class="err">chest</span></code>, save the file and issue <strong>/q reload</strong> command on the server.</p>
+<p>Now log in and place somewhere in the world a block of stained clay. On top of it put a head (can be a Creeper's head), and on the side of the clay block place a sign. Write this on first and second line:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">[NPC]</span>
+<span class="na">Innkeeper</span>
+</pre></div>
+</td></tr></table>
+<p>Done. Now right-click on the NPC's head. The conversation should start. If it did not, check if you correctly built the NPC. Ask the Innkeeper for some quests. He will tell you to cut some trees. If you want, type <strong>/journal</strong> to get the journal and see a new entry. Now, don't try to place any wood blocks. BetonQuest will detect that and increase the number of blocks to destroy. Just go and find some trees. Cut them down and if you're in creative mode, give yourself 16 blocks of wood. Now you can return to Innkeeper and give him the wood. You will receive the reward.</p>
+<h2 id="using-events-and-conditions">Using events and conditions</h2>
+<p>Now that you know how a (very) simple quest looks like time to start learning how to write something similar. Let's start with events. We won't do conversations just now, since they heavily use events and conditions, so you need to know them first. You can read complete reference to events in the <em>Reference</em> chapter. Do that now or just continue with this tutorial.</p>
+<h3 id="events">Events</h3>
+<p>Let's just open <em>events.yml</em> file inside the <em>default</em> package. At the end add a new line:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">foo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">message Hello world!</span>
+</pre></div>
+</td></tr></table>
+<p>This is an event instruction. BetonQuest will use it to determine what type of event it is and what exactly should it do. <code class="codehilite"><span class="err">foo</span></code> is the name, <code class="codehilite"><span class="err">message</span></code> is the type and <code class="codehilite"><span class="err">Hello world!</span></code> tells the message type what it needs to display. In this case, if you run <code class="codehilite"><span class="err">foo</span></code> event, it will display to you <code class="codehilite"><span class="err">Hello world!</span></code> message. Now save the file, issue <strong>/q reload</strong> command and run the event with <strong>/q e {name} foo</strong> command (<code class="codehilite"><span class="err">q</span></code> is shortcut for <code class="codehilite"><span class="err">quest</span></code>, <code class="codehilite"><span class="err">e</span></code> is shortcut for <code class="codehilite"><span class="err">event</span></code>, <code class="codehilite"><span class="err">{name}</span></code> is your Minecraft name without the brackets and <code class="codehilite"><span class="err">foo</span></code> is the name of the event we've just created). It should show you white <code class="codehilite"><span class="err">Hello world!</span></code> message in the chat.</p>
+<p>Let's create another event, more complicated one. <code class="codehilite"><span class="err">teleport</span></code> seems complicated enough. As you can read in the <em>Events list</em>, it needs a single argument, the location. Press F3 and check out your current location (it's shown on the left, three numbers, <code class="codehilite"><span class="err">x</span></code>, <code class="codehilite"><span class="err">y</span></code> and <code class="codehilite"><span class="err">z</span></code>). Now add in <em>events.yml</em> another line:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">bar</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">teleport 100;200;300;world</span>
+</pre></div>
+</td></tr></table>
+<p>and replace <code class="codehilite"><span class="err">100</span></code> with your <code class="codehilite"><span class="err">x</span></code> coordinate, <code class="codehilite"><span class="err">200</span></code> with <code class="codehilite"><span class="err">y</span></code> and <code class="codehilite"><span class="err">300</span></code> with <code class="codehilite"><span class="err">z</span></code>. <code class="codehilite"><span class="err">world</span></code> needs to be replaced with your current world's name. Save the file, reload the plugin and run this event with a command described before. It should teleport you to the location you have specified.</p>
+<p>Congratulations, you have just created your first events. Go ahead and do some experiments with other event types. You can find them in <em>Events list</em> chapter. Once you're done let's start learning conditions.</p>
+<h3 id="conditions">Conditions</h3>
+<p>Open the <em>conditions.yml</em> file and add there a new line:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">foo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">location 100;200;300;world;5</span>
+</pre></div>
+</td></tr></table>
+<p>Can you see how we named the <code class="codehilite"><span class="err">foo</span></code> condition in the same way as the <code class="codehilite"><span class="err">foo</span></code> event? They are not connected in any way. Condition names and event names are separated, so you can give them the same name without any problems. Now let's look at the instruction string. As you can suspect, <code class="codehilite"><span class="err">location</span></code> is a type of the condition. This one means that we'll be checking if the player is near that location (you should change the location to the place where you're standing right now, so you don't have to run around the world). Note that at the end of location argument there is an additional number, <code class="codehilite"><span class="err">5</span></code>. This is the maximum distance you can be away from the location to meet the condition. Alright, save the file and reload the plugin.</p>
+<p>Now walk to the location you have defined in the condition. Try to stand on the exact block corresponding to that location. Issue <strong>/q c {name} foo</strong> command (<code class="codehilite"><span class="err">c</span></code> is shortcut for <code class="codehilite"><span class="err">condition</span></code>). It should show you "checking condition blah blah blah: <strong>true</strong>". We're focusing on that last word, <strong>true</strong>. This means that you're meeting the condition: you're standing withing 5 block radius of the location. Now move 2 blocks away and issue that command again. You should still be meeting the condition. Walk 4 more blocks away and try now. It should show <strong>false</strong>. You are now outside of that 5 block radius. Get it? Great.</p>
+<p>Now I'll show you the simplest use of those conditions. Open the <em>events.yml</em> file again, and at the end of <code class="codehilite"><span class="err">foo</span></code> instruction add <code class="codehilite"><span class="n">conditions</span><span class="o">:</span><span class="n">foo</span></code> argument. By the way, rename <code class="codehilite"><span class="err">foo</span></code> event to <code class="codehilite"><span class="err">baz</span></code>, so the names won't get confusing. Now you should have something like</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">baz</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">message Hello world! conditions:foo</span>
+</pre></div>
+</td></tr></table>
+<p>Now <code class="codehilite"><span class="err">baz</span></code> event will run only if it meets <code class="codehilite"><span class="err">foo</span></code> condition. Reload the plugin, walk outside of the 5 block radius and try to run <code class="codehilite"><span class="err">baz</span></code> event. Puff, nothing happens. It's because you're not meeting <code class="codehilite"><span class="err">foo</span></code> condition. Walk into the radius again and try to run that event now. It should happily display the <code class="codehilite"><span class="err">Hello world!</span></code> message.</p>
+<p>It's very nice that we can add such conditions, but the problem is: what if you wanted to display the message only if the player is <em>outside</em> the radius? Don't worry, you don't have to specify <code class="codehilite"><span class="err">inverted_location</span></code> condition or anything like that. You can simply negate the condition. Negation makes the condition behave in the exact opposite way, in this case it <code class="codehilite"><span class="err">foo</span></code> will be met only if the player is outside of the 5 block radius, and it won't be met if he's inside. Open the <em>events.yml</em> and add an exclamation mark before the <code class="codehilite"><span class="err">foo</span></code> condition, so it looks like</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">baz</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">message Hello world! conditions:!foo</span>
+</pre></div>
+</td></tr></table>
+<p>This means "display message <code class="codehilite"><span class="err">Hello world!</span></code> if the <code class="codehilite"><span class="err">foo</span></code> condition is <em>not met</em>". Save the file, reload the plugin and run the event inside and outside of the radius to see how it works.</p>
+<h2 id="basic-tags">Basic tags</h2>
+<p>Now that you know how to use events and conditions I'll show you what tags are. Create new events:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">add_beton_tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tag add beton</span>
+<span class="nt">del_beton_tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tag del beton</span>
+</pre></div>
+</td></tr></table>
+<p>It's a good practice to give your events names that describe what they are doing. Imagine you have 100 events, <code class="codehilite"><span class="err">foo24</span></code>, <code class="codehilite"><span class="err">bar65</span></code>, <code class="codehilite"><span class="err">baz12</span></code> etc. You would get lost pretty quickly. So, <code class="codehilite"><span class="err">add_beton_tag</span></code> event here simply adds <code class="codehilite"><span class="err">beton</span></code> tag to the player, <code class="codehilite"><span class="err">del_beton_tag</span></code> removes it. Save the file, reload the plugin and run this event. Nothing happens... or does it? Issue <strong>/q t {name}</strong> command (<code class="codehilite"><span class="err">t</span></code> is shortcut for <code class="codehilite"><span class="err">tags</span></code>). It should show you a list with few entries. Right now focus on <code class="codehilite"><span class="err">default.beton</span></code>, the rest are used by the default quest for Innkeeper. Alright, <code class="codehilite"><span class="err">default</span></code> is the name of the package in which the tag is, and <code class="codehilite"><span class="err">beton</span></code> is the name of the tag, as defined in <code class="codehilite"><span class="err">add_beton_tag</span></code> event. Now run <code class="codehilite"><span class="err">del_beton_tag</span></code> event. Guess what, <code class="codehilite"><span class="err">default.beton</span></code> disappeared from the list! And that's it, you know how to add and remove tags. Pretty useless.</p>
+<p>Nothing could be more wrong. Tags are one the most powerful things in BetonQuest. They just need to be used with <code class="codehilite"><span class="err">tag</span></code> condition. Open <em>conditions.yml</em> and add</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">has_beton_tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tag beton</span>
+</pre></div>
+</td></tr></table>
+<p>line. As you can imagine, <code class="codehilite"><span class="err">tag</span></code> is the type of a condition (the same as <code class="codehilite"><span class="err">tag</span></code> event, but these are not the same things - one is an event, the other one is a condition) and <code class="codehilite"><span class="err">beton</span></code> is the name of the tag. You don't have to specify <code class="codehilite"><span class="err">default.beton</span></code>, but you can if you want. Now save, reload and check it with a command. It should show <strong>false</strong>, since you have removed the tag with <code class="codehilite"><span class="err">del_beton_tag</span></code> event. Add it again with <code class="codehilite"><span class="err">add_beton_tag</span></code> event and check the <code class="codehilite"><span class="err">has_beton_tag</span></code> condition again. Now it will show <strong>true</strong>.</p>
+<p>Now you probably understand how powerful this system is. You could for example set a tag on the first time the player talks with an NPC, and if the NPC sees that tag next time they talk, he will tell something different, like "welcome back".</p>
+<h2 id="creating-objectives">Creating objectives</h2>
+<p>Time to write some objectives! Open the <em>objectives.yml</em> file and add a new line:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">kill_creepers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mobkill creeper 3 events:bar conditions:has_beton_tag</span>
+</pre></div>
+</td></tr></table>
+<p>Now let's analyze it. <code class="codehilite"><span class="err">kill_creepers</span></code> is a name of the objective. <code class="codehilite"><span class="err">mobkill</span></code> is a type. In this case, to complete the objective the player will have to kill some mobs. <code class="codehilite"><span class="err">creeper</span></code> is a type of the mob, so we know that these mobs will have to be Creepers. <code class="codehilite"><span class="err">3</span></code> is the amount. It means that the player has to kill 3 Creepers. <code class="codehilite"><span class="n">events</span><span class="o">:</span><span class="n">bar</span></code> means than once the player kills those Creepers, the <code class="codehilite"><span class="err">bar</span></code> event will be run (it's the teleportation event). <code class="codehilite"><span class="n">conditions</span><span class="o">:</span><span class="n">has_beton_tag</span></code> tells us that the player will have to have <code class="codehilite"><span class="err">beton</span></code> tag while killing Creepers to complete the objective. Save it, reload the plugin and issue <strong>/q o {name} add kill_creepers</strong> command (<code class="codehilite"><span class="err">o</span></code> is for <code class="codehilite"><span class="err">objective</span></code>, <code class="codehilite"><span class="err">add</span></code> tells the plugin to add an objective).</p>
+<p>Now you can check if you actually have this objective with <strong>/q o {name}</strong> command, it will show you all your active objectives. It should show <code class="codehilite"><span class="err">default.kill_creepers</span></code>. Alright, remove (yes, remove!) the <code class="codehilite"><span class="err">beton</span></code> tag from you and find some Creepers to kill. Once you killes 3 of them you will notice that nothing happened. It's because <code class="codehilite"><span class="err">has_beton_tag</span></code> condtion is not met, so the objective does not count your progress. Now add the tag again and kill another Creepers. When the third is dead you should be teleported to the location defined in <code class="codehilite"><span class="err">bar</span></code> event.</p>
+<p>Congratulations, now you know how to use objectives. You should experiment with other types now, since objectives will be used very often in your quests. Once you're done check out the <em>Writing your first conversation</em> chapter to use your knowledge to write your fisrt conversation.</p>
+<h2 id="writing-your-first-conversation">Writing your first conversation</h2>
+<p>Now that you have seen BetonQuest in action and understood events, conditions and objectives, it's time for writing your first conversation. There's a <em>conversations</em> directory inside the default package. It contains a single file, <em>innkeeper.yml</em>. This is the conversation with Innkeeper, the one who asks you to cut some trees. Open it, we'll use that for reference. Now create a new file, let's say <em>miner.yml</em>. Now type (don't copy-paste it, you'll learn better while typing) that into the file:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">quester</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Miner</span>
+<span class="nt">first</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">greeting</span>
+<span class="nt">NPC_options</span><span class="p">:</span>
+  <span class="nt">greeting</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hi there, traveler!</span>
+</pre></div>
+</td></tr></table>
+<p>It's the most basic conversation possible. The NPC named <code class="codehilite"><span class="err">Miner</span></code> upon starting the conversation will use <code class="codehilite"><span class="err">greeting</span></code> option, which means he will say <code class="codehilite"><span class="err">Hi there, traveler!</span></code>. Then the conversation will end, because there are no player options defined.</p>
+<p>Now you need to link the conversation with an NPC. You do that in the <em>main.yml</em> file. Open it now. As you can see, <em>inkeeper.yml</em> conversation is linked to <code class="codehilite"><span class="err">Innkeeper</span></code> word. It's the one you have put on the sign, remember? Now, add another line under the Innkeeper: <code class="codehilite"><span class="n">Miner</span><span class="o">:</span> <span class="n">miner</span><span class="o">.</span><span class="na">yml</span></code>, save the file and reload the server. This will link our new conversation with the NPC named "Miner". Construct a new NPC on the server, give him a sign with "Miner" name and click on the head.</p>
+<p>Guess what, the conversation finished right after it started. The Miner just said <code class="codehilite"><span class="err">Hi there, traveler!</span></code>, as expected. Now go to the conversation file and edit it (again, manually, no copy-paste!) so the options look like this:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">NPC_options</span><span class="p">:</span>
+  <span class="nt">greeting</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hi there, traveler!</span>
+    <span class="nt">pointers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello, bye</span>
+<span class="nt">player_options</span><span class="p">:</span>
+  <span class="nt">hello</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hello!</span>
+  <span class="nt">bye</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">I need to go, sorry.</span>
+</pre></div>
+</td></tr></table>
+<p>When you save the file, reload the plugin and start the conversation again you will notice that there are two options for you to choose: <code class="codehilite"><span class="err">Hello!</span></code> and <code class="codehilite"><span class="err">I need to go, sorry.</span></code> Choosing any of them will end the conversation, because these options did not specify any pointers.</p>
+<p>Now add a new NPC option, for example <code class="codehilite"><span class="err">weather</span></code> with text <code class="codehilite"><span class="err">Nice weather.</span></code> and make <code class="codehilite"><span class="err">hello</span></code> player option point to it. When you save&amp;reload, the Miner should say <code class="codehilite"><span class="err">Nice weather.</span></code> when you tell him <code class="codehilite"><span class="err">Hello!</span></code>. I think you get how it works.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">NPC_options</span><span class="p">:</span>
+  <span class="nt">greeting</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hi there, traveler!</span>
+    <span class="nt">pointers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello, bye</span>
+  <span class="nt">weather</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Nice weather.</span>
+<span class="nt">player_options</span><span class="p">:</span>
+  <span class="nt">hello</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hello!</span>
+    <span class="nt">pointer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">weather</span>
+  <span class="nt">bye</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">I need to go, sorry.</span>
+</pre></div>
+</td></tr></table>
+<p>Now, every time you talk to the Miner, he will say the same thing. It would be nice if the second time you talk to him he knew your name. We can do that with tags. Define a <code class="codehilite"><span class="err">meet_miner</span></code> event and <code class="codehilite"><span class="err">has_met_miner</span></code> condition. When you talk to the Miner for the first time, he will check if you have met him. If not, he will meet you (with that event) and next time you talk, the condition will be passed and he will use your name.</p>
+<p>Now, rename <code class="codehilite"><span class="err">greeting</span></code> NPC option to <code class="codehilite"><span class="err">first_greeting</span></code>. Add <code class="codehilite"><span class="err">meet_miner</span></code> event and negated <code class="codehilite"><span class="err">has_met_miner</span></code> condition (negated because this option should only show if the player has not met the Miner yet). You will need to surround the condition with <code class="codehilite"><span class="err">''</span></code>, because strings cannot start with exclamation marks in YAML. It should look like this:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">first</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">first_greeting</span>
+<span class="nt">NPC_options</span><span class="p">:</span>
+  <span class="nt">first_greeting</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hi there, traveler!</span>
+    <span class="nt">condition</span><span class="p">:</span> <span class="s">'!has_met_miner'</span>
+    <span class="nt">event</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">meet_miner</span>
+    <span class="nt">pointers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello, bye</span> 
+</pre></div>
+</td></tr></table>
+<p>This means: <code class="codehilite"><span class="err">first_greeting</span></code> should be used if the player <strong>does not</strong> pass <code class="codehilite"><span class="err">has_met_miner</span></code> condition (meaning he doesn't have a tag because he haven't talked to the NPC yet). When this option is used, it will fire <code class="codehilite"><span class="err">meet_miner</span></code> event and display <code class="codehilite"><span class="err">hello</span></code> and <code class="codehilite"><span class="err">bye</span></code> options. Alright, but what happens if the player met the Miner and now negated <code class="codehilite"><span class="err">has_met_miner</span></code> condition doesn't work? NPC will try to use next option defined in <code class="codehilite"><span class="err">first</span></code> setting. There is none yet, so let's add it.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">first</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">first_greeting, regular_greeting</span>
+<span class="nt">NPC_options</span><span class="p">:</span>
+  <span class="nt">regular_greeting</span><span class="p">:</span>
+    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hi %player%!</span>
+    <span class="nt">pointers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello, bye</span>
+</pre></div>
+</td></tr></table>
+<p>This option does not have any conditions, so if the <code class="codehilite"><span class="err">first_greeting</span></code> fails, the NPC will always choose this one. Now take a look at the <code class="codehilite"><span class="nf">%player</span><span class="o">%</span></code> thing. It's a variable. In this place it will show your name. There are more than this one, they are described in <em>Reference</em> chapter. Alright, save&amp;reload and start the conversation. If you did everything correctly, the Miner should greet you as a "traveler", and the second time you talk to him, he should greet you with your Minecraft name.</p>
+<p>Here's the whole conversation you created, so you can check if you understood everything correctly:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="nt">first</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">first_greeting, regular_greeting</span>
+    <span class="nt">NPC_options</span><span class="p">:</span>
+      <span class="nt">first_greeting</span><span class="p">:</span>
+        <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hi there, traveler!</span>
+        <span class="nt">condition</span><span class="p">:</span> <span class="s">'!has_met_miner'</span>
+        <span class="nt">event</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">meet_miner</span>
+        <span class="nt">pointers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello, bye</span> 
+      <span class="nt">regular_greeting</span><span class="p">:</span>
+        <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hi %player%!</span>
+        <span class="nt">pointers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello, bye</span>
+      <span class="nt">weather</span><span class="p">:</span>
+        <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Nice weather.</span>
+    <span class="nt">player_options</span><span class="p">:</span>
+      <span class="nt">hello</span><span class="p">:</span>
+        <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Hello!</span>
+        <span class="nt">pointer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">weather</span>
+      <span class="nt">bye</span><span class="p">:</span>
+        <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">I need to go, sorry.</span>
+</pre></div>
+</td></tr></table>
+<p>Now you should experiment some more with this conversation, you can help yourself by looking at the <a href="https://github.com/Co0sh/BetonQuest/blob/master/BetonQuest-core/src/main/resources/default/defaultConversation.yml">innkeeper.yml</a> file. Try to understand how that conversation works step by step. As the excercise you should complete the Miner NPC, so he asks you to mine some iron ore, then smelt it in the furnace, next craft an armor with it and return to him wearing this armor.</p>
+<p>You might want to check out the <a href="../05-Reference/">Reference</a> chapter to see how to handle items in your quests and how to add entries to the journal. If you want to use Citizens NPCs instead of the ones made with clay you will find information you need in that chapter too. To find out more about events, conditions, objectives and variables, take a look at the appropriate lists (after the <em>Reference</em> chapter).</p>
+<hr/>
+<div class="md-source-date">
+<small>
+                      
+                        Last update: <span class="timeago" datetime="1577506355000" locale="en"></span>
+</small>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a class="md-flex md-footer-nav__link md-footer-nav__link--prev" href="../03-Commands-and-permissions/" rel="prev" title="Commands and Permissions">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Commands and Permissions
+              </span>
+</div>
+</a>
+<a class="md-flex md-footer-nav__link md-footer-nav__link--next" href="../05-Reference/" rel="next" title="Reference">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Reference
+              </span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+            © 2019  Jakub "Co0sh" Sapalski. GPLv3
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+</div>
+<div class="md-footer-social">
+<link href="../assets/fonts/font-awesome.css" rel="stylesheet"/>
+<a class="md-footer-social__link fa fa-discord" href="https://discord.gg/MvmkHEu"></a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/application.808e90bb.js"></script>
+<script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+<script src="../js/version_select.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
+<script>
+            const nodes = document.querySelectorAll('.timeago');
+            const locale = nodes[0].getAttribute('locale');
+            timeago.render(nodes, locale);
+          </script>
+</body>
+</html>
