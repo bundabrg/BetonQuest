@@ -1,6 +1,4 @@
 [
   {"version": "latest", "title": "latest", "aliases": []}
-,{"version": "v2.1-test, "title": "v2.1-test, "aliases": [
-"stable"
-]}
+  ,{"version": "v2.1-test", "title": "v2.1-test", "aliases": ["stable"]}
 ]
