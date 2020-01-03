@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", function() {
-  var BASE_URL = window.location.origin + window.location.path.split("/")[1];
-  var CURRENT_VERSION = window.location.split("/")[3];
-  var CURRENT_LANGUAGE = windows.location.split("/")[2];
+  var BASE_URL = window.location.origin + window.location.pathname.split("/")[1];
+  var CURRENT_VERSION = window.location.pathname.split("/")[3];
+  var CURRENT_LANGUAGE = windows.location.pathname.split("/")[2];
 
   function makeSelect(options, selected) {
     var select = document.createElement("select");
