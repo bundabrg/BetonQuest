@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", function() {
     var height = window.getComputedStyle(title).getPropertyValue("height");
     container.style.height = height;
 
-    title.appendChild(container);K
+    title.appendChild(container);
   };
   xhr.send();
 });
