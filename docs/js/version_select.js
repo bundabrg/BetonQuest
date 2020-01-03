@@ -1,5 +1,5 @@
 window.addEventListener("DOMContentLoaded", function() {
-  var BASE_URL = window.location.origin + window.location.pathname.split("/")[1];
+  var BASE_URL = window.location.origin + "/" + window.location.pathname.split("/")[1];
   var CURRENT_VERSION = window.location.pathname.split("/")[3];
   var CURRENT_LANGUAGE = window.location.pathname.split("/")[2];
 
@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", function() {
     container.id = "version-selector";
     container.appendChild(select);
 
-    var title = document.querySelector("div.navbar-header");
+    var title = document.querySelector("nav.md-header-nav");
     var height = window.getComputedStyle(title).getPropertyValue("height");
     container.style.height = height;
 
