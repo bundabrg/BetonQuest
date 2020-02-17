@@ -19,6 +19,7 @@ package pl.betoncraft.betonquest.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import pl.betoncraft.betonquest.BetonQuest;
 import pl.betoncraft.betonquest.Instruction;
 import pl.betoncraft.betonquest.Instruction.Item;
@@ -78,7 +79,14 @@ public class GiveEvent extends QuestEvent {
                     if (Utils.isQuestItem(itemStack)) {
                         BetonQuest.getInstance().getPlayerData(playerID).addItem(itemStack, stackSize);
                     } else {
-                        player.getWorld().dropItem(player.getLocation(), itemStack);
+                        new BukkitRunnable() {
+
+                            @Override
+                            public void run() {
+                                player.getWorld().dropItem(player.getLocation(), itemStack);
+                            }
+                        }.runTask(BetonQuest.getInstance().getJavaPlugin());
+
                     }
                 }
                 amountInt = amountInt - stackSize;
