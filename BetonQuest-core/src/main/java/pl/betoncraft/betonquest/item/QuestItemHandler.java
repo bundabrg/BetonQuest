@@ -19,11 +19,13 @@ package pl.betoncraft.betonquest.item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.block.Lectern;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -32,6 +34,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -204,6 +207,25 @@ public class QuestItemHandler implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
+    public void onPlayerInteractEvent(PlayerInteractEvent event) {
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
+        if (!(event.getClickedBlock() instanceof Lectern)) {
+            return;
+        }
+
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+
+        if (Utils.isQuestItem(event.getPlayer().getInventory().getItemInMainHand())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
     public void onItemFrameClick(PlayerInteractEntityEvent event) {
         if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
             return;
@@ -230,6 +252,7 @@ public class QuestItemHandler implements Listener {
             event.setCancelled(true);
         }
     }
+
 
     @SuppressWarnings("deprecation")
     @EventHandler(ignoreCancelled = true)

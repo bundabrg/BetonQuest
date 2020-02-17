@@ -5,7 +5,8 @@ Changes:
   * Items for HolographicDisplays are now defines in items.yml
   * Command 'bq rename' can now be used for globalpoints
 Fixes:
-    * Renaming an NPC will not cause an NPE for a NPC Hologram
+  * Players can no longer switch quest items using a Lectern
+  * Renaming an NPC will not cause an NPE for a NPC Hologram
 
 v1.11-dev
 Additions:
