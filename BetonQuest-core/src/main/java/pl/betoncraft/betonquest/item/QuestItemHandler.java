@@ -31,12 +31,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemBreakEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -208,6 +203,7 @@ public class QuestItemHandler implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteractEvent(PlayerInteractEvent event) {
+        LogUtils.getLogger().warning("PlayerInteractEvent: " + event);
         if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
             return;
         }
